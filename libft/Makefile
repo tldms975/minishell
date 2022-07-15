@@ -6,7 +6,7 @@
 #    By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/03 15:40:25 by sielee            #+#    #+#              #
-#    Updated: 2022/07/13 17:46:04 by sielee           ###   ########seoul.kr   #
+#    Updated: 2022/07/13 18:57:21 by sielee           ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,7 +71,7 @@ endif
 	@$(CC) $(CFLAGS) -c $^ -o $@
 
 $(NAME) : $(OBJECTS)
-	ar rcs $@ $^
+	@ar rcs $@ $^
 
 all : $(NAME)
 

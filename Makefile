@@ -6,19 +6,19 @@
 #    By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/13 17:14:48 by sielee            #+#    #+#              #
-#    Updated: 2022/07/13 17:40:41 by sielee           ###   ########seoul.kr   #
+#    Updated: 2022/07/15 16:55:47 by sielee           ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -lreadline
 
 NAME = minishell
 
 LFT_DIR = libft
 LFT_A = $(LFT_DIR)/libft.a
 
-INC_DIR = incs
+INC_DIR = inc
 SRCS_DIR = srcs
 
 PARSE_SRCS = $(addsuffix .c,$(addprefix parse/,\
@@ -36,10 +36,10 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 %.o : %.c
-	@$(CC) $(CFLAGS) -I $(INC_DIR) -c $^ -o $@
+	@$(CC) $(FLAGS) -I $(INC_DIR) -c $^ -o $@
 
 $(NAME): $(OBJS) $(LFT_A)
-	@$(CC) $(CFLAGS) -I $(INC_DIR) -o $@ $^
+	@$(CC) $(FLAGS) -I $(INC_DIR) -o $@ $^
 
 $(LFT_A) :
 	@make -C $(LFT_DIR)
