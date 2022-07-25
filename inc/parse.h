@@ -6,11 +6,11 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 15:11:50 by sielee            #+#    #+#             */
-/*   Updated: 2022/07/25 15:32:18 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/07/25 17:30:40 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef PARSE_H
+# define PARSE_H
 
 #endif
