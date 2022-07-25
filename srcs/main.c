@@ -11,8 +11,14 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "basic_utils.h"
 
-int	main(/*int ac, char *av[], char**envp*/)
+int	main(int ac, char *av[], char **envp)
 {
-	
+	int ret;
+
+    if (ac > 1)
+        ft_error("Wrong Argc\n");
+    ret = ;
+    return (ret);
 }

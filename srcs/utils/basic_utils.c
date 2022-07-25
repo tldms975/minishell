@@ -14,8 +14,8 @@
 
 void	ft_error(char *str)
 {
-	ft_putendl_fd(str, 2);
-	exit (1);
+	ft_putendl_fd(str, STDERR_FILENO);
+	exit (EXIT_FAILURE);
 }
 
 void	*ft_malloc(size_t size)
