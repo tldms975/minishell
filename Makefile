@@ -6,7 +6,7 @@
 #    By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/13 17:14:48 by sielee            #+#    #+#              #
-#    Updated: 2022/07/15 16:55:47 by sielee           ###   ########seoul.kr   #
+#    Updated: 2022/07/27 17:27:30 by sielee           ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,11 +21,12 @@ LFT_A = $(LFT_DIR)/libft.a
 INC_DIR = inc
 SRCS_DIR = srcs
 
-PARSE_SRCS = $(addsuffix .c,$(addprefix parse/,\
+PARSER_SRCS = $(addsuffix .c,$(addprefix parser/,\
 		))
 UTILS_SRCS = $(addsuffix .c,$(addprefix utils/,\
 		))
-
+EXECUTOR_SRCS = $(addsuffix .c,$(addprefix executor/,\
+		))
 SRCS =	$(addprefix $(SRCS_DIR)/,\
 		main.c)\
 		$(PARSE_SRCS)\
