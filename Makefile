@@ -6,7 +6,7 @@
 #    By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/13 17:14:48 by sielee            #+#    #+#              #
-#    Updated: 2022/07/27 17:27:30 by sielee           ###   ########seoul.kr   #
+#    Updated: 2022/07/28 19:07:26 by sielee           ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,11 +22,12 @@ INC_DIR = inc
 SRCS_DIR = srcs
 
 PARSER_SRCS = $(addsuffix .c,$(addprefix parser/,\
-		))
+		parse))
 UTILS_SRCS = $(addsuffix .c,$(addprefix utils/,\
-		))
+		basic_utils\
+		free))
 EXECUTOR_SRCS = $(addsuffix .c,$(addprefix executor/,\
-		))
+		execute))
 SRCS =	$(addprefix $(SRCS_DIR)/,\
 		main.c)\
 		$(PARSE_SRCS)\
