@@ -6,13 +6,13 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:11:51 by sielee            #+#    #+#             */
-/*   Updated: 2022/07/27 20:25:57 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/07/28 21:31:04 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_exit_stat(int status)
+int	ft_get_exit_status(int status)
 {
 	const int	w_status = status & 0177;
 
@@ -29,27 +29,66 @@ void	ft_execute_cmd()
 	//execve(,, envp);
 }
 
-void	ft_process()
+void	ft_set_fd()
 {
 
+}
+
+void	ft_redirection()
+{
+	// <
+	//
+
+	// >
+	//
+
+	// >>
+	//
+
+	// <<
+	// 
+}
+
+void	ft_process()
+{
+	//redirection처리
+	// if (dup2(ag->fd_read, STDIN_FILENO) == -1)
+	// 	ft_error("dup2 error");
+	// if (dup2(ag->fd_write, STDOUT_FILENO) == -1)
+	// 	ft_perror("dup2 error");
+	// close(ag->fd_write);
+	// close(ag->fd_read);
 	ft_execute_cmd();
+}
+
+int	ft_wait(int pid)
+{
+	int	stat;
+	int	ret;
+
+	ret = -1;
+	while ()
+	{
+		if (waitpid(-1, &stat, 0) == pid)
+			ret = ft_get_exit_status(stat);
+	}
+	return (ret);
 }
 
 int	ft_executor()
 {
 	pid_t	pid;
-	int		status;
+	int		ret;
 
 	while ()//실행가능단위를 다 실행할때까지
 	{
 		pid = fork();
 		if (pid == -1)
 			ft_error("fork error");
-		else
-		{
-			
-		}
+		else if (pid == 0)
+			ft_process(/*파싱한거,envp*/);
 	}
-	return (ft_exit_stat(status));
+	ret = ft_wait(pid/*, 실행가능한 단위(파이프 수 + 1)*/);
+	return (ret);
 }
 

@@ -1,18 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executor.h                                         :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/25 18:08:46 by sielee            #+#    #+#             */
-/*   Updated: 2022/07/28 18:57:07 by sielee           ###   ########seoul.kr  */
+/*   Created: 2022/07/13 17:55:38 by sielee            #+#    #+#             */
+/*   Updated: 2022/07/28 18:39:47 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXECUTOR_H
-# define EXECUTOR_H
+#ifndef BASIC_UTILS_H
+# define BASIC_UTILS_H
 
-# include <unistd.h>
+# include "../libft/libft.h"
+# include <stddef.h>
+# include <stdlib.h>
+
+void	*ft_malloc(size_t size);
+int		ft_open(const char *str, int flag);
+void	ft_error(char *str);
 
 #endif

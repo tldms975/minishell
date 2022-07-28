@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 17:12:20 by sielee            #+#    #+#             */
-/*   Updated: 2022/07/27 20:22:06 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/07/28 21:17:46 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@ int	main(int ac, char *av[], char **envp)
 		ft_error("Wrong Argc\n");
 	//init: 인자 담기 및 파싱
 	//minishell_loop: readline > parse > execute
-	ret = ;
+	// while (1)
+	// {
+
+	// 	ret = ft_executor(/*파싱한거,envp*/);
+	// }
 	return (ret);
 }
