@@ -6,8 +6,8 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 18:39:05 by sielee            #+#    #+#             */
-/*   Updated: 2022/07/28 18:39:36 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/07/29 00:57:22 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell"
+#include "minishell.h"

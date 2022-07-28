@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 17:12:35 by sielee            #+#    #+#             */
-/*   Updated: 2022/07/25 20:17:48 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/07/29 01:20:31 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 # define MINISHELL_H
 
 # include "../libft/libft.h"
+# include "utils.h"
 # include "parser.h"
 # include "executor.h"
-# include "basic_utils.h"
 # include <readline/readline.h>// for readline fnc call
 # include <readline/history.h>
 
-#include <stdio.h> //나중에 지지워워!
+#include <stdio.h> //나중에 지우기!
 
 
 #endif

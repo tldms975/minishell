@@ -6,11 +6,11 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 17:54:26 by sielee            #+#    #+#             */
-/*   Updated: 2022/07/27 19:49:41 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/07/29 00:47:52 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "basic_utils.h"
+#include "minishell.h"
 
 void	ft_error(char *str)
 {

@@ -6,12 +6,12 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 17:55:38 by sielee            #+#    #+#             */
-/*   Updated: 2022/07/28 18:39:47 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/07/29 01:20:26 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BASIC_UTILS_H
-# define BASIC_UTILS_H
+#ifndef UTILS_H
+# define UTILS_H
 
 # include "../libft/libft.h"
 # include <stddef.h>
