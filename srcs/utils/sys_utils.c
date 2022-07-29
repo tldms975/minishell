@@ -1,28 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   sys_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/13 17:55:38 by sielee            #+#    #+#             */
-/*   Updated: 2022/07/29 23:59:03 by sielee           ###   ########seoul.kr  */
+/*   Created: 2022/07/29 22:29:57 by sielee            #+#    #+#             */
+/*   Updated: 2022/07/29 23:57:58 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#include "utils.h"
 
-# include "../libft/libft.h"
-# include <stddef.h>
-# include <stdlib.h>
+int	ft_open(const char *str, int flag)
+{
+	int	fd;
 
-void	*ft_malloc(size_t size);
-void	ft_error(char *str);
+	fd = open(str, flag);
+	if (fd < 0)
+		ft_error("open error");
+	return (fd);
+}
 
-int		ft_open(const char *str, int flag);
-int		ft_pipe(int	fd[2]);
-int		ft_dup2(int fd1, int fd2);
+int	ft_pipe(int	fd[2])
+{
+	int	ret;
 
+	ret = pipe(fd);
+	if (ret == -1)
+		ft_error("pipe error");
+	return (ret);
+}
 
-#endif
+int	ft_dup2(int fd1, int fd2)
+{
+	int	ret;
+
+	ret = dup2(fd1, fd2);
+	if (ret < 0)
+		ft_error("dup2 error");
+	return (ret);
+}
