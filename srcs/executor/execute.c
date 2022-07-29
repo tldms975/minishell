@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:11:51 by sielee            #+#    #+#             */
-/*   Updated: 2022/07/30 00:42:09 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/07/30 02:36:29 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ void	ft_execute_cmd()
 	//path찾기
 	char	*cmd_line;
 
-	while ()//리다이렉션 만날 때까지
-
+	while ()//P일때까지
 	//execve(,, envp);
 }
 
@@ -76,12 +75,33 @@ int	ft_wait(int pid, int cnt_child)
 	return (ret);
 }
 
-void	ft_heredoc(t_lexer *cmd_tree, t_executor *exec_info)
+void	ft_read_heredoc(t_executor *exec, char *limiter)
 {
-	
+	char	*line;
+
+	while (ft_strncmp(line, limiter, (ft_strlen(limiter) + 1)) != 0)
+	{
+		write(fd_write, line, ft_strlen(line));
+		free(line);
+	}
 }
 
-void	ft_init_executor(t_lexer *cmd_tree, t_executor *exec_info)
+void	ft_heredoc(t_lexer *cmd_tree, t_executor *exec)
+{
+	t_limiter_q	*lim_q;
+
+	exec->fd_read = exec->heredoc_fd[READ];
+	exec->fd_write = exec->heredoc_fd[WRITE];
+	lim_q = /*q들어있는 구조체에서 가져오기*/;
+	while (!ft_is_empty_q(lim_q))
+	{
+		ft_read_heredoc(, lim_q->front->data);
+		//pipe비우기
+		ft_dequeue(limiter);
+	}
+}
+
+void	ft_init_executor(t_lexer *cmd_tree, t_executor *exec)
 {
 	if (cmd_tree->cnt_pipe > 0)
 		ft_pipe(exec_info->pipe_fd);
@@ -107,6 +127,7 @@ int	ft_executor(t_lexer *cmd_tree, char *envp[])
 			ft_error("fork failed");
 		else if (pid == 0)
 			ft_child_process(cmd_tree, exec_info, envp);
+		//pipe비우기
 		i++;
 	}
 	ret = ft_wait(last_pid, cnt_pipe);

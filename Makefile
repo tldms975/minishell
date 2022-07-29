@@ -6,7 +6,7 @@
 #    By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/13 17:14:48 by sielee            #+#    #+#              #
-#    Updated: 2022/07/29 01:02:50 by sielee           ###   ########seoul.kr   #
+#    Updated: 2022/07/30 02:15:29 by sielee           ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,8 @@ PARSER_SRCS = $(addsuffix .c,$(addprefix parser/,\
 		parse))
 UTILS_SRCS = $(addsuffix .c,$(addprefix utils/,\
 		basic_utils\
+		sys_utils\
+		queue\
 		free))
 EXECUTOR_SRCS = $(addsuffix .c,$(addprefix executor/,\
 		execute))

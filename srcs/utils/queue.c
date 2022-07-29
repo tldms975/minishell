@@ -1,0 +1,60 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   queue.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/30 01:51:18 by sielee            #+#    #+#             */
+/*   Updated: 2022/07/30 02:31:57 by sielee           ###   ########seoul.kr  */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "utils.h"
+
+void ft_init_q(Queue *queue)
+{
+	queue->front = NULL;
+	queue->rear = NULL;
+	queue->count = 0;
+}
+
+int	ft_is_empty_q(t_limiter_q *queue)
+{
+	return (queue->cnt == 0);
+}
+
+void	ft_enqueue(t_limiter_q *queue, char *data)
+{
+	t_limiter_node	*new;
+
+	new = (t_limiter_node *)ft_malloc(sizeof(new));
+	new->data = data;
+	new->next = NULL;
+	if (ft_is_empty_q(queue))
+	{
+		queue->front = new;
+	}
+	else
+	{
+		queue->rear->next = new;
+	}
+	queue->rear = new;
+	queue->cnt += 1;
+
+}
+
+void	ft_dequeue(t_limiter_q *queue)
+{
+	t_limiter_node	*tmp;
+
+	if (ft_is_empty_q(queue))
+		return ;
+	else
+	{
+		tmp = queue->front;
+		queue->front = tmp->next;
+		free(tmp);
+		queue->cnt -= 1;
+	}
+}

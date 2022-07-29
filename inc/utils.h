@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 17:55:38 by sielee            #+#    #+#             */
-/*   Updated: 2022/07/29 23:59:03 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/07/30 02:32:09 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define UTILS_H
 
 # include "../libft/libft.h"
+# include "parser.h"
 # include <stddef.h>
 # include <stdlib.h>
 
