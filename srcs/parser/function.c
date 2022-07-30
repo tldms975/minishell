@@ -27,23 +27,55 @@ t_token	*new_content(t_lexer *lexer)
 	new->content = ft_substr(lexer->last_save_addr, 0, lexer->index);
 	if (!new->content)
 		exit (-1);
-	new->type = choose_type(new->comtent);
+	new->type = choose_type(new->content);
 	lexer->last_save_addr += lexer->index;
 	lexer->index = 1;
 	if (lexer->head)
 		lexer->tail->next = new;
 	else
 		lexer->head = new;
-	return (0);
+	return (new);
 }
 
 int	ft_next_char(t_lexer *lexer)
 {
-	lexer->index++; // state maintain
+	lexer->index++;
 	return (0);
 }
 
 int	ft_norm_to_blank(t_lexer *lexer)
 {
-	ft_
+	lexer->curr_state = BLANK;
+	lexer->tail = new_content(lexer);
+	if (lexer->tail->type == ERR)
+		return (-1);
+	return (0);
+}
+
+int	ft_norm_to_sq(t_lexer *lexer)
+{
+	lexer->curr_state = SINGLE_QUOTE;
+	lexer->index++;
+	return (0);
+}
+
+int	ft_norm_to_dq(t_lexer *lexer)
+{
+	lexer->curr_state = DOUBLE_QUOTE;
+	lexer->index++;
+	return (0);
+}
+
+int	ft_norm_to_meta(t_lexer *lexer)
+{
+	lexer->curr_state = META;
+	lexer->tail = new_content(lexer);
+	if (lexer->tail->type == ERR)
+		return (-1);
+	return (0);
+}
+
+int	ft_blank_to_norm(t_lexer *lexer)
+{
+	
 }
