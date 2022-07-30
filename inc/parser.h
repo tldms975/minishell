@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 15:11:50 by sielee            #+#    #+#             */
-/*   Updated: 2022/07/30 22:47:25 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/07/30 23:08:17 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ typedef struct s_lexer
 	t_state		curr_state;
 	t_token		*head;
 	t_token		*tail;
-	t_function	function[5][5];
+	//t_function	function[5][5];
 	char		*input_line;
 	char		*last_save_addr;
 	int			index;

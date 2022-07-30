@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 01:51:18 by sielee            #+#    #+#             */
-/*   Updated: 2022/07/30 18:20:00 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/07/31 01:35:24 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_init_q(t_limiter_q *queue)
 {
 	queue->front = NULL;
 	queue->rear = NULL;
-	queue->count = 0;
+	queue->cnt = 0;
 }
 
 int	ft_is_empty_q(t_limiter_q *queue)
