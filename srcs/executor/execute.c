@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:11:51 by sielee            #+#    #+#             */
-/*   Updated: 2022/07/30 18:36:42 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/07/30 18:54:38 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	ft_child_process(t_lexer *cmd_tree, t_executor *exec)
 	ft_execute_cmd();
 }
 
-int	ft_wait(int pid, int cnt_child)
+int	ft_wait_all(int pid, int n)
 {
 	int	stat;
 	int	ret;
@@ -66,7 +66,7 @@ int	ft_wait(int pid, int cnt_child)
 
 	ret = -1;
 	i = 1;
-	while (i < cnt_child)
+	while (i < n)
 	{
 		if (waitpid(-1, &stat, 0) == pid)
 			ret = ft_get_exit_status(stat);
@@ -96,12 +96,12 @@ void	ft_heredoc(t_lexer *cmd_tree, t_executor *exec)
 	while (!ft_is_empty_q(lim_q))
 	{
 		ft_read_heredoc(, lim_q->front->data);
-		//pipe비우기
+		ft_pipe(exec_info->heredoc_fd);
 		ft_dequeue(limiter);
 	}
 }
 
-void	ft_init_executor(t_lexer *cmd_tree, t_executor *exec)
+void	ft_check_heredoc(t_lexer *cmd_tree, t_executor *exec)
 {
 	if (cmd_tree->cnt_heredoc > 0)
 	{
@@ -116,7 +116,7 @@ int	ft_executor(t_lexer *cmd_tree, char *envp[])
 	int			ret;
 	int			i;
 
-	ft_init_executor(cmd_tree, exec, envp);
+	ft_check_heredoc(cmd_tree, exec, envp);
 	i = 0;
 	while (i <= cmd_tree->cnt_pipe)
 	{
@@ -127,6 +127,6 @@ int	ft_executor(t_lexer *cmd_tree, char *envp[])
 			ft_child_process(cmd_tree, exec, envp);
 		i++;
 	}
-	ret = ft_wait(last_pid, cnt_pipe);
+	ret = ft_wait_all(last_pid, cnt_pipe);
 	return (ret);
 }
