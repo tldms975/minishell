@@ -16,11 +16,11 @@
 typedef enum e_meta
 {
 	EOF = 0,
-	TAB,
-	SPACE,
-	RIGHT,
-	LEFT,
-	PIPE,
+	MT_TAB,
+	MT_SPACE,
+	MT_RIGHT,
+	MT_LEFT,
+	MT_PIPE,
 	NON_META
 }	t_meta;
 
@@ -36,7 +36,7 @@ typedef enum e_state
 
 typedef enum e_token_type
 {
-	EOF = 0,
+	ERR = 0,
 	ID,
 	PIPE,
 	REDIR_IN,
@@ -45,7 +45,6 @@ typedef enum e_token_type
 	REDIR_HEREDOC
 }	t_token_type;
 
-typedef int		(*t_function)(t_lexer *lexer);
 
 typedef struct s_token
 {
@@ -64,5 +63,10 @@ typedef struct s_lexer
 	char		*last_save_addr;
 	int			index;
 }				t_lexer;
+
+typedef int		(*t_function)(t_lexer *lexer);
+
+t_meta	ft_check_meta(char c);
+t_state	ft_check_type(char c);
 
 #endif
