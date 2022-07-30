@@ -5,15 +5,15 @@ t_meta	ft_check_meta(char c)
 	if (c == '\0')
 		return (EOF);
 	else if (c == ' ')
-		return (SPACE);
+		return (MT_SPACE);
 	else if (c == '\t')
-		return (TAB);
+		return (MT_TAB);
 	else if (c == '|')
-		return (PIPE);
+		return (MT_PIPE);
 	else if (c == '<')
-		return (RIGHT);
+		return (MT_RIGHT);
 	else if (c == '>')
-		return (LEFT);
+		return (MT_LEFT);
 	return (NON_META);
 }
 
@@ -24,7 +24,7 @@ t_state	ft_check_type(char c)
 	compare = ft_check_meta(c);
 	if (compare == EOF)
 		return (ST_NULL);
-	else if (compare == SPACE || compare == TAB)
+	else if (compare == MT_SPACE || compare == MT_TAB)
 		return (BLANK);
 	else if (compare == NON_META)
 	{

@@ -1,17 +1,28 @@
 #include "minishell.h"
 
-int		choose_type(t_token *new)
+t_token_type		choose_type(t_token *new)
 {
-	
+	if (!ft_strncmp(new->content, "|", 2))
+		return (PIPE);
+	else if (!ft_strncmp(new->content, "<", 2))
+		return (REDIR_IN);
+	else if (!ft_strncmp(new->content, ">", 2))
+		return (REDIR_OUT);
+	else if (!ft_strncmp(new->content, "<<", 3))
+		return (REDIR_HEREDOC);
+	else if (!ft_strncmp(new->content, ">>", 3))
+		return (REDIR_APPEND);
+	else if (ft_check_meta(*(new->content)) == NON_META)
+		return (ID);
+	return (ERR);
+
 }
 
 t_token	*new_content(t_lexer *lexer)
 {
 	t_token	*new;
 
-	new = (t_token *)malloc(sizeof(t_token));
-	if (!new)
-		exit (-1);
+	new = ft_malloc(sizeof(t_token));
 	new->next = NULL;
 	new->content = ft_substr(lexer->last_save_addr, 0, lexer->index);
 	if (!new->content)
