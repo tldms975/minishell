@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:11:51 by sielee            #+#    #+#             */
-/*   Updated: 2022/07/30 18:54:38 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/07/30 22:54:44 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,15 @@ void	ft_execute_cmd()
 
 void	ft_redirection()
 {
-	if ("<")
+	if (REDIR_IN)
 	{
 		fd_read = ft_open(, O_RDONLY);
 	}
-	else if (">")
+	else if (REDIR_OUT)
 	{
 		fd_write = ft_open(, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	}
-	else if (">>")
+	else if (REDIR_APPEND)
 	{
 		fd_write = ft_open(, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	}
