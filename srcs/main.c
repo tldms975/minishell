@@ -6,11 +6,22 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 17:12:20 by sielee            #+#    #+#             */
-/*   Updated: 2022/07/31 01:34:10 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/07/31 04:40:54 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	handler(int sig)
+{
+	ft_putstr_fd("\n", STDOUT_FILENO);
+	if (sig != 0)
+	{
+		//rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+	}
+}
 
 int	main(int ac, char *av[], char *envp[])
 {
@@ -25,11 +36,14 @@ int	main(int ac, char *av[], char *envp[])
 	(void)envp;
 	while (1)
 	{
-		char *str;
-		str = readline("bash-3.2$");
-		printf("%s\n", str);
-		free(str);
+		char *line;
+		line = readline("bash$ ");
+		signal(SIGINT, handler);
+		if (!line)
+			break ;
+		free(line);
 		ret = 1;/*ft_executor(, envp);*/
 	}
+	ft_putstr_fd("exit\n", STDOUT_FILENO);
 	return (ret);
 }

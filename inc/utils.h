@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 17:55:38 by sielee            #+#    #+#             */
-/*   Updated: 2022/07/31 01:35:09 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/07/31 02:44:07 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stddef.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <signal.h>
 
 void	*ft_malloc(size_t size);
 void	ft_error(char *str);

@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:11:51 by sielee            #+#    #+#             */
-/*   Updated: 2022/07/30 22:54:44 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/07/31 02:17:26 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	ft_read_heredoc(t_executor *exec, char *limiter)
 
 	while (ft_strncmp(line, limiter, (ft_strlen(limiter) + 1)) != 0)
 	{
+		line = readline(">");
 		write(fd_write, line, ft_strlen(line));
 		free(line);
 	}
@@ -96,6 +97,8 @@ void	ft_heredoc(t_lexer *cmd_tree, t_executor *exec)
 	while (!ft_is_empty_q(lim_q))
 	{
 		ft_read_heredoc(, lim_q->front->data);
+		close(fd_read);
+		close(fd_write);
 		ft_pipe(exec_info->heredoc_fd);
 		ft_dequeue(limiter);
 	}

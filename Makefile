@@ -6,7 +6,7 @@
 #    By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/13 17:14:48 by sielee            #+#    #+#              #
-#    Updated: 2022/07/31 02:01:37 by sielee           ###   ########seoul.kr   #
+#    Updated: 2022/07/31 05:07:11 by sielee           ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,10 +46,10 @@ OBJS			=	$(SRCS:.c=.o)
 all: $(NAME)
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -I$(INC_DIR) -c $^ -o $@
+	@$(CC) $(CFLAGS) -I$(INC_DIR) -I$(READLINE_INC_DIR)/readline -c $^ -o $@
 
-$(NAME): $(OBJS) $(LFT_LIB)
-	@$(CC) $(CFLAGS) -I$(INC_DIR) $(READLINE_FLAGS) -o $@ $^
+$(NAME): $(OBJS) $(LFT_LIB) $(READLINE_LIB)
+	@$(CC) $(CFLAGS) -I$(INC_DIR) -o $@ $^ $(READLINE_FLAGS)
 
 $(LFT_LIB):
 	@make -C $(LFT_DIR)
