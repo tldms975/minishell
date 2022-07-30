@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:11:51 by sielee            #+#    #+#             */
-/*   Updated: 2022/07/31 02:17:26 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/07/31 06:17:24 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ void	ft_read_heredoc(t_executor *exec, char *limiter)
 	while (ft_strncmp(line, limiter, (ft_strlen(limiter) + 1)) != 0)
 	{
 		line = readline(">");
+		if (!line)
+			break ;
 		write(fd_write, line, ft_strlen(line));
 		free(line);
 	}
@@ -91,17 +93,17 @@ void	ft_heredoc(t_lexer *cmd_tree, t_executor *exec)
 {
 	t_limiter_q	*lim_q;
 
-	exec->fd_read = exec->heredoc_fd[READ];
-	exec->fd_write = exec->heredoc_fd[WRITE];
 	lim_q = /*q들어있는 구조체에서 가져오기*/;
 	while (!ft_is_empty_q(lim_q))
 	{
 		ft_read_heredoc(, lim_q->front->data);
-		close(fd_read);
 		close(fd_write);
 		ft_pipe(exec_info->heredoc_fd);
-		ft_dequeue(limiter);
+		close(exec->heredoc_fd[READ]);//부모에서는 닫아주는게 맞다
+		exec->fd_write = exec->heredoc_fd[WRITE];
+		ft_dequeue(lim_q);
 	}
+	exec->fd_read = exec->heredoc_fd[READ];
 }
 
 void	ft_check_heredoc(t_lexer *cmd_tree, t_executor *exec)
@@ -109,6 +111,8 @@ void	ft_check_heredoc(t_lexer *cmd_tree, t_executor *exec)
 	if (cmd_tree->cnt_heredoc > 0)
 	{
 		ft_pipe(exec_info->heredoc_fd)
+		close(exec->heredoc_fd[READ]);//부모에서는 닫아주는게 맞다
+		exec->fd_write = exec->heredoc_fd[WRITE];
 		ft_heredoc();
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 17:12:20 by sielee            #+#    #+#             */
-/*   Updated: 2022/07/31 04:40:54 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/07/31 05:37:50 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ int	main(int ac, char *av[], char *envp[])
 	//init
 	// minishell_loop: readline > parse > execute
 	(void)envp;
+	signal(SIGINT, handler);
 	while (1)
 	{
 		char *line;
 		line = readline("bash$ ");
-		signal(SIGINT, handler);
 		if (!line)
 			break ;
 		free(line);
@@ -47,4 +47,3 @@ int	main(int ac, char *av[], char *envp[])
 	ft_putstr_fd("exit\n", STDOUT_FILENO);
 	return (ret);
 }
-
