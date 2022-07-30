@@ -28,8 +28,11 @@ t_token	*new_content(t_lexer *lexer)
 	if (!new->content)
 		exit (-1);
 	new->type = choose_type(new->content);
-	lexer->last_save_addr += lexer->index;
-	lexer->index = 1;
+	if ((lexer->last_save_addr)[lexer->index] != ST_NULL)
+	{
+		lexer->last_save_addr += lexer->index;
+		lexer->index = 1;
+	}
 	if (lexer->head)
 		lexer->tail->next = new;
 	else
@@ -77,5 +80,94 @@ int	ft_norm_to_meta(t_lexer *lexer)
 
 int	ft_blank_to_norm(t_lexer *lexer)
 {
-	
+	lexer->curr_state = NORMAL;
+	lexer->last_save_addr += lexer->index;
+	lexer->index = 1;
+	return (0);
+}
+
+int	ft_blank_to_sq(t_lexer *lexer)
+{
+	lexer->curr_state = SINGLE_QUOTE;
+	lexer->last_save_addr += lexer->index;
+	lexer->index = 1;
+	return (0);
+}
+
+int	ft_blank_to_dq(t_lexer *lexer)
+{
+	lexer->curr_state = DOUBLE_QUOTE;
+	lexer->last_save_addr += lexer->index;
+	lexer->index = 1;
+	return (0);
+}
+
+int	ft_blank_to_meta(t_lexer *lexer)
+{
+	lexer->curr_state = META;
+	lexer->last_save_addr += lexer->index;
+	lexer->index = 1;
+	return (0);
+}
+
+int	ft_sq_to_sq(t_lexer *lexer)
+{
+	lexer->curr_state = NORMAL;
+	lexer->index++;
+	return (0)
+}
+
+int	ft_meta_to_norm(t_lexer *lexer)
+{
+	lexer->curr_state = NORMAL;
+	lexer->tail = new_content(lexer);
+	if (lexer->tail->type == ERR)
+		return (-1);
+	return (0);
+}
+
+int	ft_meta_to_blank(t_lexer *lexer)
+{
+	lexer->curr_state = BLANK;
+	lexer->tail = new_content(lexer);
+	if (lexer->tail->type == ERR)
+		return (-1);
+	return (0);
+}
+
+int	ft_meta_to_sq(t_lexer *lexer)
+{
+	lexer->curr_state = SINGLE_QUOTE;
+	lexer->tail = new_content(lexer);
+	if (lexer->tail->type == ERR)
+		return (-1);
+	return (0);
+}
+
+int	ft_meta_to_dq(t_lexer *lexer)
+{
+	lexer->curr_state = DOUBLE_QUOTE;
+	lexer->tail = new_content(lexer);
+	if (lexer->tail->type == ERR)
+		return (-1);
+	return (0);
+}
+
+int	ft_meta_to_meta(t_lexer *lexer)
+{
+	char	here;
+	char	next;
+
+	here = (lexer->last_save_addr)[lexer->index - 1];
+	next = (lexer->last_save_addr)[lexer->index];
+	if (here != next)
+	{
+		lexer->tail = new_content(lexer);
+		if (lexer->tail->type == ERR)
+			return (-1);
+		return (0);
+	}
+	else
+		lexer->index++;
+	return (0)
 }

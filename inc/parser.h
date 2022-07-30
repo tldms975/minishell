@@ -70,7 +70,7 @@ typedef struct s_lexer
 	t_state		curr_state;
 	t_token		*head;
 	t_token		*tail;
-	//t_function	function[5][5];
+	t_function	function[5][5];
 	char		*input_line;
 	char		*last_save_addr;
 	int			index;
