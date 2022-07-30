@@ -1,34 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executor.h                                         :+:      :+:    :+:   */
+/*   sys_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/25 18:08:46 by sielee            #+#    #+#             */
-/*   Updated: 2022/07/30 02:47:23 by sielee           ###   ########seoul.kr  */
+/*   Created: 2022/07/29 22:29:57 by sielee            #+#    #+#             */
+/*   Updated: 2022/07/29 23:57:58 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXECUTOR_H
-# define EXECUTOR_H
+#include "utils.h"
 
-# include <unistd.h>
-
-enum e_read_write
+int	ft_open(const char *str, int flag)
 {
-	READ,
-	WRITE
-};
+	int	fd;
 
-typedef struct s_executor
+	fd = open(str, flag);
+	if (fd < 0)
+		ft_error("open error");
+	return (fd);
+}
+
+int	ft_pipe(int	fd[2])
 {
-	pid_t	pid;
-	int		fd_read;
-	int		fd_write;
-	int		pipe_fd[2];
-	int		heredoc_fd[2];
-}				t_executor;
+	int	ret;
 
+	ret = pipe(fd);
+	if (ret == -1)
+		ft_error("pipe error");
+	return (ret);
+}
 
-#endif
+int	ft_dup2(int fd1, int fd2)
+{
+	int	ret;
+
+	ret = dup2(fd1, fd2);
+	if (ret < 0)
+		ft_error("dup2 error");
+	return (ret);
+}

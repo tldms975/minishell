@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:11:51 by sielee            #+#    #+#             */
-/*   Updated: 2022/07/29 00:37:31 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/07/30 02:36:29 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,69 +26,111 @@ int	ft_get_exit_status(int status)
 void	ft_execute_cmd()
 {
 	//path찾기
+	char	*cmd_line;
+
+	while ()//P일때까지
 	//execve(,, envp);
-}
-
-void	ft_set_fd()
-{
-
 }
 
 void	ft_redirection()
 {
-	// <
-	//
-
-	// >
-	//
-
-	// >>
-	//
-
-	// <<
-	// 
+	if ("<")
+	{
+		fd_read = ft_open(, O_RDONLY);
+	}
+	else if (">")
+	{
+		fd_write = ft_open(, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	}
+	else if (">>")
+	{
+		fd_write = ft_open(, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	}
 }
 
-void	ft_process()
+void	ft_child_process(t_lexer *cmd_tree, t_executor *exec)
 {
-	//redirection처리
-	// if (dup2(ag->fd_read, STDIN_FILENO) == -1)
-	// 	ft_error("dup2 error");
-	// if (dup2(ag->fd_write, STDOUT_FILENO) == -1)
-	// 	ft_perror("dup2 error");
-	// close(ag->fd_write);
-	// close(ag->fd_read);
+	ft_redirection();
+	ft_dup2(ag->fd_read, STDIN_FILENO);
+	close(exec->fd_read);
+	ft_dup2(exec->fd_write, STDOUT_FILENO);
+	close(exec->fd_write);
 	ft_execute_cmd();
 }
 
-int	ft_wait(int pid)
+int	ft_wait(int pid, int cnt_child)
 {
 	int	stat;
 	int	ret;
+	int	i;
 
 	ret = -1;
-	while ()
+	i = 1;
+	while (i < cnt_child)
 	{
 		if (waitpid(-1, &stat, 0) == pid)
 			ret = ft_get_exit_status(stat);
+		i++;
 	}
 	return (ret);
 }
 
-int	ft_executor()
+void	ft_read_heredoc(t_executor *exec, char *limiter)
 {
-	pid_t	pid;
-	int		ret;
+	char	*line;
 
-	while ()//실행가능단위를 다 실행할때까지
+	while (ft_strncmp(line, limiter, (ft_strlen(limiter) + 1)) != 0)
+	{
+		write(fd_write, line, ft_strlen(line));
+		free(line);
+	}
+}
+
+void	ft_heredoc(t_lexer *cmd_tree, t_executor *exec)
+{
+	t_limiter_q	*lim_q;
+
+	exec->fd_read = exec->heredoc_fd[READ];
+	exec->fd_write = exec->heredoc_fd[WRITE];
+	lim_q = /*q들어있는 구조체에서 가져오기*/;
+	while (!ft_is_empty_q(lim_q))
+	{
+		ft_read_heredoc(, lim_q->front->data);
+		//pipe비우기
+		ft_dequeue(limiter);
+	}
+}
+
+void	ft_init_executor(t_lexer *cmd_tree, t_executor *exec)
+{
+	if (cmd_tree->cnt_pipe > 0)
+		ft_pipe(exec_info->pipe_fd);
+	if (cmd_tree->cnt_heredoc > 0)
+	{
+		ft_pipe(exec_info->heredoc_fd)
+		ft_heredoc();
+	}
+}
+
+int	ft_executor(t_lexer *cmd_tree, char *envp[])
+{
+	t_executor	*exec_info;
+	int			ret;
+	int			i;
+
+	ft_init_executor(cmd_tree, exec_info, envp);
+	i = 0;
+	while (i <= cmd_tree->cnt_pipe)
 	{
 		pid = fork();
 		if (pid == -1)
-			ft_error("fork error");
+			ft_error("fork failed");
 		else if (pid == 0)
-			ft_process(/*파싱한거,envp*/);
+			ft_child_process(cmd_tree, exec_info, envp);
+		//pipe비우기
+		i++;
 	}
-	ret = ft_wait(pid/*, 실행가능한 단위(파이프 수 + 1)*/);
+	ret = ft_wait(last_pid, cnt_pipe);
 	return (ret);
 }
 
