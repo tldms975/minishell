@@ -13,6 +13,8 @@
 #ifndef PARSER_H
 # define PARSER_H
 
+typedef int		(*t_function)(t_lexer *lexer);
+
 typedef struct s_token
 {
 	char			*content;
@@ -23,7 +25,10 @@ typedef struct s_lexer
 {
 	t_token		*head;
 	t_token		*tail;
+	t_function	function[5][5];
 	char		*input_line;
+	int			index;
+	int			last_meta;
 }				t_lexer;
 
 
