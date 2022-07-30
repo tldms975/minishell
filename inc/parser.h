@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 15:11:50 by sielee            #+#    #+#             */
-/*   Updated: 2022/07/29 00:27:26 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/07/30 18:46:58 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,5 @@ typedef struct s_lexer
 	char		*last_save_addr;
 	int			index;
 }				t_lexer;
-
 
 #endif

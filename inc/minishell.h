@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 17:12:35 by sielee            #+#    #+#             */
-/*   Updated: 2022/07/29 01:20:31 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/07/30 18:46:48 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,5 @@
 # include "executor.h"
 # include <readline/readline.h>// for readline fnc call
 # include <readline/history.h>
-
-#include <stdio.h> //나중에 지우기!
-
 
 #endif

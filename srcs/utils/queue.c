@@ -6,13 +6,13 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 01:51:18 by sielee            #+#    #+#             */
-/*   Updated: 2022/07/30 02:31:57 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/07/30 18:20:00 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "minishell.h"
 
-void ft_init_q(Queue *queue)
+void	ft_init_q(t_limiter_q *queue)
 {
 	queue->front = NULL;
 	queue->rear = NULL;
@@ -41,7 +41,6 @@ void	ft_enqueue(t_limiter_q *queue, char *data)
 	}
 	queue->rear = new;
 	queue->cnt += 1;
-
 }
 
 void	ft_dequeue(t_limiter_q *queue)

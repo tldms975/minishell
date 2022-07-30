@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 22:29:57 by sielee            #+#    #+#             */
-/*   Updated: 2022/07/29 23:57:58 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/07/30 18:45:46 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_open(const char *str, int flag)
 	return (fd);
 }
 
-int	ft_pipe(int	fd[2])
+int	ft_pipe(int fd[2])
 {
 	int	ret;
 
@@ -39,5 +39,15 @@ int	ft_dup2(int fd1, int fd2)
 	ret = dup2(fd1, fd2);
 	if (ret < 0)
 		ft_error("dup2 error");
+	return (ret);
+}
+
+pid_t	ft_fork(void)
+{
+	pid_t	ret;
+
+	ret = fork();
+	if (ret == -1)
+		ft_error("fork failed");
 	return (ret);
 }

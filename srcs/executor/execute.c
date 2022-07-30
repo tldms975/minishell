@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:11:51 by sielee            #+#    #+#             */
-/*   Updated: 2022/07/30 02:36:29 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/07/30 18:36:42 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,6 @@ void	ft_heredoc(t_lexer *cmd_tree, t_executor *exec)
 
 void	ft_init_executor(t_lexer *cmd_tree, t_executor *exec)
 {
-	if (cmd_tree->cnt_pipe > 0)
-		ft_pipe(exec_info->pipe_fd);
 	if (cmd_tree->cnt_heredoc > 0)
 	{
 		ft_pipe(exec_info->heredoc_fd)
@@ -114,23 +112,21 @@ void	ft_init_executor(t_lexer *cmd_tree, t_executor *exec)
 
 int	ft_executor(t_lexer *cmd_tree, char *envp[])
 {
-	t_executor	*exec_info;
+	t_executor	*exec;
 	int			ret;
 	int			i;
 
-	ft_init_executor(cmd_tree, exec_info, envp);
+	ft_init_executor(cmd_tree, exec, envp);
 	i = 0;
 	while (i <= cmd_tree->cnt_pipe)
 	{
-		pid = fork();
-		if (pid == -1)
-			ft_error("fork failed");
-		else if (pid == 0)
-			ft_child_process(cmd_tree, exec_info, envp);
-		//pipe비우기
+		if (i != 0)
+			ft_pipe(exec_info->pipe_fd);
+		exec->pid = ft_fork();
+		if (exec->pid == 0)
+			ft_child_process(cmd_tree, exec, envp);
 		i++;
 	}
 	ret = ft_wait(last_pid, cnt_pipe);
 	return (ret);
 }
-

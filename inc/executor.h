@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:08:46 by sielee            #+#    #+#             */
-/*   Updated: 2022/07/30 02:47:23 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/07/30 18:46:14 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,5 @@ typedef struct s_executor
 	int		pipe_fd[2];
 	int		heredoc_fd[2];
 }				t_executor;
-
 
 #endif
