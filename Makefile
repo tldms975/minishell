@@ -6,7 +6,7 @@
 #    By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/13 17:14:48 by sielee            #+#    #+#              #
-#    Updated: 2022/08/01 18:09:27 by sielee           ###   ########seoul.kr   #
+#    Updated: 2022/08/01 20:11:08 by sielee           ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,8 +47,8 @@ EXECUTOR_SRCS	=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/executor/,\
 SRCS			=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/,\
 					main))\
 					$(UTILS_SRCS)\
-					$(PARSER_SRCS)\
 					$(TERMINAL_SRCS)\
+					$(PARSER_SRCS)\
 #					$(EXECUTOR_SRCS)
 OBJS			=	$(SRCS:.c=.o)
 

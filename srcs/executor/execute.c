@@ -6,15 +6,13 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:11:51 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/01 18:00:43 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/01 20:02:17 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-
-void	ft_execute_cmd()
+void	ft_execute_cmd(char *envp[])
 {
 	//path찾기
 	char	*cmd_line;
@@ -26,15 +24,15 @@ void	ft_redirection(t_executor *exec)
 {
 	if (REDIR_IN && heredoc보다 뒤에 있음)
 	{
-		exec->fd_read = ft_open(, O_RDONLY);
+		exec->fd_read = ft_open(infile_name, O_RDONLY);
 	}
 	else if (REDIR_OUT)
 	{
-		exec->fd_write = ft_open(, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		exec->fd_write = ft_open(outfile_name, O_WRONLY | O_CREAT | O_TRUNC);
 	}
 	else if (REDIR_APPEND)
 	{
-		exec->fd_write = ft_open(, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		exec->fd_write = ft_open(outfile_name, O_WRONLY | O_CREAT | O_APPEND);
 	}
 }
 
