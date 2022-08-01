@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   terminal.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/13 17:12:35 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/01 17:03:40 by sielee           ###   ########seoul.kr  */
+/*   Created: 2022/08/01 15:47:24 by sielee            #+#    #+#             */
+/*   Updated: 2022/08/01 17:08:39 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef TERMINAL_H
+# define TERMINAL_H
 
-# include "utils.h"
-# include "parser.h"
-# include "executor.h"
-# include "terminal.h"
+# include "minishell.h"
+# include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <signal.h>
+
+void	ft_handler(int sig);
+void	ft_signal(void);
+
 #endif

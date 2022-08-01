@@ -6,7 +6,7 @@
 #    By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/13 17:14:48 by sielee            #+#    #+#              #
-#    Updated: 2022/07/31 05:27:00 by sielee           ###   ########seoul.kr   #
+#    Updated: 2022/08/01 17:13:23 by sielee           ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ SRCS_DIR	=	srcs
 LFT_DIR				=	libft
 LFT_LIB				=	$(LFT_DIR)/libft.a
 
-READLINE_DIR		=	readline
+READLINE_DIR		=	$(shell brew --prefix readline)
 READLINE_INC_DIR	=	$(READLINE_DIR)/include
 READLINE_LIB_DIR	=	$(READLINE_DIR)/lib
 READLINE_LIB		=	$(READLINE_LIB_DIR)/libreadline.a
@@ -35,21 +35,26 @@ UTILS_SRCS		=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/utils/,\
 					sys_utils\
 					queue\
 					free))
+TERMINAL_SRCS	=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/terminal/,\
+					history\
+					signal))
 EXECUTOR_SRCS	=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/executor/,\
 					execute))
 SRCS			=	$(addprefix $(SRCS_DIR)/,\
 					main.c)\
 					$(UTILS_SRCS)\
-					$(PARSE_SRCS)
+					$(PARSE_SRCS)\
+					$(TERMINAL_SRCS)\
+#					$(EXECUTOR_SRCS)
 OBJS			=	$(SRCS:.c=.o)
 
 all: $(NAME)
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -I$(INC_DIR) -I$(READLINE_INC_DIR)/readline -c $^ -o $@
+	@$(CC) $(CFLAGS) -I$(INC_DIR) -I$(READLINE_INC_DIR) -c $^ -o $@
 
 $(NAME): $(OBJS) $(LFT_LIB) $(READLINE_LIB)
-	@$(CC) $(CFLAGS) -I$(INC_DIR) $(READLINE_FLAGS) -I$(READLINE_INC_DIR) -o $@ $^
+	@$(CC) $(CFLAGS) -I$(INC_DIR) $(READLINE_FLAGS) -o $@ $^
 
 $(LFT_LIB):
 	@make -C $(LFT_DIR)

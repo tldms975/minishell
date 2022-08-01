@@ -114,7 +114,7 @@ int	ft_sq_to_sq(t_lexer *lexer)
 {
 	lexer->curr_state = NORMAL;
 	lexer->index++;
-	return (0)
+	return (0);
 }
 
 int	ft_meta_to_norm(t_lexer *lexer)
@@ -169,5 +169,5 @@ int	ft_meta_to_meta(t_lexer *lexer)
 	}
 	else
 		lexer->index++;
-	return (0)
+	return (0);
 }

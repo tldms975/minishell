@@ -1,20 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   history.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/13 17:12:35 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/01 17:03:40 by sielee           ###   ########seoul.kr  */
+/*   Created: 2022/08/01 17:10:19 by sielee            #+#    #+#             */
+/*   Updated: 2022/08/01 17:13:53 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-
-# include "utils.h"
-# include "parser.h"
-# include "executor.h"
-# include "terminal.h"
-#endif
+#include "minishell.h"

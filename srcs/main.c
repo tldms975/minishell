@@ -6,44 +6,56 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 17:12:20 by sielee            #+#    #+#             */
-/*   Updated: 2022/07/31 05:37:50 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/01 17:13:55 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	handler(int sig)
+// void	ft_add_history(char *line)
+// {
+	
+// }
+
+void	ft_exit(void)
 {
-	ft_putstr_fd("\n", STDOUT_FILENO);
-	if (sig != 0)
-	{
-		//rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
-	}
+	ft_putstr_fd("\033[1A", STDOUT_FILENO);
+	ft_putstr_fd("\033[6C", STDOUT_FILENO);
+	ft_putstr_fd("exit\n", STDOUT_FILENO);
+	exit(-1);
 }
 
+int	ft_minishell(char *envp[])
+{
+	//t_lexer	*cmd_tree;
+	char	*line;
+	int		exit_code;
+
+	exit_code=-1;
+	(void)envp;
+	while (1)
+	{
+		line = readline("bash$ ");
+		if (!line)
+			ft_exit();
+		//ft_add_history(line);
+		//cmd_tree = ft_parse(line);
+		//exit_code = ft_execute(cmd_tree, envp);
+		free(line);
+	}
+	return (exit_code);
+}
 int	main(int ac, char *av[], char *envp[])
 {
-	int ret;
+	int	ret;
 
-	ret = -1;
 	(void)av;
+	ret = -1;
 	if (ac > 1)
 		ft_error("Wrong Argc\n");
 	//init
-	// minishell_loop: readline > parse > execute
-	(void)envp;
-	signal(SIGINT, handler);
-	while (1)
-	{
-		char *line;
-		line = readline("bash$ ");
-		if (!line)
-			break ;
-		free(line);
-		ret = 1;/*ft_executor(, envp);*/
-	}
-	ft_putstr_fd("exit\n", STDOUT_FILENO);
+	ft_signal();
+	ret = ft_minishell(envp);
+	//ft_free
 	return (ret);
 }
