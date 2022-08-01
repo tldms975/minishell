@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:08:46 by sielee            #+#    #+#             */
-/*   Updated: 2022/07/30 22:52:09 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/01 17:51:44 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,7 @@ typedef struct s_executor
 	int		pipe_fd[2];
 	int		heredoc_fd[2];
 }				t_executor;
+
+int	ft_wait_all(int pid, int n);
 
 #endif

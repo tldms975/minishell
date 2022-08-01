@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 15:11:50 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/01 16:00:44 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/01 18:07:21 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ int	ft_meta_to_blank(t_lexer *lexer);
 int	ft_meta_to_sq(t_lexer *lexer);
 int	ft_meta_to_dq(t_lexer *lexer);
 int	ft_meta_to_meta(t_lexer *lexer);
+void	lexer_setting(t_lexer *lexer, char *input_line);
+int ft_lexer(t_lexer *lexer);
 void	lexer_setting(t_lexer *lexer, char *input_line);
 int ft_lexer(t_lexer *lexer);
 

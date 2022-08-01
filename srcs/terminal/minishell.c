@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:29:19 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/01 17:29:48 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/01 18:05:49 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 void	ft_print(t_lexer lexer)
 {
-	t_token	temp;
+	t_token	*temp;
 
-	temp = head;
+	temp = lexer.head;
 	while (temp != NULL)
 	{
-		printf("%s ", temp.content);
-		temp = temp.next;
+		printf("%s ", temp->content);
+		temp = temp->next;
 	}
 }
 

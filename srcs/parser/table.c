@@ -6,15 +6,15 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:11:25 by sielee            #+#    #+#             */
-/*   Updated: 2022/07/25 20:16:48 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/01 18:07:28 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void    ft_table(t_lexer *lexer)
+void	ft_table(t_lexer *lexer)
 {
-    lexer->function[NORMAL][NORMAL] = ft_next_char;
+	lexer->function[NORMAL][NORMAL] = ft_next_char;
 	lexer->function[NORMAL][BLANK] = ft_norm_to_blank;
 	lexer->function[NORMAL][SINGLE_QUOTE] = ft_norm_to_sq;
 	lexer->function[NORMAL][DOUBLE_QUOTE] = ft_norm_to_dq;

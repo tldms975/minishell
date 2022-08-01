@@ -22,7 +22,7 @@ t_state	ft_check_type(char c)
 	t_meta	compare;
 
 	compare = ft_check_meta(c);
-	if (compare == EOF)
+	if (compare == (t_meta)EOF)
 		return (ST_NULL);
 	else if (compare == MT_SPACE || compare == MT_TAB)
 		return (BLANK);

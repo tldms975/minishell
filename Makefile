@@ -6,7 +6,7 @@
 #    By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/13 17:14:48 by sielee            #+#    #+#              #
-#    Updated: 2022/08/01 17:31:19 by sielee           ###   ########seoul.kr   #
+#    Updated: 2022/08/01 18:09:27 by sielee           ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,11 @@ READLINE_LIB		=	$(READLINE_LIB_DIR)/libreadline.a
 READLINE_FLAGS	=	-L$(READLINE_LIB_DIR) -lreadline -I$(READLINE_INC_DIR)
 
 PARSER_SRCS		=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/parser/,\
-					parse))
+					parse\
+					lexer\
+					table\
+					utils_lexer\
+					function))
 UTILS_SRCS		=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/utils/,\
 					basic_utils\
 					sys_utils\
@@ -43,7 +47,7 @@ EXECUTOR_SRCS	=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/executor/,\
 SRCS			=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/,\
 					main))\
 					$(UTILS_SRCS)\
-					$(PARSE_SRCS)\
+					$(PARSER_SRCS)\
 					$(TERMINAL_SRCS)\
 #					$(EXECUTOR_SRCS)
 OBJS			=	$(SRCS:.c=.o)
