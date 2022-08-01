@@ -110,7 +110,7 @@ int	ft_blank_to_meta(t_lexer *lexer)
 	return (0);
 }
 
-int	ft_sq_to_sq(t_lexer *lexer)
+int	ft_quote_to_quote(t_lexer *lexer)
 {
 	lexer->curr_state = NORMAL;
 	lexer->index++;
