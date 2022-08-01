@@ -19,7 +19,7 @@ typedef int		(*t_function)(t_lexer *lexer);
 
 typedef enum e_meta
 {
-	EOF = 0,
+	LINE_EOF = 0,
 	MT_TAB,
 	MT_SPACE,
 	MT_RIGHT,
@@ -104,5 +104,6 @@ void	lexer_setting(t_lexer *lexer, char *input_line);
 int ft_lexer(t_lexer *lexer);
 void	lexer_setting(t_lexer *lexer, char *input_line);
 int ft_lexer(t_lexer *lexer);
+void	ft_table(t_lexer *lexer);
 
 #endif

@@ -8,6 +8,7 @@ void	lexer_setting(t_lexer *lexer, char *input_line)
 	lexer->curr_state = ft_check_type(*input_line);
 	lexer->head = NULL;
 	lexer->tail = NULL;
+	ft_table(lexer);
 }
 
 int ft_lexer(t_lexer *lexer)
@@ -20,9 +21,9 @@ int ft_lexer(t_lexer *lexer)
 	{
 		next_char = (lexer->last_save_addr)[lexer->index];
 		next_state = ft_check_type(next_char);
-		if (next_char == ST_NULL)
+		if (next_state == ST_NULL)
 			break ;
-		function = lexer->function[lexer->curr_state][next_state];
+		function = (lexer->function)[lexer->curr_state][next_state];
 		if (function(lexer) == -1)
 			return (-1);
 	}

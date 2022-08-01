@@ -3,7 +3,7 @@
 t_meta	ft_check_meta(char c)
 {
 	if (c == '\0')
-		return (EOF);
+		return (LINE_EOF);
 	else if (c == ' ')
 		return (MT_SPACE);
 	else if (c == '\t')
@@ -22,7 +22,7 @@ t_state	ft_check_type(char c)
 	t_meta	compare;
 
 	compare = ft_check_meta(c);
-	if (compare == (t_meta)EOF)
+	if (compare == LINE_EOF)
 		return (ST_NULL);
 	else if (compare == MT_SPACE || compare == MT_TAB)
 		return (BLANK);
