@@ -25,6 +25,7 @@ typedef enum e_meta
 	MT_RIGHT,
 	MT_LEFT,
 	MT_PIPE,
+	MT_AND,
 	NON_META
 }	t_meta;
 

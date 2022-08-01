@@ -10,6 +10,8 @@ t_meta	ft_check_meta(char c)
 		return (MT_TAB);
 	else if (c == '|')
 		return (MT_PIPE);
+	else if (c == '&')
+		return (MT_AND);
 	else if (c == '<')
 		return (MT_RIGHT);
 	else if (c == '>')

@@ -15,13 +15,18 @@
 void	ft_print(t_lexer lexer)
 {
 	t_token	*temp;
+	int		count;
 
+	count = 0;
 	temp = lexer.head;
 	while (temp != NULL)
 	{
 		printf("%s ", temp->content);
+		if (temp->type == PIPE)
+			count++;
 		temp = temp->next;
 	}
+	printf("pipe : %d\n", count);
 }
 
 int	ft_minishell(char *envp[])

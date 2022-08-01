@@ -163,6 +163,7 @@ int	ft_meta_to_meta(t_lexer *lexer)
 	if (here != next)
 	{
 		lexer->tail = new_content(lexer);
+		printf("!\n");
 		if (lexer->tail->type == ERR)
 			return (-1);
 		return (0);
