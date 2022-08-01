@@ -6,7 +6,7 @@
 #    By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/13 17:14:48 by sielee            #+#    #+#              #
-#    Updated: 2022/08/01 17:13:23 by sielee           ###   ########seoul.kr   #
+#    Updated: 2022/08/01 17:31:19 by sielee           ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,12 +36,12 @@ UTILS_SRCS		=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/utils/,\
 					queue\
 					free))
 TERMINAL_SRCS	=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/terminal/,\
-					history\
-					signal))
+					minishell\
+					sig_handling))
 EXECUTOR_SRCS	=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/executor/,\
 					execute))
-SRCS			=	$(addprefix $(SRCS_DIR)/,\
-					main.c)\
+SRCS			=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/,\
+					main))\
 					$(UTILS_SRCS)\
 					$(PARSE_SRCS)\
 					$(TERMINAL_SRCS)\
