@@ -12,11 +12,24 @@
 
 #include "minishell.h"
 
+void	ft_print(t_lexer lexer)
+{
+	t_token	temp;
+
+	temp = head;
+	while (temp != NULL)
+	{
+		printf("%s ", temp.content);
+		temp = temp.next;
+	}
+}
+
 int	ft_minishell(char *envp[])
 {
 	//t_cmd_tree	*cmd_tree;
 	char	*line;
 	int		exit_code;
+	t_lexer	lexer;
 
 	exit_code=-1;
 	(void)envp;
@@ -26,6 +39,12 @@ int	ft_minishell(char *envp[])
 		if (!line)
 			ft_exit();
 		add_history(line);
+		lexer_setting(&lexer, line);
+		if (ft_lexer(&lexer) < 0)
+		{
+			ft_putstr_fd("syntax error\n", STDERR_FILENO);
+		}
+		ft_print(lexer);
 		//cmd_tree = ft_parse(line);
 		//exit_code = ft_execute(cmd_tree, envp);
 		free(line);
