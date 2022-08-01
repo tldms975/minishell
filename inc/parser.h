@@ -13,6 +13,9 @@
 #ifndef PARSER_H
 # define PARSER_H
 
+typedef struct s_lexer		t_lexer;
+
+typedef int		(*t_function)(t_lexer *lexer);
 
 typedef enum e_meta
 {
@@ -66,20 +69,36 @@ typedef struct s_token
 	struct s_token	*next;
 }				t_token;
 
-typedef struct s_lexer
+struct s_lexer
 {
 	t_state		curr_state;
 	t_token		*head;
 	t_token		*tail;
-	//t_function	function[5][5];
+	t_function	function[5][5];
 	char		*input_line;
 	char		*last_save_addr;
 	int			index;
-}				t_lexer;
+};
 
-//typedef int		(*t_function)(t_lexer *lexer);
 
 t_meta	ft_check_meta(char c);
 t_state	ft_check_type(char c);
+t_token_type		choose_type(t_token *new);
+t_token	*new_content(t_lexer *lexer);
+int	ft_next_char(t_lexer *lexer);
+int	ft_norm_to_blank(t_lexer *lexer);
+int	ft_norm_to_sq(t_lexer *lexer);
+int	ft_norm_to_dq(t_lexer *lexer);
+int	ft_norm_to_meta(t_lexer *lexer);
+int	ft_blank_to_norm(t_lexer *lexer);
+int	ft_blank_to_sq(t_lexer *lexer);
+int	ft_blank_to_dq(t_lexer *lexer);
+int	ft_blank_to_meta(t_lexer *lexer);
+int	ft_quote_to_quote(t_lexer *lexer);
+int	ft_meta_to_norm(t_lexer *lexer);
+int	ft_meta_to_blank(t_lexer *lexer);
+int	ft_meta_to_sq(t_lexer *lexer);
+int	ft_meta_to_dq(t_lexer *lexer);
+int	ft_meta_to_meta(t_lexer *lexer);
 
 #endif
