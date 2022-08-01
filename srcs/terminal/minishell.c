@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:29:19 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/01 20:14:43 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/01 20:48:29 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	ft_minishell(char *envp[])
 	(void)envp;
 	while (1)
 	{
+		ft_signal();
 		line = readline("bash$ ");
 		if (!line)
 			ft_exit();

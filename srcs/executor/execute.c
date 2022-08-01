@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:11:51 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/01 20:02:17 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/01 22:47:41 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,12 @@ int	ft_execute(t_ *cmd_tree, char *envp[])
 	while (i <= cmd_tree->cnt_pipe)
 	{
 		ft_check_heredoc(cmd_tree, exec);
-		// 파이프 기준으로 순서대로 i번째 명령씩을 제공
+		// 파이프라인 단위로 들어오
 		if (i != 0)
 			ft_pipe(exec->pipe_fd);
 		exec->pid = ft_fork();
 		if (exec->pid == 0)
-			ft_child_process(cmd_tree, exec, envp);
+			ft_child_process(cmd_tree->pipeline, exec, envp);
 		i++;
 	}
 	ret = ft_wait_all(exec->pid, cmd_tree->cnt_pipe);
