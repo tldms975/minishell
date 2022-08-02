@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.c                                           :+:      :+:    :+:   */
+/*   sig_handling.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 15:46:32 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/01 17:19:46 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/02 18:30:02 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	ft_exit(void)
 {
-	ft_putstr_fd("\033[1A", STDOUT_FILENO);
-	ft_putstr_fd("\033[6C", STDOUT_FILENO);
-	ft_putstr_fd("exit\n", STDOUT_FILENO);
+	printf("\033[1A");
+	printf("\033[6C");
+	printf("exit\n");
 	exit(-1);
 }
 
@@ -24,7 +24,7 @@ void	ft_handler(int sig)
 {
 	if (sig == SIGINT)
 	{
-		ft_putstr_fd("\n", STDOUT_FILENO);
+		printf("\n");
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
