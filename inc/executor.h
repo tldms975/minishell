@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:08:46 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/02 17:25:52 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/02 19:36:47 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ typedef struct s_executor
 void	ft_check_heredoc(t_limiter_q *lim_q, t_executor *exec);
 void	ft_heredoc(t_limiter_q *lim_q, t_executor *exec);
 void	ft_read_heredoc(t_executor *exec, char *limiter);
+
+void	ft_redirection(enum e_token_type type, const char *file_name, \
+t_executor *exec);
 
 int	ft_wait_all(int pid, int n);
 

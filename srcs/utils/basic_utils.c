@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 17:54:26 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/02 18:39:19 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/02 20:21:40 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,14 @@ void	ft_error(const char *str)
 void	ft_perror(const char *str)
 {
 	char	*error_msg;
-	char	*ret_msg;
 
-	error_msg = strerror(errno);
-	ret_msg = ft_strjoin(error_msg, str);
-	ft_putendl_fd(ret_msg, STDERR_FILENO);
+	if (!str)
+	{
+		error_msg = strerror(errno);
+		ft_putstr_fd(str, STDERR_FILENO);
+		ft_putstr_fd(": ", STDERR_FILENO);
+		ft_putendl_fd(error_msg, STDERR_FILENO);
+	}
 }
 
 void	*ft_malloc(size_t size)
