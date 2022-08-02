@@ -29,6 +29,21 @@ typedef enum e_meta
 	NON_META
 }	t_meta;
 
+typedef enum e_state_num
+{
+	STATE_0 = 0,
+	STATE_1,
+	STATE_2,
+	STATE_3,
+	STATE_4,
+	STATE_5,
+	STATE_6,
+	STATE_7,
+	STATE_8,
+	STATE_9,
+	STATE10
+}	t_state_num;
+
 typedef enum e_state
 {
 	NORMAL = 0,
@@ -47,7 +62,11 @@ typedef enum e_token_type
 	REDIR_IN,
 	REDIR_OUT,
 	REDIR_APPEND,
-	REDIR_HEREDOC
+	REDIR_HEREDOC,
+	ELEM,
+	REDIRECTION,
+	COMMAND,
+	PIPE_LINE
 }	t_token_type;
 
 typedef struct s_limiter_node
@@ -83,7 +102,7 @@ struct s_lexer
 
 typedef struct s_redir_list
 {
-	char				*content;
+	char				*file_name;
 	t_token_type		redir_type;
 	struct s_redir_list	*next;
 }	t_redir_list;
@@ -108,12 +127,19 @@ typedef struct s_pipe_line
 	struct s_pipe_line	*next_pipe;
 }	t_pipe_line;
 
-typedef struct s_pipe_head;
+typedef struct s_pipe_head
 {
-	t_pipe_line	head;
+	t_pipe_line	*head;
 	int			cnt_pipe;
 }	t_pipe_head;
 
+typedef struct s_action_state
+{
+	t_state_num				state;
+	t_token_type			type;
+	struct s_action_state	*prev;
+	struct s_action_state	*next;
+}	t_action_state;
 
 
 t_meta	ft_check_meta(char c);
