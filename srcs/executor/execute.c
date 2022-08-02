@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:11:51 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/01 22:47:41 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/02 17:25:01 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,22 +49,21 @@ void	ft_child_process(t_lexer *cmd_tree, t_executor *exec)
 
 
 
-int	ft_execute(t_ *cmd_tree, char *envp[])
+int	ft_execute(t_cmd *cmd, char *envp[])
 {
 	t_executor	*exec;
 	int			ret;
 	int			i;
 
 	i = 0;
-	while (i <= cmd_tree->cnt_pipe)
+	while (i <= cmd->cnt_pipe)
 	{
-		ft_check_heredoc(cmd_tree, exec);
+		ft_check_heredoc(cmd->lim_q, exec);
 		// 파이프라인 단위로 들어오
 		if (i != 0)
 			ft_pipe(exec->pipe_fd);
 		exec->pid = ft_fork();
 		if (exec->pid == 0)
-			ft_child_process(cmd_tree->pipeline, exec, envp);
 		i++;
 	}
 	ret = ft_wait_all(exec->pid, cmd_tree->cnt_pipe);
