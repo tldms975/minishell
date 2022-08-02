@@ -81,6 +81,40 @@ struct s_lexer
 	int			index;
 };
 
+typedef struct s_redir_list
+{
+	char				*content;
+	t_token_type		redir_type;
+	struct s_redir_list	*next;
+}	t_redir_list;
+
+typedef struct s_arg_list
+{
+	char				*content;
+	struct s_arg_list	*next;
+}	t_arg_list;
+
+
+typedef struct s_cmd
+{
+	t_redir_list	*redir;
+	t_limiter_q		*lim_q;
+	t_arg_list		*arg;
+}	t_cmd;
+
+typedef struct s_pipe_line
+{
+	t_cmd				*cmd;
+	struct s_pipe_line	*next_pipe;
+}	t_pipe_line;
+
+typedef struct s_pipe_head;
+{
+	t_pipe_line	head;
+	int			cnt_pipe;
+}	t_pipe_head;
+
+
 
 t_meta	ft_check_meta(char c);
 t_state	ft_check_type(char c);
