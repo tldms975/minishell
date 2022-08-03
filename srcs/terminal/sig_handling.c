@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 15:46:32 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/02 18:30:02 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/04 01:31:55 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_exit(void)
 	exit(-1);
 }
 
-void	ft_handler(int sig)
+void	ft_default_handler(int sig)
 {
 	if (sig == SIGINT)
 	{
@@ -31,8 +31,8 @@ void	ft_handler(int sig)
 	}
 }
 
-void	ft_signal(void)
+void	ft_default_signal(void)
 {
-	signal(SIGINT, ft_handler);
+	signal(SIGINT, ft_default_handler);
 	signal(SIGQUIT, SIG_IGN);
 }
