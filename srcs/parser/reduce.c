@@ -99,14 +99,16 @@ void	reduce_6(t_action_state *state)
 	state->type = ELEM;
 }
 
-void	reduce_7(t_action_state *state)
+void	reduce_7(t_action_state **state)
 {
 	t_action_state	*temp;
 	
-	temp = state;
-	state = state->prev;
+	temp = *state;
+	(*state) = (*state)->prev;
 	temp->prev = NULL;
-	state->next = NULL;
+	(*state)->next = NULL;
 	free(temp);
-	state->type = ELEM;
+	(*state)->type = ELEM;
+	printf("type : %d in reduce\n", (*state)->type);
+	printf("state_addr: %p in reduce\n", (*state));
 }

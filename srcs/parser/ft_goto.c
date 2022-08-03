@@ -12,19 +12,49 @@
 
 #include "minishell.h"
 
-t_action_state	*new_state(t_action_state *state, t_token *token)
+t_action_state	*new_state(void)
 {
 	t_action_state	*new;
 
 	new = ft_malloc(sizeof(t_action_state));
 	new->next = NULL;
-	new->prev = state;
+	new->prev = NULL;
+	return (new);
+}
+
+void	state_init(t_action_state **state, t_token **token)
+{
+	t_action_state	*new;
+
+	new = new_state();
+	new->state = STATE_0;
 	if (token == NULL)
 		new->type = DOLLAR;
 	else
-		new->type = token->type;
-	state = new;
-	return (new);
+	{
+		new->type = (*token)->type;
+		(*token) = (*token)->next; // 토큰 프리하기!
+	}
+	*state = new;
+}
+
+void	linked_state(t_action_state **state, t_action_state **next, t_token **token)
+{
+	if ((*next)->state == STATE_STAY)
+		free(*next);
+	else
+	{
+		(*state)->next = *next;
+		(*next)->prev = (*state);
+		if ((*token) == NULL)
+			(*next)->type = DOLLAR;
+		else
+		{
+			(*next)->type = (*token)->type;
+			(*token) = (*token)->next; // 토큰 프리하기!
+		}
+		(*state) = (*next);
+	}
 }
 
 t_state_num ft_state_0(t_action_state *state)
@@ -106,8 +136,11 @@ t_state_num ft_state_5(t_action_state *state)
 		|| state->type == PIPE || state->type == ID
 		|| state->type == DOLLAR)
 	{
-		reduce_7(state);
-		return (state->state);
+		reduce_7(&state);
+		printf("type : %d in st_5\n", (state)->type);
+		// printf("state : %d in st_5\n", state->state);
+		// printf("type : %d in st_5\n", state->type);
+		return (STATE_STAY);
 	}
 	return (STATE_ERR);
 }
@@ -173,11 +206,55 @@ t_state_num ft_state_10(t_action_state *state)
 	return (STATE_ERR);
 }
 
-void    ft_goto(t_action_state *state, t_token *token)
+t_state_num    ft_goto(t_action_state *state, t_token *token)
 {
-	new_state(state, token);
-	token = token->next;
-	if (state->state = STATE_0)
-		state->state = ft_state_0(state);
-	else if (state->state) = 
+	t_action_state	*next;
+
+	next = new_state();
+	printf("state : %d in first\n", state->state);
+	printf("type : %d in first\n", state->type);
+	if (state->state == STATE_0)
+		next->state = ft_state_0(state);
+	else if (state->state == STATE_1)
+		next->state = ft_state_1(state);
+	else if (state->state == STATE_2)
+		next->state = ft_state_2(state);
+	else if (state->state == STATE_3)
+		next->state = ft_state_3(state);
+	else if (state->state == STATE_4)
+		next->state = ft_state_4(state);
+	else if (state->state == STATE_5)
+		next->state = ft_state_5(state);
+	else if (state->state == STATE_6)
+		next->state = ft_state_6(state);
+	else if (state->state == STATE_7)
+		next->state = ft_state_7(state);
+	else if (state->state == STATE_8)
+		next->state = ft_state_8(state);
+	else if (state->state == STATE_9)
+		next->state = ft_state_9(state);
+	else if (state->state == STATE_10)
+		next->state = ft_state_10(state);
+	// printf("next_state : %d\n", next->state);
+	linked_state(&state, &next, &token);
+	printf("state : %d\n", state->state);
+	printf("type : %d\n", state->type);
+	if (state->state != STATE_ERR && state->state != STATE_END)
+		ft_goto(state, token);
+	if (state->state == STATE_END)
+		return (STATE_END);
+	return (STATE_ERR);
+}
+
+int	ft_parser(t_token *token)
+{
+	t_action_state	*state;
+
+	state_init(&state, &token);
+	if (ft_goto(state, token) == STATE_ERR)
+	{
+		ft_putstr_fd("syntax error\n", STDERR_FILENO);
+		return (-1);
+	}
+	return (0);
 }

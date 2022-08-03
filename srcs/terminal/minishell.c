@@ -47,9 +47,8 @@ int	ft_minishell(char *envp[])
 		add_history(line);
 		lexer_setting(&lexer, line);
 		if (ft_lexer(&lexer) < 0)
-		{
 			ft_putstr_fd("syntax error\n", STDERR_FILENO);
-		}
+		ft_parser(lexer.head);
 		ft_print(lexer);
 		//cmd_tree = ft_parse(line);
 		//exit_code = ft_execute(cmd_tree, envp);

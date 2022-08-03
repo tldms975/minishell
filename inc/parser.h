@@ -41,7 +41,10 @@ typedef enum e_state_num
 	STATE_7,
 	STATE_8,
 	STATE_9,
-	STATE10
+	STATE_10,
+	STATE_END,
+	STATE_ERR,
+	STATE_STAY
 }	t_state_num;
 
 typedef enum e_state
@@ -66,7 +69,8 @@ typedef enum e_token_type
 	ELEM,
 	REDIRECTION,
 	COMMAND,
-	PIPE_LINE
+	PIPE_LINE,
+	DOLLAR
 }	t_token_type;
 
 typedef struct s_limiter_node
@@ -166,5 +170,32 @@ int ft_lexer(t_lexer *lexer);
 void	lexer_setting(t_lexer *lexer, char *input_line);
 int ft_lexer(t_lexer *lexer);
 void	ft_table(t_lexer *lexer);
+
+
+void	reduce_1(t_action_state *state);
+void	reduce_2(t_action_state *state);
+void	reduce_3(t_action_state *state);
+void	reduce_4(t_action_state *state);
+void    reduce_5(t_action_state *state);
+void	reduce_6(t_action_state *state);
+void	reduce_7(t_action_state **state);
+
+
+t_action_state	*new_state(void);
+void	state_init(t_action_state **state, t_token **token);
+void	linked_state(t_action_state **state, t_action_state **next, t_token **token);
+t_state_num ft_state_0(t_action_state *state);
+t_state_num ft_state_1(t_action_state *state);
+t_state_num ft_state_2(t_action_state *state);
+t_state_num ft_state_3(t_action_state *state);
+t_state_num ft_state_4(t_action_state *state);
+t_state_num ft_state_5(t_action_state *state);
+t_state_num ft_state_6(t_action_state *state);
+t_state_num ft_state_7(t_action_state *state);
+t_state_num ft_state_8(t_action_state *state);
+t_state_num ft_state_9(t_action_state *state);
+t_state_num ft_state_10(t_action_state *state);
+t_state_num    ft_goto(t_action_state *state, t_token *token);
+int	ft_parser(t_token *token);
 
 #endif
