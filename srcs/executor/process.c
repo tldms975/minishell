@@ -6,31 +6,28 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:50:42 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/03 19:11:41 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/03 21:23:25 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_exe_parent_process(t_cmd *cmd, t_executor *exec)
+int	ft_exe_parent_process(t_cmd *cmd, t_executor *exec, int cnt_pipe)
 {
-	int			i;
-	const char	*builtin_arr[7] = {"echo", ""};
-
-	i = 0;
-	while (i < 7)
+	if (cnt_pipe == 1 && ft_is_builtin(cmd, exec))
 	{
-		if (ft_strncmp(cmd->arg->content, builtin_arr[i], (ft_strlen(builtin_arr[i]) + 1)))
+		while (cmd->redir)
 		{
 			ft_redirection(cmd->redir->redir_type, cmd->redir->file_name, exec);
-			ft_dup2(exec->fd_read, STDIN_FILENO);
-			ft_dup2(exec->fd_write, STDOUT_FILENO);
-			ft_do_builtin(cmd, exec, );
-			return (1);
+			cmd->redir = cmd->redir->next;
 		}
-		i++;
+		ft_dup2(exec->fd_read, STDIN_FILENO);
+		ft_dup2(exec->fd_write, STDOUT_FILENO);
+		ft_run_builtin(cmd, exec, exec->builtin_code);
+		return (1);
 	}
-	return (0);
+	else
+		return (0);
 }
 
 void	ft_exe_child_process(t_cmd *cmd, t_executor *exec, char *envp[])
@@ -44,6 +41,7 @@ void	ft_exe_child_process(t_cmd *cmd, t_executor *exec, char *envp[])
 	}
 	ft_dup2(exec->fd_read, STDIN_FILENO);
 	ft_dup2(exec->fd_write, STDOUT_FILENO);
+	exec->cnt_child += 1;
 	ft_execute_cmd(cmd->arg, envp);
 }
 

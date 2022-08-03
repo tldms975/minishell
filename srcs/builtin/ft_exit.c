@@ -6,13 +6,13 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:14:33 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/03 16:29:22 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/03 21:17:18 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_exit()
+void	ft_exit(t_cmd *cmd, t_executor *exec)
 {
 	
 }

@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:08:46 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/03 19:08:53 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/03 20:10:10 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,18 @@ enum e_read_write
 	WRITE
 };
 
+enum e_builtin
+{
+	B_N = 0,
+	B_ECHO,
+	B_CD,
+	B_PWD,
+	B_EXPORT,
+	B_UNSET,
+	B_ENV,
+	B_EXIT,
+};
+
 typedef struct s_executor
 {
 	pid_t	pid;
@@ -29,6 +41,7 @@ typedef struct s_executor
 	int		fd_write;
 	int		pipe_fd[2];
 	int		heredoc_fd[2];
+	int		builtin_code;
 	int		cnt_child;
 }				t_executor;
 

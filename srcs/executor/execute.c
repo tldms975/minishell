@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:11:51 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/03 19:07:45 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/03 21:28:11 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,7 @@ void	ft_init_exec(t_executor	*exec, char *envp[])
 	exec->fd_write = STDOUT_FILENO;
 	exec->pipe_fd[READ] = STDIN_FILENO;
 	exec->pipe_fd[WRITE] = STDOUT_FILENO;
-	exec-> = STDIN_FILENO;
-	exec->fd_write = STDOUT_FILENO;
+	exec->builtin_code = 0;
 	//TODO: envp list구현
 }
 
@@ -68,23 +67,23 @@ int	ft_execute(t_pipe_head *pipe_head, char *envp[])
 	t_executor	*exec;
 	int			ret;
 
+	exec->cnt_child = 0;
 	pipe_line = pipe_head->head;
 	while (pipe_line)
 	{
 		ft_init_exec(exec, envp);
 		ft_check_heredoc(pipe_line->cmd->lim_q, exec);
-		if (pipe_line->next_pipe && !ft_is_builtin(pipe_line->cmd))
+		if (!ft_exe_parent_process(pipe_line->cmd, exec, pipe_head->cnt_pipe)) //TODO:builtin 구현하고 다시 짜기
 		{
 			ft_pipe(exec->pipe_fd);
-			if (!ft_exe_parent_process(pipe_line->cmd, exec))
-				exec->pid = ft_fork();
+			exec->pid = ft_fork();
 			if (exec->pid == 0)
 				ft_exe_child_process(pipe_line->cmd, exec, envp);
 			else
 				pipe_line = pipe_line->next_pipe;
 		}
 		else
-			ft_exe_parent_process(pipe_line->cmd, exec);
+			break ;
 	}
 	ret = ft_wait_all(exec->pid, exec->cnt_child);
 	return (ret);
