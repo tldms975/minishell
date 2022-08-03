@@ -6,19 +6,19 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 17:54:26 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/02 20:21:40 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/03 19:49:44 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-void	ft_error(const char *str)
+void	ft_error(char *str)
 {
 	ft_putendl_fd(str, STDERR_FILENO);
 	exit (EXIT_FAILURE);
 }
 
-void	ft_perror(const char *str)
+void	ft_perror(char *str)
 {
 	char	*error_msg;
 

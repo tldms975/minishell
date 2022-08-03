@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:11:51 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/02 21:18:38 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/03 19:07:45 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,30 +44,22 @@ void	ft_execute_cmd(t_arg_list *arg, char *envp[])
 
 	while (arg)
 	{
-		cmd_vec;
+		cmd_vec
 	}
-	if (execve(cmd_path, cmd_vec, envp) == -1)
-		ft_perror("execute error");
+	execve(cmd_path, cmd_vec, envp);
+	ft_perror("execute error");
+	//exit();
 }
 
-void	ft_child_process(t_cmd *cmd, t_executor *exec, char *envp[])
-{
-	while (cmd->redir)
-	{
-		ft_redirection(cmd->redir->redir_type, cmd->redir->file_name, exec);
-		if (exec->fd_read < 0 || exec->fd_write < 0)
-			exit(127);//TODO: check
-		cmd->redir = cmd->redir->next;
-	}
-	ft_dup2(exec->fd_read, STDIN_FILENO);
-	ft_dup2(exec->fd_write, STDOUT_FILENO);
-	ft_execute_cmd(cmd->arg, envp);
-}
-
-void	ft_init_fd(t_executor	*exec)
+void	ft_init_exec(t_executor	*exec, char *envp[])
 {
 	exec->fd_read = STDIN_FILENO;
 	exec->fd_write = STDOUT_FILENO;
+	exec->pipe_fd[READ] = STDIN_FILENO;
+	exec->pipe_fd[WRITE] = STDOUT_FILENO;
+	exec-> = STDIN_FILENO;
+	exec->fd_write = STDOUT_FILENO;
+	//TODO: envp list구현
 }
 
 int	ft_execute(t_pipe_head *pipe_head, char *envp[])
@@ -79,20 +71,21 @@ int	ft_execute(t_pipe_head *pipe_head, char *envp[])
 	pipe_line = pipe_head->head;
 	while (pipe_line)
 	{
-		ft_init_fd(exec);
+		ft_init_exec(exec, envp);
 		ft_check_heredoc(pipe_line->cmd->lim_q, exec);
-		if (pipe_head->cnt_pipe > 1)
-			ft_pipe(exec->pipe_fd);
-		exec->pid = ft_fork();
-		if (exec->pid == 0)
+		if (pipe_line->next_pipe && !ft_is_builtin(pipe_line->cmd))
 		{
-			ft_child_process(pipe_line->cmd, exec, envp);
+			ft_pipe(exec->pipe_fd);
+			if (!ft_exe_parent_process(pipe_line->cmd, exec))
+				exec->pid = ft_fork();
+			if (exec->pid == 0)
+				ft_exe_child_process(pipe_line->cmd, exec, envp);
+			else
+				pipe_line = pipe_line->next_pipe;
 		}
 		else
-		{
-			pipe_line = pipe_line->next_pipe;
-		}
+			ft_exe_parent_process(pipe_line->cmd, exec);
 	}
-	ret = ft_wait_all(exec->pid, pipe_head->cnt_pipe);
+	ret = ft_wait_all(exec->pid, exec->cnt_child);
 	return (ret);
 }

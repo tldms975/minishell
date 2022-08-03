@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:08:46 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/02 19:36:47 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/03 19:08:53 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_executor
 	int		fd_write;
 	int		pipe_fd[2];
 	int		heredoc_fd[2];
+	int		cnt_child;
 }				t_executor;
 
 void	ft_check_heredoc(t_limiter_q *lim_q, t_executor *exec);

@@ -6,7 +6,7 @@
 #    By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/13 17:14:48 by sielee            #+#    #+#              #
-#    Updated: 2022/08/01 20:11:08 by sielee           ###   ########seoul.kr   #
+#    Updated: 2022/08/03 16:07:39 by sielee           ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,14 +42,21 @@ UTILS_SRCS		=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/utils/,\
 TERMINAL_SRCS	=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/terminal/,\
 					minishell\
 					sig_handling))
+BUILTIN_SRCS	=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/builtin/,\
+					))
 EXECUTOR_SRCS	=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/executor/,\
-					execute))
+					execute\
+					finish_process\
+					heredoc\
+					redirection))
+					
 SRCS			=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/,\
 					main))\
 					$(UTILS_SRCS)\
 					$(TERMINAL_SRCS)\
 					$(PARSER_SRCS)\
 #					$(EXECUTOR_SRCS)
+#					$(BUILTIN_SRCS)
 OBJS			=	$(SRCS:.c=.o)
 
 all: $(NAME)

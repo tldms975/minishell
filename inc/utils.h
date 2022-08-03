@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 17:55:38 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/02 20:25:47 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/03 19:50:18 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 # include <errno.h>
 
 void	*ft_malloc(size_t size);
-void	ft_error(const char *str);
-void	ft_perror(const char *str);
+void	ft_error(char *str);
+void	ft_perror(char *str);
 
 int		ft_open(const char *str, int flag);
 int		ft_pipe(int fd[2]);
