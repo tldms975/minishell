@@ -40,7 +40,7 @@ int	ft_minishell(char *envp[])
 	(void)envp;
 	while (1)
 	{
-		ft_signal();
+		//ft_signal();
 		line = readline("bash$ ");
 		if (!line)
 			ft_exit();
