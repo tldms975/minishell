@@ -196,7 +196,9 @@ t_state_num ft_state_8(t_action_state **state, t_token_type type);
 t_state_num ft_state_9(t_action_state **state, t_token_type type);
 t_state_num ft_state_10(t_action_state **state, t_token_type type);
 void	ft_goto(t_action_state **state, t_token **token);
-int	ft_parser(t_token *token);
+int	ft_parser(t_pipe_head *pipe_head, t_token *token);
 void	ft_set_type(t_token_type *type, t_action_state **state, t_token **token);
+
+void	ft_print(t_pipe_line *pipe);
 
 #endif

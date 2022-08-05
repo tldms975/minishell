@@ -232,17 +232,182 @@ void ft_goto(t_action_state **state, t_token **token)
 		ft_goto(state, token);
 }
 
-int	ft_parser(t_token *token)
+t_limiter_q	*new_limiter_q()
+{
+	t_limiter_q	*new;
+
+	new = ft_malloc(sizeof(t_limiter_q));
+	new->front = NULL;
+	new->rear = NULL;
+	new->cnt = 0;
+	return (new);
+}
+
+t_redir_list	*new_redir_list()
+{
+	t_redir_list	*new;
+
+	new = ft_malloc(sizeof(t_redir_list));
+	new->file_name = NULL;
+	new->next = NULL;
+	return (new);
+}
+
+t_arg_list	*new_arg_list()
+{
+	t_arg_list	*new;
+
+	new = ft_malloc(sizeof(t_arg_list));
+	new->content = NULL;
+	new->next = NULL;
+	return (new);
+}
+
+t_cmd	*new_cmd()
+{
+	t_cmd	*new;
+
+	new = ft_malloc(sizeof(t_cmd));
+	new->arg = new_arg_list();
+	new->lim_q = new_limiter_q();
+	new->redir = new_redir_list();
+	return (new);
+}
+
+t_pipe_line	*new_pipe()
+{
+	t_pipe_line	*new;
+
+	new = ft_malloc(sizeof(t_pipe_line));
+	new->cmd = new_cmd();
+	new->next_pipe = NULL;
+	return (new);
+}
+
+int	ft_parsing(t_pipe_line **pipe, t_token **token)
+{
+	t_token	*temp;
+
+	if ((*token)->type == ID)
+	{
+		(*pipe)->cmd->arg->content = (*token)->content;
+		(*pipe)->cmd->arg->next = new_arg_list();
+		(*pipe)->cmd->arg = (*pipe)->cmd->arg->next;
+		temp = *token;
+		(*token) = (*token)->next;
+		free(temp);
+	}
+	else if ((*token)->type == REDIR_IN)
+	{
+		free((*token)->content);
+		temp = (*token);
+		(*token) = (*token)->next;
+		free(temp);
+		if ((*token)->type == ID)
+		{
+			(*pipe)->cmd->redir->file_name = (*token)->content;
+			(*pipe)->cmd->redir->redir_type = REDIR_IN;
+			(*pipe)->cmd->redir->next = new_redir_list();
+			(*pipe)->cmd->redir = (*pipe)->cmd->redir->next;
+			temp = *token;
+			(*token) = (*token)->next;
+			free(temp);
+		}
+		else
+			return (-1);
+	}
+	else if ((*token)->type == REDIR_OUT)
+	{
+		free((*token)->content);
+		temp = (*token);
+		(*token) = (*token)->next;
+		free(temp);
+		if ((*token)->type == ID)
+		{
+			(*pipe)->cmd->redir->file_name = (*token)->content;
+			(*pipe)->cmd->redir->redir_type = REDIR_OUT;
+			(*pipe)->cmd->redir->next = new_redir_list();
+			(*pipe)->cmd->redir = (*pipe)->cmd->redir->next;
+			temp = *token;
+			(*token) = (*token)->next;
+			free(temp);
+		}
+		else
+			return (-1);
+	}
+	else if ((*token)->type == REDIR_APPEND)
+	{
+		free((*token)->content);
+		temp = (*token);
+		(*token) = (*token)->next;
+		free(temp);
+		if ((*token)->type == ID)
+		{
+			(*pipe)->cmd->redir->file_name = (*token)->content;
+			(*pipe)->cmd->redir->redir_type = REDIR_APPEND;
+			(*pipe)->cmd->redir->next = new_redir_list();
+			(*pipe)->cmd->redir = (*pipe)->cmd->redir->next;
+			temp = *token;
+			(*token) = (*token)->next;
+			free(temp);
+		}
+		else
+			return (-1);
+	}
+	else if ((*token)->type == REDIR_HEREDOC)
+	{
+		free((*token)->content);
+		temp = (*token);
+		(*token) = (*token)->next;
+		free(temp);
+		if ((*token)->type == ID)
+		{
+			ft_enqueue(&((*pipe)->cmd->lim_q), (*token)->content);
+			temp = *token;
+			(*token) = (*token)->next;
+			free(temp);
+		}
+		else
+			return (-1);
+	}
+	else if ((*token)->type == PIPE)
+	{
+		free((*token)->content);
+		temp = (*token);
+		(*token) = (*token)->next;
+		free(temp);
+		(*pipe)->next_pipe = new_pipe();
+		(*pipe) = (*pipe)->next_pipe;
+		return (1);
+	}
+	return (0);
+}
+
+int	ft_parser(t_pipe_head *pipe_head, t_token *token)
 {
 	t_action_state	*state;
+	void			*temp;
 
 	state = new_state();
 	state->state = STATE_0;
+	temp = token;
 	ft_goto(&state, &token);
+	token = temp;
+	pipe_head->cnt_pipe = 0;
+	temp = pipe_head->head;
 	if (state->state == STATE_ERR)
 	{
 		ft_putstr_fd("syntax error\n", STDERR_FILENO);
 		return (-1);
 	}
+	else
+	{
+		pipe_head->head = new_pipe();
+		while (token != NULL)
+			if (ft_parsing(&(pipe_head->head), &token) == 1)
+				pipe_head->cnt_pipe++;
+		pipe_head->head = temp;
+	}
+	ft_print(pipe_head->head);
 	return (0);
 }

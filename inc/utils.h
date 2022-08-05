@@ -37,7 +37,7 @@ int		ft_close(int fd);
 
 void	ft_init_q(t_limiter_q *queue);
 int		ft_is_empty_q(t_limiter_q *queue);
-void	ft_enqueue(t_limiter_q *queue, char *data);
+void	ft_enqueue(t_limiter_q **queue, char *data);
 void	ft_dequeue(t_limiter_q *queue);
 
 #endif

@@ -12,26 +12,55 @@
 
 #include "minishell.h"
 
-void	ft_print(t_lexer lexer)
+void	ft_print(t_pipe_line *pipe)
 {
-	t_token	*temp;
-	int		count;
+	int				count;
+	t_pipe_line		*temp_pipe;
+	t_cmd			*temp_cmd;
+	t_arg_list		*temp_arg;
+	t_redir_list	*temp_redir;
+	t_limiter_node	*temp_limit;
 
-	count = 0;
-	temp = lexer.head;
-	while (temp != NULL)
+	count = 1;
+	temp_pipe = pipe;
+	while (temp_pipe != NULL)
 	{
-		printf("%s ", temp->content);
-		if (temp->type == PIPE)
-			count++;
-		temp = temp->next;
+		temp_cmd = temp_pipe->cmd;
+		temp_arg = temp_cmd->arg;
+		temp_redir = temp_cmd->redir;
+		temp_limit = temp_cmd->lim_q->front;
+		printf ("pipe %d \n", count++);
+		while (temp_cmd != NULL)
+		{
+			printf("ARG : ");
+			while (temp_arg != NULL)
+			{
+				printf("%s ", temp_arg->content);
+				temp_arg = temp_arg->next;
+			}
+			printf("\n");
+			printf("REDIR : ");
+			while (temp_redir != NULL)
+			{
+				printf("%s ", temp_redir->file_name);
+				temp_redir = temp_redir->next;
+			}
+			printf("\n");
+			printf("HEREDOC : ");
+			while (temp_limit != NULL)
+			{
+				printf("%s ", temp_limit->data);
+				temp_limit = temp_limit->next;
+			}
+			printf("\n");
+		}
+		temp_pipe = temp_pipe->next_pipe;
 	}
-	printf("pipe : %d\n", count);
 }
 
 int	ft_minishell(char *envp[])
 {
-	//t_cmd_tree	*cmd_tree;
+	t_pipe_head	pipe_head;
 	char	*line;
 	int		exit_code;
 	t_lexer	lexer;
@@ -48,8 +77,9 @@ int	ft_minishell(char *envp[])
 		lexer_setting(&lexer, line);
 		if (ft_lexer(&lexer) < 0)
 			ft_putstr_fd("syntax error\n", STDERR_FILENO);
-		ft_parser(lexer.head);
-		ft_print(lexer);
+		else
+			ft_parser(&pipe_head, lexer.head);
+		ft_print(pipe_head.head);
 		//cmd_tree = ft_parse(line);
 		//exit_code = ft_execute(cmd_tree, envp);
 		free(line);

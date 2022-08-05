@@ -24,23 +24,23 @@ int	ft_is_empty_q(t_limiter_q *queue)
 	return (queue->cnt == 0);
 }
 
-void	ft_enqueue(t_limiter_q *queue, char *data)
+void	ft_enqueue(t_limiter_q **queue, char *data)
 {
 	t_limiter_node	*new;
 
 	new = (t_limiter_node *)ft_malloc(sizeof(new));
 	new->data = data;
 	new->next = NULL;
-	if (ft_is_empty_q(queue))
+	if (ft_is_empty_q(*queue))
 	{
-		queue->front = new;
+		(*queue)->front = new;
 	}
 	else
 	{
-		queue->rear->next = new;
+		(*queue)->rear->next = new;
 	}
-	queue->rear = new;
-	queue->cnt += 1;
+	(*queue)->rear = new;
+	(*queue)->cnt += 1;
 }
 
 void	ft_dequeue(t_limiter_q *queue)
