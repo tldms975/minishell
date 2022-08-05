@@ -6,28 +6,26 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:14:35 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/05 17:34:15 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/05 22:18:38 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_set_env_value(const char *str, int idx_equal)
+static void	ft_set_env_var(const char *str, t_envp_list *env, int idx_equal)
 {
 	char	*key;
 	char	*value;
 
 	if (idx_equal == 0)
 	{
-		key = str;
-		value = NULL;
+		idx_equal = ft_strlen(str);
 	}
-	else
-	{
-		key = ft_substr(str, 0, idx_equal);
-		value = ft_substr(str, idx_equal, ft_strlen(str));
-	}
-
+	key = ft_substr(str, 0, idx_equal);
+	value = ft_substr(str, idx_equal + 1, ft_strlen(str) - ft_strlen(key) - 1);
+	ft_add_env_var(env, key, value);
+	ft_free(key);
+	ft_free(value);
 }
 
 static int	ft_check_valid_arg(const char *str, int *idx_equal)
@@ -54,7 +52,7 @@ static int	ft_check_valid_arg(const char *str, int *idx_equal)
 	return (1);
 }
 
-int	ft_bi_export(t_cmd *cmd, t_executor *exec)
+int	ft_bi_export(t_cmd *cmd, t_envp_list *env)
 {
 	t_arg_list	*bi_arg;
 	int			idx_equal;
@@ -66,7 +64,7 @@ int	ft_bi_export(t_cmd *cmd, t_executor *exec)
 	{
 		idx_equal = 0;
 		if (ft_check_valid_args(bi_arg, &idx_equal))
-			ft_set_env_value(bi_arg, idx_equal);
+			ft_set_env_value(bi_arg, env, idx_equal);
 		else
 			exit_status = 1;
 		bi_arg = bi_arg->next;

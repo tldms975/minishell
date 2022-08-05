@@ -1,28 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bi_pwd.c                                        :+:      :+:    :+:   */
+/*   envp.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/03 16:14:38 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/05 18:23:44 by sielee           ###   ########seoul.kr  */
+/*   Created: 2022/08/05 21:27:29 by sielee            #+#    #+#             */
+/*   Updated: 2022/08/06 01:28:29 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef ENVP_H
+# define ENVP_H
 
-int	ft_bi_pwd(t_cmd *cmd, t_executor *exec)
+typedef struct s_envp_node	t_envp_node;
+typedef struct s_envp_list	t_envp_list;
+
+struct s_envp_node
 {
-	char	*pwd;
+	char	*key;
+	char	*value;
+	struct s_envp_node	*next;
+};
 
-	pwd = getcwd(NULL, 0);
-	if (!pwd)
-	{
-		ft_perror("getcwd error");
-		ft_exit(1);
-	}
-	printf("%s\n", pwd);
-	ft_free(pwd);
-	return (0);
-}
+struct s_envp_list
+{
+	struct s_envp_node	*head;
+	struct s_envp_node	*tail;
+};
+
+void	ft_init_env_list(t_envp_list *env, char *envp[]);
+char	*ft_get_env_value(t_envp_list *head, const char *key);
+
+#endif

@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:08:46 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/04 02:22:45 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/05 19:53:37 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 
 # include <unistd.h>
 # include "parser.h"
+
+enum e_exit_stat
+{
+	EXIT_UNEXECUTABLE = 126,
+	EXIT_NOTFOUND = 127
+};
 
 enum e_read_write
 {

@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 22:29:57 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/02 20:48:00 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/05 18:20:40 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ pid_t	ft_fork(void)
 
 	ret = fork();
 	if (ret == -1)
-		ft_perror("fork failed");
+		ft_perror("fork error");
 	return (ret);
 }
 
@@ -65,6 +65,6 @@ int	ft_close(int fd)
 	if (fd > 2)
 		ret = close(fd);
 	if (ret == -1)
-		ft_perror("close fail");
+		ft_perror("close error");
 	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 17:55:38 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/05 16:15:17 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/05 22:53:31 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <errno.h>
 
 void	*ft_malloc(size_t size);
+void	ft_free(void **ptr);
 void	ft_error(char *str);
 void	ft_perror(char *str);
 

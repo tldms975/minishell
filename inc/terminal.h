@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 15:47:24 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/05 16:22:04 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/05 22:45:31 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,6 @@
 
 void	ft_newline_handler(int sig);
 void	ft_default_signal(void);
-int		ft_minishell(char *envp[]);
+int		ft_minishell(t_envp_list *env);
 
 #endif

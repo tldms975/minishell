@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:29:19 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/05 15:27:15 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/05 22:46:26 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	ft_print(t_pipe_line *pipe)
 	}
 }
 
-int	ft_minishell(char *envp[])
+int	ft_minishell(t_envp_list *env)
 {
 	t_pipe_head	pipe_head;
 	char	*line;
@@ -66,7 +66,7 @@ int	ft_minishell(char *envp[])
 	t_lexer	lexer;
 
 	exit_code=0;
-	(void)envp;
+	(void)env;
 	while (1)
 	{
 		ft_default_signal();
@@ -81,7 +81,7 @@ int	ft_minishell(char *envp[])
 			ft_parser(&pipe_head, lexer.head);
 		ft_print(pipe_head.head);
 		//cmd_tree = ft_parse(line);
-		//exit_code = ft_execute(cmd_tree, envp);
+		//exit_code = ft_execute(cmd, env);
 		free(line);
 	}
 	return (exit_code);
