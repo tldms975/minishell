@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/01 17:29:19 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/05 22:46:26 by sielee           ###   ########seoul.kr  */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 void	ft_print(t_pipe_line *pipe)
@@ -55,15 +43,15 @@ void	ft_print(t_pipe_line *pipe)
 	}
 }
 
-int	ft_minishell(t_envp_list *env)
+int	ft_minishell(char *envp[])
 {
-	t_pipe_head	pipe_head;
+	t_pipe_q	pipe_q;
 	char	*line;
 	int		exit_code;
 	t_lexer	lexer;
 
 	exit_code=0;
-	(void)env;
+	(void)envp;
 	while (1)
 	{
 		ft_default_signal();
@@ -76,9 +64,9 @@ int	ft_minishell(t_envp_list *env)
 			ft_putstr_fd("syntax error\n", STDERR_FILENO);
 		else
 			ft_parser(&pipe_head, lexer.head);
-		ft_print(pipe_head.head);
+		//ft_print(pipe_head.head);
 		//cmd_tree = ft_parse(line);
-		//exit_code = ft_execute(cmd, env);
+		//exit_code = ft_execute(cmd_tree, envp);
 		free(line);
 	}
 	return (exit_code);

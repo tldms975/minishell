@@ -105,25 +105,37 @@ struct s_lexer
 	int			index;
 };
 
-typedef struct s_redir_list
+typedef struct s_redir_node
 {
 	char				*file_name;
 	t_token_type		redir_type;
 	struct s_redir_list	*next;
-}	t_redir_list;
+}	t_redir_node;
 
-typedef struct s_arg_list
+typedef struct s_redir_q
+{
+	struct s_redir_node	*front;
+	struct s_redir_node	*rear;
+}				t_redir_q;
+
+typedef struct s_arg_node
 {
 	char				*content;
 	struct s_arg_list	*next;
-}	t_arg_list;
+}	t_arg_node;
+
+typedef struct s_arg_q
+{
+	struct s_arg_node	*front;
+	struct s_arg_node	*rear;
+}				t_arg_q;
 
 
 typedef struct s_cmd
 {
-	t_redir_list	*redir;
+	t_redir_q		*redir_q;
 	t_limiter_q		*lim_q;
-	t_arg_list		*arg;
+	t_arg_q			*arg_q;
 }	t_cmd;
 
 typedef struct s_pipe_line
@@ -132,11 +144,12 @@ typedef struct s_pipe_line
 	struct s_pipe_line	*next_pipe;
 }	t_pipe_line;
 
-typedef struct s_pipe_head
+typedef struct s_pipe_q
 {
-	t_pipe_line	*head;
+	t_pipe_line	*front;
+	t_pipe_line	*rear;
 	int			cnt_pipe;
-}	t_pipe_head;
+}	t_pipe_q;
 
 typedef struct s_action_state
 {

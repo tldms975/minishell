@@ -243,23 +243,23 @@ t_limiter_q	*new_limiter_q()
 	return (new);
 }
 
-t_redir_list	*new_redir_list()
+t_redir_q	*new_redir_q()
 {
-	t_redir_list	*new;
+	t_redir_q	*new;
 
-	new = ft_malloc(sizeof(t_redir_list));
-	new->file_name = NULL;
-	new->next = NULL;
+	new = ft_malloc(sizeof(t_redir_q));
+	new->front = NULL;
+	new->rear = NULL;
 	return (new);
 }
 
-t_arg_list	*new_arg_list()
+t_arg_q	*new_arg_q()
 {
-	t_arg_list	*new;
+	t_arg_q	*new;
 
-	new = ft_malloc(sizeof(t_arg_list));
-	new->content = NULL;
-	new->next = NULL;
+	new = ft_malloc(sizeof(t_arg_q));
+	new->front = NULL;
+	new->rear = NULL;
 	return (new);
 }
 
@@ -268,9 +268,9 @@ t_cmd	*new_cmd()
 	t_cmd	*new;
 
 	new = ft_malloc(sizeof(t_cmd));
-	new->arg = new_arg_list();
+	new->arg_q = new_arg_q();
+	new->redir_q = new_redir_q();
 	new->lim_q = new_limiter_q();
-	new->redir = new_redir_list();
 	return (new);
 }
 
@@ -292,7 +292,10 @@ int	ft_parsing(t_pipe_line **pipe, t_token **token)
 	{
 		(*pipe)->cmd->arg->content = (*token)->content;
 		(*pipe)->cmd->arg->next = new_arg_list();
+		printf("%p\n", (*pipe)->cmd->arg);
+		printf("%p\n", (*pipe)->cmd->arg->next);
 		(*pipe)->cmd->arg = (*pipe)->cmd->arg->next;
+		printf("%p\n", (*pipe)->cmd->arg);
 		temp = *token;
 		(*token) = (*token)->next;
 		free(temp);
@@ -386,6 +389,7 @@ int	ft_parsing(t_pipe_line **pipe, t_token **token)
 int	ft_parser(t_pipe_head *pipe_head, t_token *token)
 {
 	t_action_state	*state;
+	t_pipe_line		*temp_pipe;
 	void			*temp;
 
 	state = new_state();
@@ -394,7 +398,6 @@ int	ft_parser(t_pipe_head *pipe_head, t_token *token)
 	ft_goto(&state, &token);
 	token = temp;
 	pipe_head->cnt_pipe = 0;
-	temp = pipe_head->head;
 	if (state->state == STATE_ERR)
 	{
 		ft_putstr_fd("syntax error\n", STDERR_FILENO);
@@ -403,10 +406,13 @@ int	ft_parser(t_pipe_head *pipe_head, t_token *token)
 	else
 	{
 		pipe_head->head = new_pipe();
+		temp_pipe = pipe_head->head;
+		printf("%p\n", pipe_head->head->cmd->arg);
 		while (token != NULL)
-			if (ft_parsing(&(pipe_head->head), &token) == 1)
+			if (ft_parsing(&(temp_pipe), &token) == 1)
 				pipe_head->cnt_pipe++;
-		pipe_head->head = temp;
+		printf("%p\n", pipe_head->head->cmd->arg);
+		printf("%p\n", pipe_head->head->cmd->arg->next);
 	}
 	ft_print(pipe_head->head);
 	return (0);
