@@ -263,39 +263,76 @@ t_arg_q	*new_arg_q()
 	return (new);
 }
 
-t_cmd	*new_cmd()
+void	ft_enqueue_arg(t_pipe_node **pipe, char *data)
 {
-	t_cmd	*new;
+	t_arg_node	*new;
 
-	new = ft_malloc(sizeof(t_cmd));
+	new = ft_malloc(sizeof(t_arg_node));
+	new->content = data;
+	new->next = NULL;
+	if ((*pipe)->arg_q->front == NULL)
+	{
+		(*pipe)->arg_q->front = new;
+	}
+	else
+	{
+		(*pipe)->arg_q->rear->next = new;
+	}
+	(*pipe)->arg_q->rear = new;
+}
+
+void	ft_enqueue_redir(t_pipe_node **pipe, t_token_type type, char *data)
+{
+	t_redir_node	*new;
+
+	new = ft_malloc(sizeof(t_redir_node));
+	new->file_name = data;
+	new->redir_type = type;
+	new->next = NULL;
+	if ((*pipe)->redir_q->front == NULL)
+	{
+		(*pipe)->redir_q->front = new;
+	}
+	else
+	{
+		(*pipe)->redir_q->rear->next = new;
+	}
+	(*pipe)->redir_q->rear = new;
+}
+
+int	ft_is_empty_q_pipe(t_pipe_q *queue)
+{
+	return (queue->cnt_pipe == 0);
+}
+
+void	ft_enqueue_pipe(t_pipe_q **queue)
+{
+	t_pipe_node	*new;
+
+	new = ft_malloc(sizeof(t_pipe_node));
 	new->arg_q = new_arg_q();
 	new->redir_q = new_redir_q();
 	new->lim_q = new_limiter_q();
-	return (new);
-}
-
-t_pipe_line	*new_pipe()
-{
-	t_pipe_line	*new;
-
-	new = ft_malloc(sizeof(t_pipe_line));
-	new->cmd = new_cmd();
 	new->next_pipe = NULL;
-	return (new);
+	if ((*queue)->front == NULL)
+	{
+		(*queue)->front = new;
+	}
+	else
+	{
+		(*queue)->rear->next_pipe = new;
+	}
+	(*queue)->rear = new;
+	(*queue)->cnt_pipe += 1;
 }
 
-int	ft_parsing(t_pipe_line **pipe, t_token **token)
+int	ft_parsing(t_pipe_node **pipe, t_token **token)
 {
 	t_token	*temp;
 
 	if ((*token)->type == ID)
 	{
-		(*pipe)->cmd->arg->content = (*token)->content;
-		(*pipe)->cmd->arg->next = new_arg_list();
-		printf("%p\n", (*pipe)->cmd->arg);
-		printf("%p\n", (*pipe)->cmd->arg->next);
-		(*pipe)->cmd->arg = (*pipe)->cmd->arg->next;
-		printf("%p\n", (*pipe)->cmd->arg);
+		ft_enqueue_arg(pipe, (*token)->content);
 		temp = *token;
 		(*token) = (*token)->next;
 		free(temp);
@@ -308,10 +345,7 @@ int	ft_parsing(t_pipe_line **pipe, t_token **token)
 		free(temp);
 		if ((*token)->type == ID)
 		{
-			(*pipe)->cmd->redir->file_name = (*token)->content;
-			(*pipe)->cmd->redir->redir_type = REDIR_IN;
-			(*pipe)->cmd->redir->next = new_redir_list();
-			(*pipe)->cmd->redir = (*pipe)->cmd->redir->next;
+			ft_enqueue_redir(pipe, REDIR_IN, (*token)->content);
 			temp = *token;
 			(*token) = (*token)->next;
 			free(temp);
@@ -327,10 +361,7 @@ int	ft_parsing(t_pipe_line **pipe, t_token **token)
 		free(temp);
 		if ((*token)->type == ID)
 		{
-			(*pipe)->cmd->redir->file_name = (*token)->content;
-			(*pipe)->cmd->redir->redir_type = REDIR_OUT;
-			(*pipe)->cmd->redir->next = new_redir_list();
-			(*pipe)->cmd->redir = (*pipe)->cmd->redir->next;
+			ft_enqueue_redir(pipe, REDIR_OUT, (*token)->content);
 			temp = *token;
 			(*token) = (*token)->next;
 			free(temp);
@@ -346,10 +377,7 @@ int	ft_parsing(t_pipe_line **pipe, t_token **token)
 		free(temp);
 		if ((*token)->type == ID)
 		{
-			(*pipe)->cmd->redir->file_name = (*token)->content;
-			(*pipe)->cmd->redir->redir_type = REDIR_APPEND;
-			(*pipe)->cmd->redir->next = new_redir_list();
-			(*pipe)->cmd->redir = (*pipe)->cmd->redir->next;
+			ft_enqueue_redir(pipe, REDIR_APPEND, (*token)->content);
 			temp = *token;
 			(*token) = (*token)->next;
 			free(temp);
@@ -365,7 +393,7 @@ int	ft_parsing(t_pipe_line **pipe, t_token **token)
 		free(temp);
 		if ((*token)->type == ID)
 		{
-			ft_enqueue(&((*pipe)->cmd->lim_q), (*token)->content);
+			ft_enqueue(&((*pipe)->lim_q), (*token)->content);
 			temp = *token;
 			(*token) = (*token)->next;
 			free(temp);
@@ -379,17 +407,14 @@ int	ft_parsing(t_pipe_line **pipe, t_token **token)
 		temp = (*token);
 		(*token) = (*token)->next;
 		free(temp);
-		(*pipe)->next_pipe = new_pipe();
-		(*pipe) = (*pipe)->next_pipe;
 		return (1);
 	}
 	return (0);
 }
 
-int	ft_parser(t_pipe_head *pipe_head, t_token *token)
+int	ft_parser(t_pipe_q *pipe_q, t_token *token)
 {
 	t_action_state	*state;
-	t_pipe_line		*temp_pipe;
 	void			*temp;
 
 	state = new_state();
@@ -397,7 +422,6 @@ int	ft_parser(t_pipe_head *pipe_head, t_token *token)
 	temp = token;
 	ft_goto(&state, &token);
 	token = temp;
-	pipe_head->cnt_pipe = 0;
 	if (state->state == STATE_ERR)
 	{
 		ft_putstr_fd("syntax error\n", STDERR_FILENO);
@@ -405,15 +429,13 @@ int	ft_parser(t_pipe_head *pipe_head, t_token *token)
 	}
 	else
 	{
-		pipe_head->head = new_pipe();
-		temp_pipe = pipe_head->head;
-		printf("%p\n", pipe_head->head->cmd->arg);
+		ft_enqueue_pipe(&pipe_q);
 		while (token != NULL)
-			if (ft_parsing(&(temp_pipe), &token) == 1)
-				pipe_head->cnt_pipe++;
-		printf("%p\n", pipe_head->head->cmd->arg);
-		printf("%p\n", pipe_head->head->cmd->arg->next);
+		{
+			if (ft_parsing(&(pipe_q->rear), &token) == 1)
+				ft_enqueue_pipe(&pipe_q);
+		}
 	}
-	ft_print(pipe_head->head);
+	ft_print(pipe_q);
 	return (0);
 }

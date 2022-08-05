@@ -109,45 +109,41 @@ typedef struct s_redir_node
 {
 	char				*file_name;
 	t_token_type		redir_type;
-	struct s_redir_list	*next;
+	struct s_redir_node	*next;
 }	t_redir_node;
 
 typedef struct s_redir_q
 {
 	struct s_redir_node	*front;
 	struct s_redir_node	*rear;
+	int				cnt;
 }				t_redir_q;
 
 typedef struct s_arg_node
 {
 	char				*content;
-	struct s_arg_list	*next;
+	struct s_arg_node	*next;
 }	t_arg_node;
 
 typedef struct s_arg_q
 {
 	struct s_arg_node	*front;
 	struct s_arg_node	*rear;
+	int			cnt;
 }				t_arg_q;
 
-
-typedef struct s_cmd
+typedef struct s_pipe_node
 {
-	t_redir_q		*redir_q;
-	t_limiter_q		*lim_q;
-	t_arg_q			*arg_q;
-}	t_cmd;
-
-typedef struct s_pipe_line
-{
-	t_cmd				*cmd;
-	struct s_pipe_line	*next_pipe;
-}	t_pipe_line;
+	t_redir_q			*redir_q;
+	t_limiter_q			*lim_q;
+	t_arg_q				*arg_q;
+	struct s_pipe_node	*next_pipe;
+}	t_pipe_node;
 
 typedef struct s_pipe_q
 {
-	t_pipe_line	*front;
-	t_pipe_line	*rear;
+	t_pipe_node	*front;
+	t_pipe_node	*rear;
 	int			cnt_pipe;
 }	t_pipe_q;
 
@@ -209,9 +205,9 @@ t_state_num ft_state_8(t_action_state **state, t_token_type type);
 t_state_num ft_state_9(t_action_state **state, t_token_type type);
 t_state_num ft_state_10(t_action_state **state, t_token_type type);
 void	ft_goto(t_action_state **state, t_token **token);
-int	ft_parser(t_pipe_head *pipe_head, t_token *token);
+int	ft_parser(t_pipe_q *pipe_head, t_token *token);
 void	ft_set_type(t_token_type *type, t_action_state **state, t_token **token);
 
-void	ft_print(t_pipe_line *pipe);
+void	ft_print(t_pipe_q *pipe);
 
 #endif

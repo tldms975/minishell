@@ -12,23 +12,21 @@
 
 #include "minishell.h"
 
-void	ft_print(t_pipe_line *pipe)
+void	ft_print(t_pipe_q *pipe)
 {
 	int				count;
-	t_pipe_line		*temp_pipe;
-	t_cmd			*temp_cmd;
-	t_arg_list		*temp_arg;
-	t_redir_list	*temp_redir;
+	t_pipe_node		*temp_pipe;
+	t_arg_node		*temp_arg;
+	t_redir_node	*temp_redir;
 	t_limiter_node	*temp_limit;
 
 	count = 0;
-	temp_pipe = pipe;
-	temp_cmd = temp_pipe->cmd;
-	temp_arg = temp_cmd->arg;
-	temp_redir = temp_cmd->redir;
-	temp_limit = temp_cmd->lim_q->front;
+	temp_pipe = pipe->front;
 	while (temp_pipe != NULL)
 	{
+		temp_arg = temp_pipe->arg_q->front;
+		temp_redir = temp_pipe->redir_q->front;
+		temp_limit = temp_pipe->lim_q->front;
 		printf ("pipe : %d \n", count++);
 		printf("ARG : ");
 		while (temp_arg != NULL)
@@ -57,15 +55,19 @@ void	ft_print(t_pipe_line *pipe)
 
 int	ft_minishell(t_envp_list *env)
 {
-	t_pipe_head	pipe_head;
+	t_pipe_q	*pipe_q;
 	char	*line;
 	int		exit_code;
 	t_lexer	lexer;
 
 	exit_code=0;
 	(void)env;
+	pipe_q = ft_malloc(sizeof(t_pipe_q));
 	while (1)
 	{
+		pipe_q->cnt_pipe = -1;
+		pipe_q->front = NULL;
+		pipe_q->rear = NULL;
 		ft_default_signal();
 		line = readline("bash$ ");
 		if (!line)
@@ -75,8 +77,8 @@ int	ft_minishell(t_envp_list *env)
 		if (ft_lexer(&lexer) < 0)
 			ft_putstr_fd("syntax error\n", STDERR_FILENO);
 		else
-			ft_parser(&pipe_head, lexer.head);
-		ft_print(pipe_head.head);
+			ft_parser(pipe_q, lexer.head);
+		// ft_print(&pipe_q);
 		//cmd_tree = ft_parse(line);
 		//exit_code = ft_execute(cmd, env);
 		free(line);

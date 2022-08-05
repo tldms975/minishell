@@ -6,25 +6,25 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:14:28 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/05 22:03:57 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/06 02:27:57 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_update_env(t_envp_list *env, const char *key, const char *value)
+static void	ft_update_pwd(t_envp_list *env, const char *oldpwd)
 {
-	t_envp_list	*ptr;
+	char	*pwd;
 
-	ptr = ft_get_env_value(env, key);
-	ft_free(ptr->value);
-	ptr->value = ft_strdup(value);
-}
-
-static void	ft_update_pwd(t_envp_list *env, const char *pwd, const char *oldpwd)
-{
+	pwd = getcwd(NULL, 0);
+	if (!pwd)
+	{
+		ft_perror("getcwd error");
+		ft_exit(EXIT_FAILURE);
+	}
 	ft_update_env(env, "OLDPWD", oldpwd);
 	ft_update_env(env, "PWD", pwd);
+	ft_free((void **) &pwd);
 }
 
 static int	ft_cd_to_arg(t_envp_list *env, const char *dir)
@@ -36,12 +36,12 @@ static int	ft_cd_to_arg(t_envp_list *env, const char *dir)
 	ret = chdir(dir);
 	if (ret == EXIT_SUCCESS)
 	{
-		ft_update_pwd(env, goal_path);
+		ft_update_pwd(env, old_pwd);
 	}
 	else if (ret == -1)
 	{
 		ft_putstr_fd("cd: ", STDERR_FILENO);
-		ft_perror(path);
+		ft_perror(dir);
 	}
 	return (ret);
 }
@@ -65,7 +65,7 @@ int	ft_bi_cd(t_cmd *cmd, t_envp_list *env)
 {
 	t_arg_list	*dir;
 
-	dir = cmd->arg->next
+	dir = cmd->arg->next;
 	if (!dir)
 		return (ft_cd_by_env(env, "HOME"));
 	else

@@ -6,23 +6,23 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:14:38 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/05 18:23:44 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/06 03:03:05 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_bi_pwd(t_cmd *cmd, t_executor *exec)
+int	ft_bi_pwd(t_cmd *cmd, t_envp_list *env)
 {
 	char	*pwd;
 
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
 	{
-		ft_perror("getcwd error");
-		ft_exit(1);
+		ft_perror("getcwd");
+		ft_exit(EXIT_FAILURE);
 	}
 	printf("%s\n", pwd);
-	ft_free(pwd);
-	return (0);
+	ft_free((void **) &pwd);
+	return (EXIT_SUCCESS);
 }
