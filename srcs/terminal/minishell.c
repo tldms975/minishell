@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:29:19 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/02 19:23:47 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/05 15:27:15 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,14 @@ int	ft_minishell(char *envp[])
 	int		exit_code;
 	t_lexer	lexer;
 
-	exit_code=-1;
+	exit_code=0;
 	(void)envp;
 	while (1)
 	{
-		//ft_signal();
+		ft_default_signal();
 		line = readline("bash$ ");
 		if (!line)
-			ft_exit();
+			ft_exit(exit_code);
 		add_history(line);
 		lexer_setting(&lexer, line);
 		if (ft_lexer(&lexer) < 0)

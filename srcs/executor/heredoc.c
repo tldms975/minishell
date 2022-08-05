@@ -6,13 +6,13 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 18:55:39 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/03 23:16:34 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/04 09:26:16 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_read_heredoc(t_executor *exec, char *limiter)
+static void	ft_read_heredoc(t_executor *exec, char *limiter)
 {
 	char	*line;
 

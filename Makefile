@@ -6,7 +6,7 @@
 #    By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/13 17:14:48 by sielee            #+#    #+#              #
-#    Updated: 2022/08/03 19:54:18 by sielee           ###   ########seoul.kr   #
+#    Updated: 2022/08/05 16:18:59 by sielee           ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ PARSER_SRCS		=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/parser/,\
 					function))
 UTILS_SRCS		=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/utils/,\
 					basic_utils\
+					exit\
 					sys_utils\
 					queue\
 					free))
@@ -45,13 +46,20 @@ TERMINAL_SRCS	=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/terminal/,\
 					minishell\
 					sig_handling))
 BUILTIN_SRCS	=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/builtin/,\
-					))
+					built_in\
+					ft_bi_cd\
+					ft_bi_echo\
+					ft_bi_env\
+					ft_bi_exit\
+					ft_bi_export\
+					ft_bi_pwd\
+					ft_bi_unset))
 EXECUTOR_SRCS	=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/executor/,\
-					execute\
-					finish_process\
+					exec_utils\
+					exec\
 					heredoc\
+					process\
 					redirection))
-					
 SRCS			=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/,\
 					main))\
 					$(UTILS_SRCS)\
