@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:14:33 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/05 16:42:49 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/06 03:01:36 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ int	ft_isnumeric(char *str)
 	while (*str)
 	{
 		if (!ft_isdigit(*str))
-			return (0);
+			return (FALSE);
 		str++;
 	}
-	return (1);
+	return (TRUE);
 }
 
-int	ft_bi_exit(t_cmd *cmd, t_executor *exec)
+int	ft_bi_exit(t_cmd *cmd, t_envp_list *env)
 {
 	t_arg_list *bi_arg;
 

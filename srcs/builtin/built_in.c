@@ -6,15 +6,15 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:26:47 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/04 02:11:17 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/06 02:39:44 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_execute_built_in(t_cmd *cmd, t_executor *exec, int code)
+int	ft_execute_built_in(t_cmd *cmd, t_envp_list *env, int code)
 {
-	int		(*ft_bi[7])(t_cmd *cmd, t_executor *exec);
+	int		(*ft_bi[7])(t_cmd *cmd, t_envp_list *env);
 
 	ft_bi[0] = ft_bi_cd;
 	ft_bi[1] = ft_bi_echo;
@@ -23,7 +23,7 @@ int	ft_execute_built_in(t_cmd *cmd, t_executor *exec, int code)
 	ft_bi[4] = ft_bi_export;
 	ft_bi[5] = ft_bi_pwd;
 	ft_bi[6] = ft_bi_unset;
-	return (ft_bi[code](cmd, exec));
+	return (ft_bi[code](cmd, env));
 }
 
 int	ft_check_builtin(t_cmd *cmd, t_executor *exec)

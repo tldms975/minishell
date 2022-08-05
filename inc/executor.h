@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:08:46 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/05 19:53:37 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/06 04:10:04 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <unistd.h>
 # include "parser.h"
+# include "envp.h"
 
 enum e_exit_stat
 {
@@ -28,18 +29,25 @@ enum e_read_write
 	WRITE
 };
 
+enum e_true_false
+{
+	FALSE,
+	TRUE
+};
+
 typedef struct s_executor	t_executor;
 
 struct s_executor
 {
-	pid_t	pid;
-	int		fd_read;
-	int		fd_write;
-	int		pipe_fd[2];
-	int		heredoc_fd[2];
-	int		is_built_in;
-	int		built_in_code;
-	int		cnt_child;
+	pid_t		pid;
+	int			fd_read;
+	int			fd_write;
+	int			pipe_fd[2];
+	int			heredoc_fd[2];
+	int			is_built_in;
+	int			built_in_code;
+	int			cnt_child;
+	t_envp_list	*env;
 };
 
 int		ft_get_exit_status(int status);
