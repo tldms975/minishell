@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:08:46 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/06 04:10:04 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/08 01:43:41 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@
 enum e_exit_stat
 {
 	EXIT_UNEXECUTABLE = 126,
-	EXIT_NOTFOUND = 127
+	EXIT_NOTFOUND = 127,
+	EXIT_OVER = 255
 };
 
 enum e_read_write

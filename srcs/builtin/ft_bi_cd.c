@@ -5,12 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/03 16:14:28 by sielee            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/08/07 22:10:54 by sielee           ###   ########seoul.kr  */
-=======
-/*   Updated: 2022/08/07 21:21:22 by sielee           ###   ########seoul.kr  */
->>>>>>> ff292cba4812a7e9f1fd65bf75af118e556cb79c
+/*   Created: 2022/08/08 02:03:46 by sielee            #+#    #+#             */
+/*   Updated: 2022/08/08 03:03:24 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,30 +27,40 @@ static void	ft_update_pwd(t_envp_list *env, const char *oldpwd)
 	ft_free((void **) &pwd);
 }
 
-static int	ft_cd_to_arg(t_envp_list *env, const char *dir)
+static int	ft_cd_to_path(t_envp_list *env, const char *path)
 {
-	int		ret;
+	int		exit_status;
 	char	*old_pwd;
 
-	old_pwd = ft_get_env_value(env, "PWD");
-	ret = chdir(dir);
-	if (ret == EXIT_SUCCESS)
+	old_pwd = ft_get_ptr_env_value(env, "PWD", NULL);
+	exit_status = chdir(path);
+	if (exit_status == EXIT_SUCCESS)
 	{
 		ft_update_pwd(env, old_pwd);
 	}
-	else if (ret == -1)
+	else if (exit_status == -1)
 	{
 		ft_putstr_fd("cd: ", STDERR_FILENO);
-		ft_perror(dir);
+		ft_perror(path);
 	}
-	return (ret);
+	return (exit_status);
+}
+
+static int	ft_cd_by_arg(t_envp_list *env, const char *dir)
+{
+	char		**cdpath;
+
+	if (ft_get_ptr_env_value(env, "CDPATH", NULL))
+		cdpath = ft_split(ft_get_ptr_env_value(env, "CDPATH", NULL), ':');
+	if (!cdpath)
+
 }
 
 static int	ft_cd_by_env(t_envp_list *env, const char *key)
 {
 	char	*path;
 
-	path = ft_get_env_value(env, key);
+	path = ft_get_ptr_env_value(env, key, NULL);
 	if (!path)
 	{
 		ft_putstr_fd("cd: ", STDERR_FILENO);
@@ -62,7 +68,8 @@ static int	ft_cd_by_env(t_envp_list *env, const char *key)
 		ft_putendl_fd(" not set", STDERR_FILENO);
 		return (EXIT_FAILURE);
 	}
-	ft_cd_to_arg(env, path);
+	else
+		return (ft_cd_to_path(env, path));
 }
 
 int	ft_bi_cd(t_pipe_node *cmd)
@@ -79,5 +86,5 @@ int	ft_bi_cd(t_pipe_node *cmd)
 		if (ft_strncmp(dir->content, "-", 2))
 			return (ft_cd_by_env(cmd->env_list, "OLDPWD"));
 	}
-	return (ft_cd_to_arg(cmd->env_list, dir->content));
+	return (ft_cd_by_arg(cmd->env_list, dir->content));
 }

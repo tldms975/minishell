@@ -6,13 +6,13 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:14:33 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/07 19:10:28 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/08 01:51:35 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_isnumeric(char *str)
+static int	ft_isnumeric(char *str)
 {
 	if (*str == '+' || *str == '-')
 		str++;
@@ -25,6 +25,22 @@ int	ft_isnumeric(char *str)
 	return (TRUE);
 }
 
+static void	ft_exit_errmsg_numeric(const char *str)
+{
+	ft_print_exit();
+	ft_putstr_fd("bash: exit: ", STDERR_FILENO);
+	ft_putstr_fd(str, STDERR_FILENO);
+	ft_putendl_fd(": numeric argument required", STDERR_FILENO);
+	exit(EXIT_OVER);
+}
+
+static int ft_exit_fail_too_many_args(void)
+{
+	ft_print_exit();
+	ft_putendl_fd("bash: exit: too many arguments", STDERR_FILENO);
+	return (EXIT_FAILURE);
+}
+
 int	ft_bi_exit(t_pipe_node *cmd)
 {
 	t_arg_node *bi_arg;
@@ -32,26 +48,18 @@ int	ft_bi_exit(t_pipe_node *cmd)
 	bi_arg = cmd->arg_list->front->next;
 	if (!bi_arg)
 	{
-		ft_exit(0);
+		ft_exit(0);//현재상태 알 수있도록 전역변수 써야할듯
 	}
 	else if (ft_isnumeric(bi_arg->content))
 	{
 		if (bi_arg->next)
-		{
-			ft_print_exit();
-			ft_putendl_fd("bash: exit: too many arguments", STDERR_FILENO);
-			return (255);
-		}
+			return (ft_exit_fail_too_many_args());
 		else
 			ft_exit(ft_atoi(bi_arg->content));
 	}
 	else
 	{
-		ft_print_exit();
-		ft_putstr_fd("bash: exit: ", STDERR_FILENO);
-		ft_putstr_fd(bi_arg->content, STDERR_FILENO);
-		ft_putendl_fd(": numeric argument required", STDERR_FILENO);
-		exit(255);
-		return (255);
+		ft_exit_with_errmsg_numeric(bi_arg->content);
 	}
+	return (EXIT_SUCCESS);
 }

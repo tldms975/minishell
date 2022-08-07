@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 17:12:20 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/07 19:06:01 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/08 00:58:50 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ int	main(int ac, char *av[], char *envp[])
 	int	ret;
 
 	(void)av;
-	(void)envp;
 	ret = 0;
 	if (ac > 1)
 		ft_error("Wrong Argc\n");

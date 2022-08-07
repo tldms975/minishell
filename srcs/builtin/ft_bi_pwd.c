@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:14:38 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/07 18:56:12 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/08 01:54:27 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_bi_pwd(t_pipe_node *cmd)
 	if (!pwd)
 	{
 		ft_perror("getcwd");
-		ft_exit(EXIT_FAILURE);
+		return (EXIT_FAILURE);
 	}
 	printf("%s\n", pwd);
 	ft_free((void **) &pwd);

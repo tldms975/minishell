@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:50:42 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/07 21:48:25 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/08 02:01:52 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ int	ft_exe_parent_process(t_pipe_node *cmd, t_executor *exec)
 	}
 	ft_dup2(exec->fd_read, STDIN_FILENO);
 	ft_dup2(exec->fd_write, STDOUT_FILENO);
-	ft_execute_built_in(cmd, exec->built_in_code);
-	return (EXIT_SUCCESS);
+	return (ft_execute_built_in(cmd, exec->built_in_code));
 }
 
 void	ft_exe_child_process(t_pipe_node *cmd, t_executor *exec)
@@ -46,7 +45,7 @@ void	ft_exe_child_process(t_pipe_node *cmd, t_executor *exec)
 	if (exec->is_built_in)
 		ft_execute_built_in(cmd, exec->built_in_code);
 	else
-		ft_execute_cmd(cmd->arg_list, cmd->env_list->vec);
+		ft_execute_cmd(cmd->arg_list, ft_get_env_vector(cmd->env_list));
 }
 
 int	ft_get_exit_status(int status)
