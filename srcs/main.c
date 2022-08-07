@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 17:12:20 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/06 04:15:56 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/07 18:16:06 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,5 @@ int	main(int ac, char *av[], char *envp[])
 		ft_error("Wrong Argc\n");
 	ft_init_env_list(&env, envp);
 	//ret = ft_minishell(&env);
-	//ft_free
 	return (ret);
 }
