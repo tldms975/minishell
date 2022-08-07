@@ -415,12 +415,15 @@ int	ft_parsing(t_pipe_node **pipe, t_token **token)
 int	ft_parser(t_pipe_list *pipe_list, t_token *token)
 {
 	t_action_state	*state;
+	t_action_state	*temp_state;
 	void			*temp;
 
 	state = new_state();
 	state->state = STATE_0;
 	temp = token;
+	temp_state = state;
 	ft_goto(&state, &token);
+	ft_state_free(&temp_state);
 	token = temp;
 	if (state->state == STATE_ERR)
 	{

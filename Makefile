@@ -35,6 +35,7 @@ PARSER_SRCS		=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/parser/,\
 					utils_lexer\
 					ft_goto\
 					reduce\
+					free_of_parsing\
 					function))
 UTILS_SRCS		=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/utils/,\
 					basic_utils\

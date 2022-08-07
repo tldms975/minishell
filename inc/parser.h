@@ -208,5 +208,7 @@ int	ft_parser(t_pipe_list *pipe_head, t_token *token);
 void	ft_set_type(t_token_type *type, t_action_state **state, t_token **token);
 
 void	ft_print(t_pipe_list *pipe);
+void	ft_state_free(t_action_state **state);
+void	ft_parser_free(t_pipe_list *pipe);
 
 #endif
