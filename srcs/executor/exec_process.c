@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:50:42 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/07 19:03:47 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/07 21:48:25 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	ft_exe_parent_process(t_pipe_node *cmd, t_executor *exec)
 {
 	t_redir_node	*redir;
-
 
 	redir = cmd->redir_list->front;
 	while (redir)
@@ -47,7 +46,7 @@ void	ft_exe_child_process(t_pipe_node *cmd, t_executor *exec)
 	if (exec->is_built_in)
 		ft_execute_built_in(cmd, exec->built_in_code);
 	else
-		ft_execute_cmd(cmd->arg_list, cmd->env->vec);
+		ft_execute_cmd(cmd->arg_list, cmd->env_list->vec);
 }
 
 int	ft_get_exit_status(int status)

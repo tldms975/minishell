@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:11:51 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/07 19:06:35 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/07 20:57:36 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	ft_ready_to_exec(t_pipe_node *cmd, t_executor	*exec, t_envp_list *en
 	exec->pipe_fd[WRITE] = STDOUT_FILENO;
 	exec->is_built_in = 0;
 	exec->built_in_code = 0;
-	cmd->env = env;
+	cmd->env_list = env;
 }
 
 int	ft_execute(t_pipe_list *pipe_list, t_envp_list *env_list)

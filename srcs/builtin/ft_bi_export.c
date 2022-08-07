@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:14:35 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/07 19:07:52 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/07 22:28:09 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	ft_set_env_var(const char *str, t_envp_list *env, int idx_equal)
 	ft_free(value);
 }
 
-static int	ft_check_valid_arg(const char *str, int *idx_equal)
+static int	ft_check_valid(const char *str, int *idx_equal)
 {
 	int	i;
 
@@ -63,7 +63,7 @@ int	ft_bi_export(t_pipe_node *cmd)
 	while (bi_arg)
 	{
 		idx_equal = 0;
-		if (ft_check_valid_args(bi_arg, &idx_equal))
+		if (ft_check_valid(bi_arg, &idx_equal))
 			ft_set_env_value(bi_arg, cmd->env_list, idx_equal);
 		else
 			exit_status = 1;

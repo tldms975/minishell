@@ -6,13 +6,13 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 21:29:24 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/07 17:56:33 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/07 22:51:08 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*ft_get_env_value(t_envp_list *env, const char *key)
+char	*ft_get_env_value(t_envp_list *env, const char *key, t_envp_node *position)
 {
 	t_envp_node	*ptr;
 
@@ -20,7 +20,10 @@ char	*ft_get_env_value(t_envp_list *env, const char *key)
 	while (ptr)
 	{
 		if (ft_strncmp(ptr->key, key, ft_strlen(key) + 1))
+		{
+			position = ptr;
 			return (ptr->value);
+		}
 		ptr = ptr->next;
 	}
 	return (NULL);
@@ -48,11 +51,13 @@ void	ft_add_env_var(t_envp_list *env, const char *key, const char *value)
 	}
 }
 
-void	ft_update_env(t_envp_list *env, const char *key, const char *value)
+void	ft_mod_env_value(t_envp_list *env, const char *key, const char *value)
 {
+	t_envp_node	*position;
 	char	*env_value;
 
-	env_value = ft_get_env_value(env, key);
+	env_value = ft_get_env_value(env, key, position);
 	ft_free((void **) &env_value);
 	env_value = ft_strdup(value);
+	position->value = env_value;
 }

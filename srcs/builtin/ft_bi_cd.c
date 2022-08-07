@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:14:28 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/07 19:09:19 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/07 22:10:54 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ static void	ft_update_pwd(t_envp_list *env, const char *oldpwd)
 		ft_perror("getcwd error");
 		ft_exit(EXIT_FAILURE);
 	}
-	ft_update_env(env, "OLDPWD", oldpwd);
-	ft_update_env(env, "PWD", pwd);
+	ft_mod_env_value(env, "OLDPWD", oldpwd);
+	ft_mod_env_value(env, "PWD", pwd);
 	ft_free((void **) &pwd);
 }
 
