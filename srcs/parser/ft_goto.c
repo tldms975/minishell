@@ -436,6 +436,5 @@ int	ft_parser(t_pipe_list *pipe_list, t_token *token)
 				ft_enqueue_pipe(&pipe_list);
 		}
 	}
-	ft_print(pipe_list);
 	return (0);
 }

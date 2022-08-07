@@ -46,7 +46,6 @@ ENVP_SRCS		=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/envp/,\
 					init_env\
 					env_tool))
 TERMINAL_SRCS	=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/terminal/,\
-					minishell\
 					sig_handling))
 BUILTIN_SRCS	=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/builtin/,\
 					built_in\

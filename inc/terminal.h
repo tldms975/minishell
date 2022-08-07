@@ -21,6 +21,5 @@
 
 void	ft_newline_handler(int sig);
 void	ft_default_signal(void);
-int		ft_minishell(t_envp_list *env);
 
 #endif
