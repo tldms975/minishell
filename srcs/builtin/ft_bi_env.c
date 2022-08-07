@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:14:30 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/07 17:35:14 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/07 17:53:32 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	ft_bi_env(t_pipe_line *cmd)
 {
 	char	*line;
 
+	//ft_sort_env();
 	line = *(cmd->env->vec);
 	while (line)
 	{

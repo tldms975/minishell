@@ -6,7 +6,7 @@
 #    By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/13 17:14:48 by sielee            #+#    #+#              #
-#    Updated: 2022/08/05 22:52:45 by sielee           ###   ########seoul.kr   #
+#    Updated: 2022/08/07 18:07:34 by sielee           ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,10 +58,10 @@ BUILTIN_SRCS	=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/builtin/,\
 					ft_bi_pwd\
 					ft_bi_unset))
 EXECUTOR_SRCS	=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/executor/,\
+					exec_process\
 					exec_utils\
 					exec\
 					heredoc\
-					process\
 					redirection))
 SRCS			=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/,\
 					main))\

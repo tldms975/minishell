@@ -6,13 +6,13 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 21:27:04 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/07 17:33:00 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/07 18:07:41 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*ft_make_env_line(t_envp_node *node)
+static char	*ft_make_env_line(t_envp_node *node)
 {
 	char	*res;
 
@@ -22,7 +22,7 @@ char	*ft_make_env_line(t_envp_node *node)
 	return (res);
 }
 
-char	**ft_get_env_vector(t_envp_list *env)
+char	**ft_get_env_vector(t_envp_list *env)//소팅을 이  메메모모리리에에서서하하면 static으로 선언해도 됨
 {
 	t_envp_node	*env_node;
 	char		**res;
@@ -39,28 +39,6 @@ char	**ft_get_env_vector(t_envp_list *env)
 	}
 	res[i] = NULL;
 	return (res);
-}
-
-void	ft_add_env_var(t_envp_list *env, const char *key, const char *value)
-{
-	t_envp_node	*new;
-
-	new = (t_envp_node *)ft_malloc(sizeof(t_envp_node) * 1);
-	new->key = ft_strdup(key);
-	new->value = ft_strdup(value);
-	new->next = NULL;
-	if (!env->head)
-	{
-		env->len = 0;
-		env->head = new;
-		env->tail = new;
-	}
-	else
-	{
-		env->len += 1;
-		env->tail->next = new;
-		env->tail = new;
-	}
 }
 
 static int	ft_get_idx_equal(char *str)
