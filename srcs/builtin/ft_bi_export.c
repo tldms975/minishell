@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:14:35 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/05 22:18:38 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/07 17:36:04 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	ft_check_valid_arg(const char *str, int *idx_equal)
 	return (1);
 }
 
-int	ft_bi_export(t_cmd *cmd, t_envp_list *env)
+int	ft_bi_export(t_pipe_line *cmd)
 {
 	t_arg_list	*bi_arg;
 	int			idx_equal;

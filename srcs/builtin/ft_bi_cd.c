@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:14:28 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/06 02:27:57 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/07 17:35:51 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static int	ft_cd_by_env(t_envp_list *env, const char *key)
 	ft_cd_to_arg(env, path);
 }
 
-int	ft_bi_cd(t_cmd *cmd, t_envp_list *env)
+int	ft_bi_cd(t_pipe_line *cmd)
 {
 	t_arg_list	*dir;
 

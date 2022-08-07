@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 21:27:04 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/06 04:16:15 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/07 17:33:00 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ char	**ft_get_env_vector(t_envp_list *env)
 	char		**res;
 	int			i;
 
-	//ft_sort_env();
 	i = 0;
 	env_node = env->head;
 	res = (char **)ft_malloc(sizeof(char *) * (env->len + 1));
@@ -96,4 +95,5 @@ void	ft_init_env_list(t_envp_list *env, char *envp[])
 		envp++;
 		line = *envp;
 	}
+	env->vec = ft_get_env_vector(env);
 }

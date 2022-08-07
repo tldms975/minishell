@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:04:46 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/06 04:13:48 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/07 17:19:04 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 
-int		ft_check_builtin(t_cmd *cmd, t_executor *exec);
+int		ft_check_builtin(t_pipe_line *cmd, t_executor *exec);
 
-int		ft_bi_pwd(t_cmd *cmd, t_envp_list *env);
-int		ft_bi_cd(t_cmd *cmd, t_envp_list *env);
-int		ft_bi_echo(t_cmd *cmd, t_envp_list *env);
-//int		ft_bi_env(t_cmd *cmd, t_envp_list *env);
-int		ft_bi_export(t_cmd *cmd, t_envp_list *env);
-int		ft_bi_unset(t_cmd *cmd, t_envp_list *env);
-int		ft_bi_exit(t_cmd *cmd, t_envp_list *env);
+int		ft_bi_pwd(t_pipe_line *cmd, t_envp_list *env);
+int		ft_bi_cd(t_pipe_line *cmd, t_envp_list *env);
+int		ft_bi_echo(t_pipe_line *cmd, t_envp_list *env);
+int		ft_bi_env(t_pipe_line *cmd, t_envp_list *env);
+int		ft_bi_export(t_pipe_line *cmd, t_envp_list *env);
+int		ft_bi_unset(t_pipe_line *cmd, t_envp_list *env);
+int		ft_bi_exit(t_pipe_line *cmd, t_envp_list *env);
 
 
 
