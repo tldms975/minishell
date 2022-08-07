@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:14:35 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/07 17:36:04 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/07 19:07:52 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,19 +52,19 @@ static int	ft_check_valid_arg(const char *str, int *idx_equal)
 	return (1);
 }
 
-int	ft_bi_export(t_pipe_line *cmd)
+int	ft_bi_export(t_pipe_node *cmd)
 {
-	t_arg_list	*bi_arg;
+	t_arg_node	*bi_arg;
 	int			idx_equal;
 	int			exit_status;
 
 	exit_status = 0;
-	bi_arg= cmd->arg->next;
+	bi_arg = cmd->arg_list->front->next;
 	while (bi_arg)
 	{
 		idx_equal = 0;
 		if (ft_check_valid_args(bi_arg, &idx_equal))
-			ft_set_env_value(bi_arg, env, idx_equal);
+			ft_set_env_value(bi_arg, cmd->env_list, idx_equal);
 		else
 			exit_status = 1;
 		bi_arg = bi_arg->next;

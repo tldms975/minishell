@@ -6,18 +6,22 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:50:42 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/07 18:27:44 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/07 19:03:47 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_exe_parent_process(t_pipe_line *cmd, t_executor *exec)
+int	ft_exe_parent_process(t_pipe_node *cmd, t_executor *exec)
 {
-	while (cmd->redir)
+	t_redir_node	*redir;
+
+
+	redir = cmd->redir_list->front;
+	while (redir)
 	{
-		ft_redirection(cmd->redir->type, cmd->redir->file_name, exec);
-		cmd->redir = cmd->redir->next;
+		ft_redirection(redir->type, redir->file_name, exec);
+		redir = redir->next;
 	}
 	ft_dup2(exec->fd_read, STDIN_FILENO);
 	ft_dup2(exec->fd_write, STDOUT_FILENO);
@@ -25,22 +29,25 @@ int	ft_exe_parent_process(t_pipe_line *cmd, t_executor *exec)
 	return (EXIT_SUCCESS);
 }
 
-void	ft_exe_child_process(t_pipe_line *cmd, t_executor *exec)
+void	ft_exe_child_process(t_pipe_node *cmd, t_executor *exec)
 {
+	t_redir_node	*redir;
+
 	exec->cnt_child += 1;
-	while (cmd->redir)
+	redir = cmd->redir_list->front;
+	while (redir)
 	{
-		ft_redirection(cmd->redir->type, cmd->redir->file_name, exec);
+		ft_redirection(redir->type, redir->file_name, exec);
 		if (exec->fd_read < 0 || exec->fd_write < 0)
 			exit(EXIT_NOTFOUND);//TODO: check
-		cmd->redir = cmd->redir->next;
+		redir = redir->next;
 	}
 	ft_dup2(exec->fd_read, STDIN_FILENO);
 	ft_dup2(exec->fd_write, STDOUT_FILENO);
 	if (exec->is_built_in)
 		ft_execute_built_in(cmd, exec->built_in_code);
 	else
-		ft_execute_cmd(cmd->arg, cmd->env->vec);
+		ft_execute_cmd(cmd->arg_list, cmd->env->vec);
 }
 
 int	ft_get_exit_status(int status)

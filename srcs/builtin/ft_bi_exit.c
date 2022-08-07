@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:14:33 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/07 17:35:58 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/07 19:10:28 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ int	ft_isnumeric(char *str)
 	return (TRUE);
 }
 
-int	ft_bi_exit(t_pipe_line *cmd)
+int	ft_bi_exit(t_pipe_node *cmd)
 {
-	t_arg_list *bi_arg;
+	t_arg_node *bi_arg;
 
-	bi_arg = cmd->arg->next;
+	bi_arg = cmd->arg_list->front->next;
 	if (!bi_arg)
 	{
 		ft_exit(0);

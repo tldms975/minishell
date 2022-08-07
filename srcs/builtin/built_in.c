@@ -6,15 +6,15 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:26:47 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/07 17:22:36 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/07 19:09:48 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_execute_built_in(t_pipe_line *cmd, int code)
+int	ft_execute_built_in(t_pipe_node *cmd, int code)
 {
-	int		(*ft_bi[7])(t_pipe_line *cmd);
+	int		(*ft_bi[7])(t_pipe_node *cmd);
 
 	ft_bi[0] = ft_bi_cd;
 	ft_bi[1] = ft_bi_echo;
@@ -26,7 +26,7 @@ int	ft_execute_built_in(t_pipe_line *cmd, int code)
 	return (ft_bi[code](cmd));
 }
 
-int	ft_check_builtin(t_pipe_line *cmd, t_executor *exec)
+int	ft_check_builtin(t_pipe_node *cmd, t_executor *exec)
 {
 	const char	*built_in[7] = \
 	{"cd", "echo", "env", "exit", "export", "pwd", "unset"};
@@ -35,7 +35,7 @@ int	ft_check_builtin(t_pipe_line *cmd, t_executor *exec)
 	i = 0;
 	while (i < 7)
 	{
-		if (ft_strncmp(cmd->arg->content, *built_in[i], \
+		if (ft_strncmp(cmd->arg_list->front->content, *built_in[i], \
 		(ft_strlen(built_in[i]) + 1)) == 0)
 		{
 			exec->is_built_in = 1;

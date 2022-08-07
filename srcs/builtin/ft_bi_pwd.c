@@ -6,13 +6,13 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:14:38 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/07 17:39:23 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/07 18:56:12 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_bi_pwd(t_pipe_line *cmd)
+int	ft_bi_pwd(t_pipe_node *cmd)
 {
 	char	*pwd;
 

@@ -6,17 +6,22 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:14:30 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/07 17:53:32 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/07 18:53:29 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_bi_env(t_pipe_line *cmd)
+// static void	ft_sort_env(t_envp_list *env)
+// {
+
+// }
+
+int	ft_bi_env(t_pipe_node *cmd)
 {
 	char	*line;
 
-	//ft_sort_env();
+	//ft_sort_env(cmd->env->vec);
 	line = *(cmd->env->vec);
 	while (line)
 	{

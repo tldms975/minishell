@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:14:28 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/07 17:35:51 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/07 19:09:19 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,19 +61,19 @@ static int	ft_cd_by_env(t_envp_list *env, const char *key)
 	ft_cd_to_arg(env, path);
 }
 
-int	ft_bi_cd(t_pipe_line *cmd)
+int	ft_bi_cd(t_pipe_node *cmd)
 {
-	t_arg_list	*dir;
+	t_arg_node	*dir;
 
-	dir = cmd->arg->next;
+	dir = cmd->arg_list->front->next;
 	if (!dir)
-		return (ft_cd_by_env(env, "HOME"));
+		return (ft_cd_by_env(cmd->env_list, "HOME"));
 	else
 	{
 		if (ft_strncmp(dir->content, "~", 2))
-			return (ft_cd_by_env(env, "HOME"));
+			return (ft_cd_by_env(cmd->env_list, "HOME"));
 		if (ft_strncmp(dir->content, "-", 2))
-			return (ft_cd_by_env(env, "OLDPWD"));
+			return (ft_cd_by_env(cmd->env_list, "OLDPWD"));
 	}
-	return (ft_cd_to_arg(env, dir->content));
+	return (ft_cd_to_arg(cmd->env_list, dir->content));
 }

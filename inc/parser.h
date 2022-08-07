@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 15:11:50 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/07 17:21:36 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/07 19:07:16 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ typedef struct s_pipe_node
 	t_redir_list	*redir_list;
 	t_limiter_q		*lim_q;
 	t_arg_list		*arg_list;
-	t_envp_list		*env;
+	t_envp_list		*env_list;
 	struct s_pipe_node	*next;
 }				t_pipe_node;
 
