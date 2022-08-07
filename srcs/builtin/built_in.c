@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:26:47 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/07 19:09:48 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/07 19:55:59 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_execute_built_in(t_pipe_node *cmd, int code)
 {
-	int		(*ft_bi[7])(t_pipe_node *cmd);
+	int	(*ft_bi[7])(t_pipe_node *cmd);
 
 	ft_bi[0] = ft_bi_cd;
 	ft_bi[1] = ft_bi_echo;
