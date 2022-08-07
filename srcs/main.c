@@ -23,6 +23,6 @@ int	main(int ac, char *av[], char *envp[])
 	if (ac > 1)
 		ft_error("Wrong Argc\n");
 	ft_init_env_list(&env, envp);
-	//ret = ft_minishell(&env);
+	ret = ft_minishell(&env);
 	return (ret);
 }

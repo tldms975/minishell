@@ -243,21 +243,21 @@ t_limiter_q	*new_limiter_q()
 	return (new);
 }
 
-t_redir_q	*new_redir_q()
+t_redir_list	*new_redir_list()
 {
-	t_redir_q	*new;
+	t_redir_list	*new;
 
-	new = ft_malloc(sizeof(t_redir_q));
+	new = ft_malloc(sizeof(t_redir_list));
 	new->front = NULL;
 	new->rear = NULL;
 	return (new);
 }
 
-t_arg_q	*new_arg_q()
+t_arg_list	*new_arg_list()
 {
-	t_arg_q	*new;
+	t_arg_list	*new;
 
-	new = ft_malloc(sizeof(t_arg_q));
+	new = ft_malloc(sizeof(t_arg_list));
 	new->front = NULL;
 	new->rear = NULL;
 	return (new);
@@ -270,15 +270,15 @@ void	ft_enqueue_arg(t_pipe_node **pipe, char *data)
 	new = ft_malloc(sizeof(t_arg_node));
 	new->content = data;
 	new->next = NULL;
-	if ((*pipe)->arg_q->front == NULL)
+	if ((*pipe)->arg_list->front == NULL)
 	{
-		(*pipe)->arg_q->front = new;
+		(*pipe)->arg_list->front = new;
 	}
 	else
 	{
-		(*pipe)->arg_q->rear->next = new;
+		(*pipe)->arg_list->rear->next = new;
 	}
-	(*pipe)->arg_q->rear = new;
+	(*pipe)->arg_list->rear = new;
 }
 
 void	ft_enqueue_redir(t_pipe_node **pipe, t_token_type type, char *data)
@@ -287,42 +287,42 @@ void	ft_enqueue_redir(t_pipe_node **pipe, t_token_type type, char *data)
 
 	new = ft_malloc(sizeof(t_redir_node));
 	new->file_name = data;
-	new->redir_type = type;
+	new->type = type;
 	new->next = NULL;
-	if ((*pipe)->redir_q->front == NULL)
+	if ((*pipe)->redir_list->front == NULL)
 	{
-		(*pipe)->redir_q->front = new;
+		(*pipe)->redir_list->front = new;
 	}
 	else
 	{
-		(*pipe)->redir_q->rear->next = new;
+		(*pipe)->redir_list->rear->next = new;
 	}
-	(*pipe)->redir_q->rear = new;
+	(*pipe)->redir_list->rear = new;
 }
 
-int	ft_is_empty_q_pipe(t_pipe_q *queue)
+int	ft_is_empty_q_pipe(t_pipe_list *queue)
 {
 	return (queue->cnt_pipe == 0);
 }
 
-void	ft_enqueue_pipe(t_pipe_q **queue)
+void	ft_enqueue_pipe(t_pipe_list **queue)
 {
 	t_pipe_node	*new;
 
 	new = ft_malloc(sizeof(t_pipe_node));
-	new->arg_q = new_arg_q();
-	new->redir_q = new_redir_q();
+	new->arg_list = new_arg_list();
+	new->redir_list = new_redir_list();
 	new->lim_q = new_limiter_q();
-	new->next_pipe = NULL;
-	if ((*queue)->front == NULL)
+	new->next = NULL;
+	if ((*queue)->head == NULL)
 	{
-		(*queue)->front = new;
+		(*queue)->head = new;
 	}
 	else
 	{
-		(*queue)->rear->next_pipe = new;
+		(*queue)->tail->next = new;
 	}
-	(*queue)->rear = new;
+	(*queue)->tail = new;
 	(*queue)->cnt_pipe += 1;
 }
 
@@ -412,7 +412,7 @@ int	ft_parsing(t_pipe_node **pipe, t_token **token)
 	return (0);
 }
 
-int	ft_parser(t_pipe_q *pipe_q, t_token *token)
+int	ft_parser(t_pipe_list *pipe_list, t_token *token)
 {
 	t_action_state	*state;
 	void			*temp;
@@ -429,13 +429,13 @@ int	ft_parser(t_pipe_q *pipe_q, t_token *token)
 	}
 	else
 	{
-		ft_enqueue_pipe(&pipe_q);
+		ft_enqueue_pipe(&pipe_list);
 		while (token != NULL)
 		{
-			if (ft_parsing(&(pipe_q->rear), &token) == 1)
-				ft_enqueue_pipe(&pipe_q);
+			if (ft_parsing(&(pipe_list->tail), &token) == 1)
+				ft_enqueue_pipe(&pipe_list);
 		}
 	}
-	ft_print(pipe_q);
+	ft_print(pipe_list);
 	return (0);
 }

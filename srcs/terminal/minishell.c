@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	ft_print(t_pipe_q *pipe)
+void	ft_print(t_pipe_list *pipe)
 {
 	int				count;
 	t_pipe_node		*temp_pipe;
@@ -21,11 +21,11 @@ void	ft_print(t_pipe_q *pipe)
 	t_limiter_node	*temp_limit;
 
 	count = 0;
-	temp_pipe = pipe->front;
+	temp_pipe = pipe->head;
 	while (temp_pipe != NULL)
 	{
-		temp_arg = temp_pipe->arg_q->front;
-		temp_redir = temp_pipe->redir_q->front;
+		temp_arg = temp_pipe->arg_list->front;
+		temp_redir = temp_pipe->redir_list->front;
 		temp_limit = temp_pipe->lim_q->front;
 		printf ("pipe : %d \n", count++);
 		printf("ARG : ");
@@ -49,14 +49,14 @@ void	ft_print(t_pipe_q *pipe)
 			temp_limit = temp_limit->next;
 		}
 		printf("\n");
-		temp_pipe = temp_pipe->next_pipe;
+		temp_pipe = temp_pipe->next;
 	}
 }
 
-t_pipe_line	*ft_parse(char *line)
+t_pipe_node	*ft_parse(char *line)
 {
 	t_lexer		lexer;
-	t_pipe_head	pipe_head;
+	t_pipe_list	pipe_head;
 
 	pipe_head.cnt_pipe = -1;
 	lexer_setting(&lexer, line);
