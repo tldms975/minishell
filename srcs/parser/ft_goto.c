@@ -419,12 +419,13 @@ int	ft_parser(t_pipe_list *pipe_list, t_token *token)
 	void			*temp;
 
 	state = new_state();
-	state->state = STATE_0;
+	if (token != NULL)
+		state->state = STATE_0;
+	else
+		state->state = STATE_1;
 	temp = token;
 	temp_state = state;
 	ft_goto(&state, &token);
-	ft_state_free(&temp_state);
-	token = temp;
 	if (state->state == STATE_ERR)
 	{
 		ft_putstr_fd("syntax error\n", STDERR_FILENO);
@@ -432,6 +433,7 @@ int	ft_parser(t_pipe_list *pipe_list, t_token *token)
 	}
 	else
 	{
+		token = temp;
 		ft_enqueue_pipe(&pipe_list);
 		while (token != NULL)
 		{
@@ -439,5 +441,6 @@ int	ft_parser(t_pipe_list *pipe_list, t_token *token)
 				ft_enqueue_pipe(&pipe_list);
 		}
 	}
+	ft_state_free(&temp_state);
 	return (0);
 }
