@@ -6,7 +6,7 @@
 #    By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/13 17:14:48 by sielee            #+#    #+#              #
-#    Updated: 2022/08/07 18:07:34 by sielee           ###   ########seoul.kr   #
+#    Updated: 2022/08/08 18:57:03 by sielee           ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,8 @@ UTILS_SRCS		=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/utils/,\
 					free))
 ENVP_SRCS		=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/envp/,\
 					init_env\
-					env_tool))
+					env_tool\
+					env_vec))
 TERMINAL_SRCS	=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/terminal/,\
 					sig_handling))
 BUILTIN_SRCS	=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/builtin/,\
@@ -68,9 +69,9 @@ SRCS			=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/,\
 					$(UTILS_SRCS)\
 					$(TERMINAL_SRCS)\
 					$(PARSER_SRCS)\
-					$(ENVP_SRCS)
+					$(ENVP_SRCS)\
+					$(BUILTIN_SRCS)
 #					$(EXECUTOR_SRCS)
-#					$(BUILTIN_SRCS)
 OBJS			=	$(SRCS:.c=.o)
 
 all: $(NAME)
