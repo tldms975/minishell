@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:14:24 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/07 18:56:25 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/08 18:07:10 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,6 @@
 
 int	ft_bi_echo(t_pipe_node *cmd)
 {
-	
+	(void)cmd;
+	return (0);
 }

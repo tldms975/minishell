@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:14:33 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/08 01:51:35 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/08 18:10:16 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	ft_isnumeric(char *str)
 	return (TRUE);
 }
 
-static void	ft_exit_errmsg_numeric(const char *str)
+static void	ft_exit_with_errmsg_numeric(char *str)
 {
 	ft_print_exit();
 	ft_putstr_fd("bash: exit: ", STDERR_FILENO);

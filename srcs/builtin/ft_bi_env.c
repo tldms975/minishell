@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 22:59:15 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/08 02:46:04 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/08 22:10:41 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,16 @@ int	ft_bi_env(t_pipe_node *cmd)
 
 	//ft_sort_env(cmd->env->vec);
 	env = cmd->env_list->head;
-	line = ft_get_env_vector(env);
+	line = ft_make_env_line(env);
 	while (line)
 	{
 		printf("%s\n", line);
+		free(line);
 		env = env->next;
-		line = ft_make_env_line(env);
-		ft_free((void **)line);
+		if (env)
+			line = ft_make_env_line(env);
+		else
+			break ;
 	}
-	return (0);
+	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 01:00:46 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/08 01:13:59 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/08 22:06:19 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 char	*ft_make_env_line(t_envp_node *node)
 {
+	char	*step_one;
 	char	*res;
 
-	res = ft_strdup(node->key);
-	res = ft_strjoin(res, "=");
-	res = ft_strjoin(res, node->value);
+	step_one = ft_strjoin(node->key, "=");
+	res = ft_strjoin(step_one, node->value);
+	ft_free((void **) &step_one);
 	return (res);
 }
 

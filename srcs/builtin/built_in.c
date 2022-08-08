@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:26:47 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/07 19:55:59 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/08 18:03:02 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	ft_check_builtin(t_pipe_node *cmd, t_executor *exec)
 	i = 0;
 	while (i < 7)
 	{
-		if (ft_strncmp(cmd->arg_list->front->content, *built_in[i], \
+		if (ft_strncmp(cmd->arg_list->front->content, built_in[i], \
 		(ft_strlen(built_in[i]) + 1)) == 0)
 		{
 			exec->is_built_in = 1;

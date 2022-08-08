@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 02:03:46 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/08 05:41:10 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/09 06:33:32 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ static void	ft_update_pwd(t_envp_list *env, const char *oldpwd)
 	ft_free((void **) &pwd);
 }
 
-static int	ft_cd_to_path(t_envp_list *env, const char *path)
+static int	ft_cd_to_path(t_envp_list *env, char *path)
 {
 	int		exit_status;
 	char	*old_pwd;
 
-	old_pwd = ft_get_ptr_env_value(env, "PWD", NULL);
+	old_pwd = ft_get_env_value_ptr(env, "PWD");
 	exit_status = chdir(path);
 	if (exit_status == EXIT_SUCCESS)
 	{
@@ -46,20 +46,22 @@ static int	ft_cd_to_path(t_envp_list *env, const char *path)
 	return (exit_status);
 }
 
-static int	ft_cd_by_arg(t_envp_list *env, const char *dir)
+static int	ft_cd_by_arg(t_envp_list *env, char *dir)
 {
 	char		**cdpath;
 
-	cdpath = ft_split(ft_get_ptr_env_value(env, "CDPATH", NULL), ':');
+	cdpath = ft_split(ft_get_env_value_ptr(env, "CDPATH"), ':');
 	if (!cdpath)
 		return (EXIT_FAILURE);
+	(void)dir;
+	return (0);//test
 }
 
-static int	ft_cd_by_env(t_envp_list *env, const char *key)
+static int	ft_cd_by_env(t_envp_list *env, char *key)
 {
 	char	*path;
 
-	path = ft_get_ptr_env_value(env, key, NULL);
+	path = ft_get_env_value_ptr(env, key);
 	if (!path)
 	{
 		ft_putstr_fd("cd: ", STDERR_FILENO);

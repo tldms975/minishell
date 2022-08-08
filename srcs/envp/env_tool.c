@@ -6,28 +6,50 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 21:29:24 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/08 16:37:35 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/09 07:24:49 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*ft_get_ptr_env_value(t_envp_list *env, const char *key, \
-t_envp_node *position)
+t_envp_node	*ft_get_env_node_ptr(t_envp_list *env, const char *key)
 {
-	t_envp_node	*ptr;
+	t_envp_node	*target;
 
-	ptr = env->head;
-	while (ptr)
+	target = env->head;
+	while (target)
 	{
-		if (ft_strncmp(ptr->key, key, ft_strlen(key) + 1))
+		if (ft_strncmp(target->key, key, ft_strlen(key) + 1) == 0)
 		{
-			*position = *ptr;
-			return (ptr->value);
+			return (target);
 		}
-		ptr = ptr->next;
+		target = target->next;
 	}
 	return (NULL);
+}
+
+char	*ft_get_env_value_ptr(t_envp_list *env, const char *key)
+{
+	t_envp_node	*target;
+
+	target = ft_get_env_node_ptr(env, key);
+	if (target)
+		return (target->value);
+	return (NULL);
+}
+
+void	ft_del_env_var(t_envp_list *env, char *key)
+{
+	t_envp_node	*target_node;
+
+	target_node = ft_get_env_node_ptr(env, key);
+	if (!target_node)
+		return ;
+	target_node->prev->next = target_node->next;
+	env->len -= 1;
+	ft_free((void **) &(target_node->key));
+	ft_free((void **) &(target_node->value));
+	ft_free((void **) &target_node);
 }
 
 void	ft_add_env_var(t_envp_list *env, const char *key, const char *value)
@@ -43,11 +65,13 @@ void	ft_add_env_var(t_envp_list *env, const char *key, const char *value)
 		env->len = 0;
 		env->head = new;
 		env->tail = new;
+		new->prev = NULL;
 	}
 	else
 	{
 		env->len += 1;
 		env->tail->next = new;
+		new->prev = env->tail;
 		env->tail = new;
 	}
 }
@@ -55,10 +79,9 @@ void	ft_add_env_var(t_envp_list *env, const char *key, const char *value)
 void	ft_mod_env_value(t_envp_list *env, const char *key, \
 const char *new_value)
 {
-	t_envp_node	position;
 	char	*value;
 
-	value = ft_get_ptr_env_value(env, key, &position);
+	value = ft_get_env_value_ptr(env, key);
 	ft_free((void **) &value);
 	value = ft_strdup(new_value);
 }
