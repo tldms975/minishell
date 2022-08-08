@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 02:03:46 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/08 03:03:24 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/08 05:41:10 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,9 @@ static int	ft_cd_by_arg(t_envp_list *env, const char *dir)
 {
 	char		**cdpath;
 
-	if (ft_get_ptr_env_value(env, "CDPATH", NULL))
-		cdpath = ft_split(ft_get_ptr_env_value(env, "CDPATH", NULL), ':');
+	cdpath = ft_split(ft_get_ptr_env_value(env, "CDPATH", NULL), ':');
 	if (!cdpath)
-
+		return (EXIT_FAILURE);
 }
 
 static int	ft_cd_by_env(t_envp_list *env, const char *key)

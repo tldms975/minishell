@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 21:27:29 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/08 02:12:45 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/08 16:20:02 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ char	**ft_get_env_vector(t_envp_list *env);
 char	*ft_get_ptr_env_value(t_envp_list *env, const char *key, \
 		t_envp_node *position);
 void	ft_add_env_var(t_envp_list *env, const char *key, const char *value);
-void	ft_mod_env_value(t_envp_list *env, const char *key, const char *value);
+void	ft_mod_env_value(t_envp_list *env, const char *key, \
+		const char *new_value);
 
 #endif

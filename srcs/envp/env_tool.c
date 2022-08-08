@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 21:29:24 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/08 02:12:45 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/08 16:37:35 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_envp_node *position)
 	{
 		if (ft_strncmp(ptr->key, key, ft_strlen(key) + 1))
 		{
-			position = ptr;
+			*position = *ptr;
 			return (ptr->value);
 		}
 		ptr = ptr->next;
@@ -52,13 +52,13 @@ void	ft_add_env_var(t_envp_list *env, const char *key, const char *value)
 	}
 }
 
-void	ft_mod_env_value(t_envp_list *env, const char *key, const char *value)
+void	ft_mod_env_value(t_envp_list *env, const char *key, \
+const char *new_value)
 {
-	t_envp_node	*position;
-	char	*env_value;
+	t_envp_node	position;
+	char	*value;
 
-	env_value = ft_get_ptr_env_value(env, key, position);
-	ft_free((void **) &env_value);
-	env_value = ft_strdup(value);
-	position->value = env_value;
+	value = ft_get_ptr_env_value(env, key, &position);
+	ft_free((void **) &value);
+	value = ft_strdup(new_value);
 }

@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 17:12:20 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/08 00:58:50 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/08 16:44:51 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ int	ft_minishell(t_envp_list *env)
 int	main(int ac, char *av[], char *envp[])
 {
 	t_envp_list	env_list;
+	// t_envp_node	position;
 	int	ret;
 
 	(void)av;
@@ -106,6 +107,9 @@ int	main(int ac, char *av[], char *envp[])
 	if (ac > 1)
 		ft_error("Wrong Argc\n");
 	ft_init_env_list(&env_list, envp);
+	// ft_mod_env_value(&env_list, "PWD", "CUTE");
+	// printf("%s\n", ft_get_ptr_env_value(&env_list, "PWD", &position));
+	// printf("%s\n", position.next->key);
 	ret = ft_minishell(&env_list);
 	return (ret);
 }
