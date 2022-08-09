@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   expander.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/13 17:12:35 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/05 22:45:42 by sielee           ###   ########seoul.kr  */
+/*   Created: 2022/07/25 15:11:50 by sielee            #+#    #+#             */
+/*   Updated: 2022/08/07 19:07:16 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-
-# include "utils.h"
-# include "parser.h"
-# include "executor.h"
-# include "builtin.h"
+#ifndef EXPANDER_H
+# define EXPANDER_H
 # include "envp.h"
-# include "terminal.h"
-# include "expander.h"
+
 
 #endif
