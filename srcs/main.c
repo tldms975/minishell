@@ -6,13 +6,11 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 17:12:20 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/08 16:44:51 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/09 18:21:32 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-
 #include <stdio.h>
 void	ft_print(t_pipe_list *pipe)
 {
@@ -110,6 +108,6 @@ int	main(int ac, char *av[], char *envp[])
 	// ft_mod_env_value(&env_list, "PWD", "CUTE");
 	// printf("%s\n", ft_get_ptr_env_value(&env_list, "PWD", &position));
 	// printf("%s\n", position.next->key);
-	ret = ft_minishell(&env_list);
+	// ret = ft_minishell(&env_list);
 	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 21:27:04 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/08 01:01:15 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/09 18:12:00 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	ft_init_env_list(t_envp_list *env, char *envp[])
 	int			idx_equal;
 
 	env->head = NULL;
+	env->vec = NULL;
 	env->tail = NULL;
 	line = *envp;
 	while (line)

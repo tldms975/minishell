@@ -6,23 +6,24 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:38:06 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/08 16:38:08 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/09 18:15:31 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_execute_cmd(t_arg_list *arg, char *envp[])
+void	ft_execute_cmd(t_arg_list *arg, char *env_vec[])
 {
 	char	**cmd_vec;
 	char	*cmd_path;
 
-	execve(cmd_path, cmd_vec, envp);
-	ft_perror("execute error");
+	execve(cmd_path, cmd_vec, env_vec);
+	ft_perror("execve");
 	//exit();
 }
 
-static void	ft_ready_to_exec(t_pipe_node *cmd, t_executor	*exec, t_envp_list *env)
+static void	ft_ready_to_exec(t_pipe_node *cmd, t_executor *exec, \
+t_envp_list *env)
 {
 	exec->fd_read = STDIN_FILENO;
 	exec->fd_write = STDOUT_FILENO;
@@ -31,6 +32,9 @@ static void	ft_ready_to_exec(t_pipe_node *cmd, t_executor	*exec, t_envp_list *en
 	exec->is_built_in = 0;
 	exec->built_in_code = 0;
 	cmd->env_list = env;
+	if (env->vec)
+		ft_free((void **) &env->vec);
+	env->vec = ft_get_env_vector(env);
 }
 
 int	ft_execute(t_pipe_list *pipe_list, t_envp_list *env_list)
