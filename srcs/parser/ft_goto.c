@@ -279,6 +279,7 @@ void	ft_enqueue_arg(t_pipe_node **pipe, char *data)
 		(*pipe)->arg_list->rear->next = new;
 	}
 	(*pipe)->arg_list->rear = new;
+	(*pipe)->arg_list->cnt += 1;
 }
 
 void	ft_enqueue_redir(t_pipe_node **pipe, t_token_type type, char *data)

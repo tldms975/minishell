@@ -13,6 +13,7 @@
 #ifndef PARSER_H
 # define PARSER_H
 # include "envp.h"
+
 typedef struct s_lexer		t_lexer;
 
 typedef int		(*t_function)(t_lexer *lexer);
@@ -122,6 +123,7 @@ typedef struct s_arg_list
 {
 	struct s_arg_node	*front;
 	struct s_arg_node	*rear;
+	int					cnt;
 }	t_arg_list;
 
 typedef struct s_arg_node
