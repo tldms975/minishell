@@ -6,13 +6,13 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:14:35 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/08 18:12:34 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/10 17:21:03 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_set_env_var(char *str, t_envp_list *env, int idx_equal)
+static void	ft_update_env_var(char *str, t_envp_list *env, int idx_equal)
 {
 	char	*key;
 	char	*value;
@@ -52,6 +52,12 @@ static int	ft_check_valid(char *str, int *idx_equal)
 	return (1);
 }
 
+static void	ft_printf_export(t_envp_list *env_list)
+{
+	
+	
+}
+
 int	ft_bi_export(t_pipe_node *cmd)
 {
 	t_arg_node	*bi_arg;
@@ -60,11 +66,13 @@ int	ft_bi_export(t_pipe_node *cmd)
 
 	exit_status = EXIT_SUCCESS;
 	bi_arg = cmd->arg_list->front->next;
+	if (!bi_arg)
+		ft_print_export(cmd->env_list);
 	while (bi_arg)
 	{
 		idx_equal = 0;
 		if (ft_check_valid(bi_arg->content, &idx_equal))
-			ft_set_env_var(bi_arg->content, cmd->env_list, idx_equal);
+			ft_update_env_var(bi_arg->content, cmd->env_list, idx_equal);
 		else
 			exit_status = EXIT_FAILURE;
 		bi_arg = bi_arg->next;

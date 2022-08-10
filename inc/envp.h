@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 21:27:29 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/09 18:07:12 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/10 14:43:19 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ struct s_envp_node
 struct s_envp_list
 {
 	struct s_envp_node	*head;
-	struct s_envp_node	*tail; //seems to not need
+	struct s_envp_node	*tail;
 	char				**vec;
 	int					len;
 };
