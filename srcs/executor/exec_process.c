@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:50:42 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/10 14:57:44 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/10 23:27:43 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_exe_child_process(t_pipe_node *cmd, t_executor *exec)
 	if (exec->is_built_in)
 		ft_execute_built_in(cmd, exec->built_in_code);
 	else
-		ft_execute_cmd(cmd->arg_list, env_list);
+		ft_execute_cmd(cmd->arg_list, cmd->env_list);
 }
 
 int	ft_get_exit_status(int status)

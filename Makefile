@@ -6,7 +6,7 @@
 #    By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/13 17:14:48 by sielee            #+#    #+#              #
-#    Updated: 2022/08/08 18:57:03 by sielee           ###   ########seoul.kr   #
+#    Updated: 2022/08/11 00:28:07 by sielee           ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,7 +83,7 @@ $(NAME): $(OBJS) $(LFT_LIB) $(READLINE_LIB)
 	@$(CC) $(CFLAGS) -I$(INC_DIR) $(READLINE_FLAGS) -o $@ $^
 
 $(LFT_LIB):
-	@make -C $(LFT_DIR)
+	@make bonus -C $(LFT_DIR)
 
 clean:
 	@rm -f $(OBJS)

@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:08:46 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/08 01:43:41 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/11 00:39:43 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,11 @@
 # define EXECUTOR_H
 
 # include <unistd.h>
+# include <sys/stat.h>
 # include "parser.h"
 # include "envp.h"
+
+typedef struct stat			t_stat;
 
 enum e_exit_stat
 {
