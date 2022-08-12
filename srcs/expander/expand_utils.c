@@ -14,7 +14,9 @@
 
 t_expand_state	check_expand_type(char c)
 {
-	if (c == '\'')
+	if (c == '\0')
+		return (EX_NULL);
+	else if (c == '\'')
 		return (EX_SI_QUO);
 	else if (c == '\"')
 		return (EX_DO_QUO);

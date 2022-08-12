@@ -77,6 +77,7 @@ SRCS			=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/,\
 					$(TERMINAL_SRCS)\
 					$(PARSER_SRCS)\
 					$(ENVP_SRCS)\
+					$(EXPANDER_SRCS)\
 					$(BUILTIN_SRCS)
 #					$(EXECUTOR_SRCS)
 OBJS			=	$(SRCS:.c=.o)

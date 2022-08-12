@@ -443,5 +443,6 @@ int	ft_parser(t_pipe_list *pipe_list, t_token *token)
 		}
 	}
 	ft_state_free(&temp_state);
+	ft_expand(pipe_list);
 	return (0);
 }

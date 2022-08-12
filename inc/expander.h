@@ -53,5 +53,7 @@ int	ft_ex_norm_to_dollar(t_buffer *buffer);
 int	ft_ex_qou_to_dollar(t_buffer *buffer);
 int	ft_ex_quo_to_quo(t_buffer *buffer);
 void	ft_expander_table(t_fuc *funct);
+void	ft_expander_arg(t_arg_node	**node, t_envp_list *list, t_fuc funct);
+void	ft_expand(t_pipe_list *pipe);
 
 #endif
