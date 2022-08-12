@@ -28,7 +28,7 @@ t_token	*new_content(t_lexer *lexer)
 	if (!new->content)
 		exit (-1);
 	new->type = choose_type(new);
-	if ((lexer->last_save_addr)[lexer->index] != ST_NULL)
+	if (ft_check_type((lexer->last_save_addr)[lexer->index]) != ST_NULL)
 	{
 		lexer->last_save_addr += lexer->index;
 		lexer->index = 1;

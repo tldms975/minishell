@@ -19,6 +19,15 @@ t_expand_state	check_expand_type(char c)
 	else if (c == '\"')
 		return (EX_DO_QUO);
 	else if (c == '$')
-		return (DOLLAR);
+		return (EX_DOLLAR);
+	return (EX_NORMAL);
+}
+
+t_expand_state check_meta(char c)
+{
+	if (c == '\"' || c == '\'' || ft_check_meta(c) != NON_META)
+		return (EX_META);
+	if (c == '$')
+		return (EX_DOLLAR);
 	return (EX_NORMAL);
 }

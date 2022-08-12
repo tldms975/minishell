@@ -24,6 +24,7 @@ typedef enum e_expand_state
 	EX_SI_QUO,
 	EX_DO_QUO,
     EX_DOLLAR,
+	EX_META,
     EX_NULL
 }	t_expand_state;
 
@@ -41,5 +42,6 @@ typedef struct s_fuc
 }	t_fuc;
 
 t_expand_state	check_expand_type(char c);
+t_expand_state check_meta(char c);
 
 #endif
