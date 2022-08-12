@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:14:35 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/10 17:21:03 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/12 18:41:55 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,24 @@ static int	ft_check_valid(char *str, int *idx_equal)
 	return (1);
 }
 
-static void	ft_printf_export(t_envp_list *env_list)
+static void	ft_print_export(t_envp_list *env_list)
 {
-	
-	
+	t_envp_list	*sorted_list;
+	t_envp_node	*sorted;
+
+	sorted_list = ft_get_sorted_env(env_list);
+	if (!sorted_list)
+		return ;//TODO error code
+	sorted = sorted_list->head;
+	while (sorted)
+	{
+		if (sorted->value)
+			printf("declare -x %s=\"%s\"\n", sorted->key, sorted->value);
+		else
+			printf("declare -x %s\n", sorted->key);
+		sorted = sorted->next;
+	}
+	ft_free_env_list(sorted_list);
 }
 
 int	ft_bi_export(t_pipe_node *cmd)

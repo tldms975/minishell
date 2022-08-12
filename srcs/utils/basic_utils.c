@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 17:54:26 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/05 18:19:32 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/12 17:57:31 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_perror(char *str)
 
 void	ft_free(void **ptr)
 {
-	if (ptr && *ptr)
+	if (*ptr && ptr)
 	{
 		free(*ptr);
 		*ptr = NULL;
