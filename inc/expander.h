@@ -33,6 +33,7 @@ typedef struct s_buffer
 	char			*content;
 	char			*save_content;
 	int				index;
+	t_envp_list		*env_list;
 	t_expand_state	curr_state;
 }	t_buffer;
 
@@ -43,5 +44,14 @@ typedef struct s_fuc
 
 t_expand_state	check_expand_type(char c);
 t_expand_state check_meta(char c);
+void	new_save(t_buffer **buffer);
+void	ft_dollar(t_buffer **buffer);
+int	ft_ex_next_char(t_buffer *buffer);
+int	ft_ex_norm_to_sq(t_buffer *buffer);
+int	ft_ex_norm_to_dq(t_buffer *buffer);
+int	ft_ex_norm_to_dollar(t_buffer *buffer);
+int	ft_ex_qou_to_dollar(t_buffer *buffer);
+int	ft_ex_quo_to_quo(t_buffer *buffer);
+void	ft_expander_table(t_fuc *funct);
 
 #endif

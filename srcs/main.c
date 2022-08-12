@@ -108,6 +108,6 @@ int	main(int ac, char *av[], char *envp[])
 	// ft_mod_env_value(&env_list, "PWD", "CUTE");
 	// printf("%s\n", ft_get_ptr_env_value(&env_list, "PWD", &position));
 	// printf("%s\n", position.next->key);
-	// ret = ft_minishell(&env_list);
+	ret = ft_minishell(&env_list);
 	return (ret);
 }

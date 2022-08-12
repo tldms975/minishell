@@ -38,6 +38,32 @@ void	new_save(t_buffer **buffer)
 	}
 }
 
+void	ft_dollar(t_buffer **buffer)
+{
+	char			*temp;
+	char			*temp1;
+	t_envp_node		*temp2;
+
+	temp = ft_substr((*buffer)->content, 0, (*buffer)->index);
+	temp2 = (*buffer)->env_list->head;
+	while (temp2 != NULL)
+	{
+		if (ft_strncmp(temp, temp2->key, ft_strlen(temp)) == 0)
+		{
+			temp1 = (*buffer)->save_content;
+			(*buffer)->save_content = ft_strjoin(temp, temp2->value);
+			free(temp);
+			break ;
+		}
+		temp2 = temp2->next;
+	}
+	if (ft_check_type(((*buffer)->content)[(*buffer)->index]) != ST_NULL)
+	{
+		(*buffer)->content += (*buffer)->index;
+		(*buffer)->index = 1;
+	}
+}
+
 int	ft_ex_next_char(t_buffer *buffer)
 {
 	buffer->index++;
@@ -72,8 +98,35 @@ int	ft_ex_norm_to_dollar(t_buffer *buffer)
 	{
 		new_save(&buffer);
 		buffer->content += 1;
-		while (check_meta((buffer->content)[buffer->index + 1]) != EX_NORMAL)
+		while (check_meta((buffer->content)[buffer->index]) != EX_NORMAL)
 			buffer->index++;
+		ft_dollar(&buffer);
+		if (ft_check_type(*(buffer->content)) == SINGLE_QUOTE)
+			buffer->curr_state = EX_SI_QUO;
+		else if (ft_check_type(*(buffer->content)) == DOUBLE_QUOTE)
+			buffer->curr_state = EX_DO_QUO;
+	}
+}
+
+int	ft_ex_qou_to_dollar(t_buffer *buffer)
+{
+	if (check_meta((buffer->content)[buffer->index + 1]) == EX_DOLLAR)
+		buffer->index += 2;
+	else if (check_meta((buffer->content)[buffer->index + 1]) == EX_META)
+		buffer->index++;
+	else if (check_meta((buffer->content)[buffer->index + 1]) == EX_NORMAL)
+	{
+		new_save(&buffer);
+		buffer->content += 1;
+		while (check_meta((buffer->content)[buffer->index]) != EX_NORMAL)
+			buffer->index++;
+		ft_dollar(&buffer);
+		if (ft_check_type(*(buffer->content)) == DOUBLE_QUOTE)
+		{
+			buffer->curr_state = EX_NORMAL;
+			if (ft_check_type((buffer->content)[buffer->index]) != ST_NULL)
+				buffer->content += 1;
+		}
 	}
 }
 

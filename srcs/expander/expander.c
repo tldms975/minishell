@@ -12,54 +12,63 @@
 
 #include "minishell.h"
 
-void	ft_(t_arg_node	**node, t_fuc funct)
+void	ft_expander_arg(t_arg_node	**node, t_envp_list *list, t_fuc funct)
 {
 	t_expand_state		next_state;
 	char				next_char;
 	t_fuc_exp			function;
-	t_buffer			buffer;
+	t_buffer			*buffer;
 
-	buffer.content = (*node)->content;
-	buffer.curr_state = check_expand_type(*((*node)->content));
-	buffer.index = 1;
+	buffer = ft_malloc(sizeof(t_buffer));
+	buffer->content = (*node)->content;
+	buffer->curr_state = check_expand_type(*((*node)->content));
+	buffer->index = 1;
+	buffer->env_list = list;
 	while (1)
 	{
-		next_char = (buffer.content)[buffer.index];
+		next_char = (buffer->content)[buffer->index];
 		next_state = check_expand_type(next_char);
 		if (next_state == ST_NULL)
 			break ;
-		function = (funct.function)[buffer.curr_state][next_state];
+		function = (funct.function)[buffer->curr_state][next_state];
 		if (function(&buffer) == -1)
 			return (-1);
 	}
+	if (buffer->curr_state == NORMAL)
+		new_save(&buffer);
+	free((*node)->content);
+	(*node)->content = buffer->save_content;
+	free(buffer);
 }
 
-int ft_expander(t_pipe_list **pipe)
+void	ft_expand(t_pipe_list *pipe)
 {
-	t_expand_state		next_state;
-	char				next_char;
-	t_fuc_exp			function;
-	t_buffer			buffer;
+	t_pipe_node		*temp_pipe;
+	t_arg_node		*temp_arg;
+	t_redir_node	*temp_redir;
+	t_limiter_node	*temp_lim;
+	t_fuc			funct;
 
-	buffer.content = (*pipe)->head->arg_list->front->content
-
-	while (1)
+	ft_expander_table(&funct);
+	temp_pipe = pipe->head;
+	while (temp_pipe != NULL)
 	{
-		next_char = (lexer->last_save_addr)[lexer->index];
-		next_state = ft_check_type(next_char);
-		if (next_state == ST_NULL)
-			break ;
-		function = (lexer->function)[lexer->curr_state][next_state];
-		if (function(lexer) == -1)
-			return (-1);
+		temp_arg = temp_pipe->arg_list->front;
+		while (temp_arg != NULL)
+		{
+			ft_expander_arg(&temp_arg, temp_pipe->env_list, funct);
+			temp_arg = temp_arg->next;
+		}
+		temp_redir = temp_pipe->redir_list->front;
+		while (temp_redir != NULL)
+		{
+			temp_redir = temp_redir->next;
+		}
+		temp_lim = temp_pipe->lim_q->front;
+		while (temp_lim != NULL)
+		{
+			temp_lim = temp_lim->next;
+		}
+		temp_pipe = temp_pipe->next;
 	}
-	if (lexer->curr_state == SINGLE_QUOTE || lexer->curr_state == DOUBLE_QUOTE)
-		return (-1);
-	if (lexer->curr_state == META || lexer->curr_state == NORMAL)
-	{
-		lexer->tail = new_content(lexer);
-		if (lexer->tail->type == ERR)
-			return (-1);
-	}
-	return (0);
 }
