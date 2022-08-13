@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:11:25 by sielee            #+#    #+#             */
-/*   Updated: 2022/07/25 20:16:48 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/13 21:47:20 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,6 +260,7 @@ t_arg_list	*new_arg_list()
 	new = ft_malloc(sizeof(t_arg_list));
 	new->front = NULL;
 	new->rear = NULL;
+	new->cnt = 0;
 	return (new);
 }
 
