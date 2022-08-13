@@ -22,6 +22,7 @@ void	ft_expander_arg(t_arg_node	**node, t_envp_list *list, t_fuc funct)
 	buffer = ft_malloc(sizeof(t_buffer));
 	buffer->content = (*node)->content;
 	buffer->curr_state = check_expand_type(*((*node)->content));
+	buffer->save_content = NULL;
 	buffer->index = 1;
 	if (buffer->curr_state == EX_DOLLAR
 			|| (check_expand_type((buffer->content)[buffer->index]) == EX_NULL))

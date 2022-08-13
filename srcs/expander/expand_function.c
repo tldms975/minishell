@@ -166,6 +166,9 @@ int	ft_ex_qou_to_dollar(t_buffer *buffer)
 int	ft_ex_quo_to_quo(t_buffer *buffer)
 {
 	buffer->curr_state = EX_NORMAL;
+	printf("index - 1 : %c\n", (buffer->content)[buffer->index - 1]);
+	printf("index : %c\n", (buffer->content)[buffer->index]);
+	printf("content : %c\n", *(buffer->content));
 	if ((buffer->content)[buffer->index] == '\''
 			&& (buffer->content)[buffer->index - 1] == '\'')
 	{
