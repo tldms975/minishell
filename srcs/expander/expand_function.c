@@ -52,10 +52,7 @@ void	ft_dollar(t_buffer **buffer)
 	t_envp_node		*temp2;
 
 	temp = ft_substr((*buffer)->content, 0, (*buffer)->index);
-	printf("!\n");//
-	printf("env : %p\n", (*buffer)->env_list->head);
 	temp2 = (*buffer)->env_list->head;
-	printf("env : %s\n", temp2->key);
 	while (temp2 != NULL)
 	{
 		printf("1-1\n");

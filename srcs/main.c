@@ -53,7 +53,7 @@ void	ft_print(t_pipe_list *pipe)
 	}
 }
 
-t_pipe_list	*ft_parse(t_pipe_list *pipe_list, char *line)
+t_pipe_list	*ft_parse(t_pipe_list *pipe_list, t_envp_list *env, char *line)
 {
 	t_lexer		lexer;
 
@@ -64,7 +64,7 @@ t_pipe_list	*ft_parse(t_pipe_list *pipe_list, char *line)
 	if (ft_lexer(&lexer) < 0)
 		ft_putstr_fd("syntax error\n", STDERR_FILENO);
 	else
-		ft_parser(pipe_list, lexer.head);
+		ft_parser(pipe_list, lexer.head, env);
 	return (0);
 }
 
@@ -83,8 +83,8 @@ int	ft_minishell(t_envp_list *env)
 		if (!line)
 			ft_exit(EXIT_SUCCESS);
 		add_history(line);
-		ft_parse(&pipe_list, line);
-		//ft_print(&pipe_list);
+		ft_parse(&pipe_list, env, line);
+		ft_print(&pipe_list);
 		exit_code = ft_execute(&pipe_list, env);
 		ft_parser_free(&pipe_list);
 		ft_free((void **) &line);

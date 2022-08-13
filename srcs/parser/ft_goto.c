@@ -413,7 +413,7 @@ int	ft_parsing(t_pipe_node **pipe, t_token **token)
 	return (0);
 }
 
-int	ft_parser(t_pipe_list *pipe_list, t_token *token)
+int	ft_parser(t_pipe_list *pipe_list, t_token *token, t_envp_list *env)
 {
 	t_action_state	*state;
 	t_action_state	*temp_state;
@@ -443,6 +443,6 @@ int	ft_parser(t_pipe_list *pipe_list, t_token *token)
 		}
 	}
 	ft_state_free(&temp_state);
-	ft_expand(pipe_list);
+	ft_expand(pipe_list, env);
 	return (0);
 }
