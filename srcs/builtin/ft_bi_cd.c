@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 02:03:46 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/09 06:33:32 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/13 22:36:46 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ static int	ft_cd_by_env(t_envp_list *env, char *key)
 	char	*path;
 
 	path = ft_get_env_value_ptr(env, key);
+	printf("path: %s\n", path);
 	if (!path)
 	{
 		ft_putstr_fd("cd: ", STDERR_FILENO);

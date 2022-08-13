@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:38:06 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/13 17:44:49 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/13 22:51:03 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,15 @@ int	ft_execute(t_pipe_list *pipe_list, t_envp_list *env_list)
 	{
 		ft_ready_to_exec(pipe_line, &exec, env_list);
 		ft_check_heredoc(pipe_line->lim_q, &exec);
-		if (!ft_check_builtin(pipe_line, &exec) || !pipe_list->cnt_pipe)
+		if (ft_check_builtin(pipe_line, &exec) && !pipe_list->cnt_pipe)
+			return (ft_exe_parent_process(pipe_line, &exec));
+		else
 		{
 			ft_pipe(exec.pipe_fd);
 			exec.pid = ft_fork();
 			if (exec.pid == 0)
 				ft_exe_child_process(pipe_line, &exec);
 		}
-		else
-			return (ft_exe_parent_process(pipe_line, &exec));
 		ret = ft_wait_all_child(exec.pid);
 		pipe_line = pipe_line->next;
 	}
