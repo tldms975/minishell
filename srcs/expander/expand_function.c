@@ -26,15 +26,15 @@ void	new_save(t_buffer **buffer)
 	{
 		temp = ((*buffer)->save_content);
 		save = ft_substr((*buffer)->content, 0, (*buffer)->index);
-		printf("temp : %p\n", temp);
-		printf("save : %p\n", (*buffer)->save_content);
+		// printf("temp : %p\n", temp);
+		// printf("save : %p\n", (*buffer)->save_content);
 		if (!save)
 			exit (-1);
 		(*buffer)->save_content = ft_strjoin(temp, save);
 		if (!(*buffer)->save_content)
 			exit (-1);
-		printf("temp : %p\n", temp);
-		printf("save : %p\n", (*buffer)->save_content);
+		// printf("temp : %p\n", temp);
+		// printf("save : %p\n", (*buffer)->save_content);
 		free(temp);
 		free(save);
 	}
@@ -52,6 +52,7 @@ void	ft_dollar(t_buffer **buffer)
 	t_envp_node		*temp2;
 
 	temp = ft_substr((*buffer)->content, 0, (*buffer)->index);
+	printf("!\n");//
 	printf("env : %p\n", (*buffer)->env_list->head);
 	temp2 = (*buffer)->env_list->head;
 	printf("env : %s\n", temp2->key);
@@ -114,17 +115,13 @@ int	ft_ex_norm_to_dollar(t_buffer *buffer)
 	{
 		new_save(&buffer);
 		buffer->content += 1;
-		printf("1\n");//
 		while (check_meta((buffer->content)[buffer->index]) != EX_NORMAL)
 			buffer->index++;
-		printf("2\n");//	
 		ft_dollar(&buffer);
-		printf("3\n");//
 		if (ft_check_type(*(buffer->content)) == SINGLE_QUOTE)
 			buffer->curr_state = EX_SI_QUO;
 		else if (ft_check_type(*(buffer->content)) == DOUBLE_QUOTE)
 			buffer->curr_state = EX_DO_QUO;
-		printf("4\n");//
 	}
 	return (0);
 }

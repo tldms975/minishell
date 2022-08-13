@@ -29,6 +29,9 @@ void	ft_expander_arg(t_arg_node	**node, t_envp_list *list, t_fuc funct)
 		buffer->index = 0;
 	}
 	buffer->env_list = list;
+	printf("123\n");//
+	printf("%s\n", list->head->key);//
+	printf("%s\n", buffer->env_list->head->key);//
 	while (1)
 	{
 		next_char = (buffer->content)[buffer->index];
@@ -62,7 +65,6 @@ void	ft_expand(t_pipe_list *pipe)
 		temp_arg = temp_pipe->arg_list->front;
 		while (temp_arg != NULL)
 		{
-			printf("!\n");//
 			ft_expander_arg(&temp_arg, temp_pipe->env_list, funct);
 			temp_arg = temp_arg->next;
 		}
