@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 14:55:31 by sielee            #+#    #+#             */
-/*   Updated: 2022/04/01 19:15:12 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/13 20:40:26 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*res;
 
+	if (!s1 || !s2)
+		return (0);
 	res = (char *)malloc(sizeof(char) * \
 		(ft_strlen((char *)s1) + ft_strlen((char *)s2)) + 1);
 	if (!res)

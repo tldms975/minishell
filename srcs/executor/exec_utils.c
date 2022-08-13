@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 02:29:44 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/13 18:20:57 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/13 21:14:19 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static char	**ft_get_cmd_vec(t_arg_list *arg_list)
 	char		**res;
 	int			i;
 
-	res = ft_malloc((sizeof(char *) * arg_list->cnt) + 1);
+	res = ft_malloc((sizeof(char *) * (arg_list->cnt + 1)));
 	i = 0;
 	arg = arg_list->front;
 	while (arg)

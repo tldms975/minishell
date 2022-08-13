@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 21:29:24 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/09 18:13:30 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/13 21:22:56 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	ft_add_env_var(t_envp_list *env, const char *key, const char *value)
 	new->next = NULL;
 	if (!env->head)
 	{
-		env->len = 0;
+		env->len = 1;
 		env->head = new;
 		env->tail = new;
 		new->prev = NULL;
