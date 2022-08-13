@@ -6,7 +6,7 @@
 #    By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/13 17:14:48 by sielee            #+#    #+#              #
-#    Updated: 2022/08/12 18:37:55 by sielee           ###   ########seoul.kr   #
+#    Updated: 2022/08/13 17:02:27 by sielee           ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,6 @@ ENVP_SRCS		=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/envp/,\
 TERMINAL_SRCS	=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/terminal/,\
 					sig_handling))
 BUILTIN_SRCS	=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/builtin/,\
-					built_in\
 					ft_bi_cd\
 					ft_bi_echo\
 					ft_bi_env\
@@ -66,6 +65,7 @@ BUILTIN_SRCS	=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/builtin/,\
 					ft_bi_pwd\
 					ft_bi_unset))
 EXECUTOR_SRCS	=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/executor/,\
+					exec_built_in\
 					exec_process\
 					exec_utils\
 					exec\
@@ -78,8 +78,8 @@ SRCS			=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/,\
 					$(PARSER_SRCS)\
 					$(ENVP_SRCS)\
 					$(EXPANDER_SRCS)\
-					$(BUILTIN_SRCS)
-#					$(EXECUTOR_SRCS)
+					$(BUILTIN_SRCS)\
+					$(EXECUTOR_SRCS)
 OBJS			=	$(SRCS:.c=.o)
 
 all: $(NAME)

@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:08:46 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/11 00:39:43 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/13 17:05:19 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@
 # include <sys/stat.h>
 # include "parser.h"
 # include "envp.h"
+# include "builtin.h"
 
 typedef struct stat			t_stat;
+typedef struct s_executor	t_executor;
 
 enum e_exit_stat
 {
@@ -39,8 +41,6 @@ enum e_true_false
 	TRUE
 };
 
-typedef struct s_executor	t_executor;
-
 struct s_executor
 {
 	pid_t		pid;
@@ -56,9 +56,17 @@ struct s_executor
 
 int		ft_get_exit_status(int status);
 
+int		ft_check_builtin(t_pipe_node *cmd, t_executor *exec);
+int		ft_execute_built_in(t_pipe_node *cmd, int code);
+
+int		ft_execute(t_pipe_list *pipe_list, t_envp_list *env_list);
+void	ft_execute_cmd(t_arg_list *arg_list, t_envp_list *env);
+
+int		ft_exe_parent_process(t_pipe_node *cmd, t_executor *exec);
+void	ft_exe_child_process(t_pipe_node *cmd, t_executor *exec);
+
 void	ft_check_heredoc(t_limiter_q *lim_q, t_executor *exec);
 void	ft_heredoc(t_limiter_q *lim_q, t_executor *exec);
-void	ft_read_heredoc(t_executor *exec, char *limiter);
 
 void	ft_redirection(enum e_token_type type, const char *file_name, \
 t_executor *exec);

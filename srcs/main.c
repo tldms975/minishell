@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 17:12:20 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/09 18:21:32 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/13 17:10:33 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,7 @@ int	ft_minishell(t_envp_list *env)
 	char	*line;
 	int		exit_code;
 
-	exit_code = 0;//for the test
-	//exit_code = EXIT_FAILURE;
+	exit_code = EXIT_SUCCESS;
 	(void)env;//for the test
 	while (1)
 	{
@@ -85,8 +84,8 @@ int	ft_minishell(t_envp_list *env)
 			ft_exit(EXIT_SUCCESS);
 		add_history(line);
 		ft_parse(&pipe_list, line);
-		ft_print(&pipe_list);
-		//exit_code = ft_execute(&pipe_list, env);
+		//ft_print(&pipe_list);
+		exit_code = ft_execute(&pipe_list, env);
 		ft_parser_free(&pipe_list);
 		ft_free((void **) &line);
 		//ft_free_parser(&pipe_list);
@@ -101,13 +100,9 @@ int	main(int ac, char *av[], char *envp[])
 	int	ret;
 
 	(void)av;
-	ret = 0;
 	if (ac > 1)
 		ft_error("Wrong Argc\n");
 	ft_init_env_list(&env_list, envp);
-	// ft_mod_env_value(&env_list, "PWD", "CUTE");
-	// printf("%s\n", ft_get_ptr_env_value(&env_list, "PWD", &position));
-	// printf("%s\n", position.next->key);
 	ret = ft_minishell(&env_list);
 	return (ret);
 }
