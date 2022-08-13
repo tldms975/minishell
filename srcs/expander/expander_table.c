@@ -18,11 +18,11 @@ void	ft_expander_table(t_fuc *funct)
     (funct->function)[EX_NORMAL][EX_SI_QUO] = ft_ex_norm_to_sq;
     (funct->function)[EX_NORMAL][EX_DO_QUO] = ft_ex_norm_to_dq;
     (funct->function)[EX_NORMAL][EX_DOLLAR] = ft_ex_norm_to_dollar;
-    (funct->function)[EX_SI_QUO][EX_NORMAL] = ft_ex_qou_to_norm;
+    (funct->function)[EX_SI_QUO][EX_NORMAL] = ft_ex_next_char;
     (funct->function)[EX_SI_QUO][EX_SI_QUO] = ft_ex_quo_to_quo;
     (funct->function)[EX_SI_QUO][EX_DO_QUO] = ft_ex_next_char;
     (funct->function)[EX_SI_QUO][EX_DOLLAR] = ft_ex_next_char;
-    (funct->function)[EX_DO_QUO][EX_NORMAL] = ft_ex_qou_to_norm;
+    (funct->function)[EX_DO_QUO][EX_NORMAL] = ft_ex_next_char;
     (funct->function)[EX_DO_QUO][EX_SI_QUO] = ft_ex_next_char;
     (funct->function)[EX_DO_QUO][EX_DO_QUO] = ft_ex_quo_to_quo;
     (funct->function)[EX_DO_QUO][EX_DOLLAR] = ft_ex_qou_to_dollar;

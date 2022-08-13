@@ -25,8 +25,13 @@ void	ft_expander_arg(t_arg_node	**node, t_envp_list *list, t_fuc funct)
 	buffer->save_content = NULL;
 	buffer->index = 1;
 	if (buffer->curr_state == EX_DOLLAR
-			|| (check_expand_type((buffer->content)[buffer->index]) == EX_NULL))
+			&& (check_expand_type((buffer->content)[buffer->index]) == EX_NULL))
 		buffer->curr_state = EX_NORMAL;
+	else if (buffer->curr_state == EX_SI_QUO || buffer->curr_state == EX_DO_QUO)
+	{
+		buffer->content++;
+		buffer->curr_state = check_expand_type(*(buffer->content));
+	}
 	buffer->env_list = list;
 	while (1)
 	{
@@ -42,7 +47,6 @@ void	ft_expander_arg(t_arg_node	**node, t_envp_list *list, t_fuc funct)
 		new_save(&buffer);
 	free((*node)->content);
 	(*node)->content = buffer->save_content;
-	printf("save-2 : %p\n", buffer->save_content);
 	free(buffer);
 }
 

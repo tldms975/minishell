@@ -18,23 +18,16 @@ void	new_save(t_buffer **buffer)
 	char	*temp;
 
 	if ((*buffer)->save_content == NULL)
-	{
 		(*buffer)->save_content = ft_substr((*buffer)->content, 0, (*buffer)->index);
-		printf("save-1 : %p\n", (*buffer)->save_content);
-	}
 	else
 	{
 		temp = ((*buffer)->save_content);
 		save = ft_substr((*buffer)->content, 0, (*buffer)->index);
-		printf("temp : %p\n", temp);
-		printf("save : %p\n", (*buffer)->save_content);
 		if (!save)
 			exit (-1);
 		(*buffer)->save_content = ft_strjoin(temp, save);
 		if (!(*buffer)->save_content)
 			exit (-1);
-		printf("temp : %p\n", temp);
-		printf("save : %p\n", (*buffer)->save_content);
 		free(temp);
 		free(save);
 	}
@@ -89,24 +82,15 @@ int	ft_ex_next_char(t_buffer *buffer)
 	return (0);
 }
 
-int	ft_ex_qou_to_norm(t_buffer *buffer)
-{
-	if (ft_check_type((buffer->content)[buffer->index - 1]) == SINGLE_QUOTE
-			|| ft_check_type((buffer->content)[buffer->index - 1]) == DOUBLE_QUOTE)
-	{
-		buffer->content++;
-		return (0);
-	}
-	buffer->index++;
-	return (0);
-}
-
 int	ft_ex_norm_to_sq(t_buffer *buffer)
 {
 	buffer->curr_state = EX_SI_QUO;
 	new_save(&buffer);
 	if (ft_check_type((buffer->content)[buffer->index]) != ST_NULL)
+	{
 		buffer->content += 1;
+		buffer->index = 0;
+	}
 	return (0);
 }
 
@@ -115,7 +99,10 @@ int	ft_ex_norm_to_dq(t_buffer *buffer)
 	buffer->curr_state = EX_DO_QUO;
 	new_save(&buffer);
 	if (ft_check_type((buffer->content)[buffer->index]) != ST_NULL)
+	{
 		buffer->content += 1;
+		buffer->index = 0;
+	}
 	return (0);
 }
 
@@ -157,7 +144,12 @@ int	ft_ex_qou_to_dollar(t_buffer *buffer)
 		{
 			buffer->curr_state = EX_NORMAL;
 			if (ft_check_type((buffer->content)[buffer->index]) != ST_NULL)
+			{
 				buffer->content += 1;
+				buffer->index = 0;
+			}
+			else if (ft_check_type((buffer->content)[buffer->index]) == ST_NULL)
+				buffer->curr_state = EX_NULL;
 		}
 	}
 	return (0);
@@ -166,24 +158,12 @@ int	ft_ex_qou_to_dollar(t_buffer *buffer)
 int	ft_ex_quo_to_quo(t_buffer *buffer)
 {
 	buffer->curr_state = EX_NORMAL;
-	printf("index - 1 : %c\n", (buffer->content)[buffer->index - 1]);
-	printf("index : %c\n", (buffer->content)[buffer->index]);
-	printf("content : %c\n", *(buffer->content));
-	if ((buffer->content)[buffer->index] == '\''
-			&& (buffer->content)[buffer->index - 1] == '\'')
-	{
-		buffer->content += 2;
-		return (0);
-	}
-	else if ((buffer->content)[buffer->index] == '\"'
-			&& (buffer->content)[buffer->index - 1] == '\"')
-	{
-		buffer->content += 2;
-		return (0);
-	}
 	new_save(&buffer);
 	if (ft_check_type((buffer->content)[buffer->index]) != ST_NULL)
+	{
 		buffer->content += 1;
+		buffer->index = 0;
+	}
 	else if (ft_check_type((buffer->content)[buffer->index]) == ST_NULL)
 		buffer->curr_state = EX_NULL;
 	return (0);
