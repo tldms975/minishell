@@ -55,10 +55,8 @@ void	ft_dollar(t_buffer **buffer)
 	temp2 = (*buffer)->env_list->head;
 	while (temp2 != NULL)
 	{
-		printf("1-1\n");
 		if (ft_strncmp(temp, temp2->key, ft_strlen(temp)) == 0)
 		{
-			printf("1-2\n");
 			temp1 = (*buffer)->save_content;
 			(*buffer)->save_content = ft_strjoin(temp, temp2->value);
 			free(temp1);
