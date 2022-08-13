@@ -23,11 +23,6 @@ void	ft_expander_arg(t_arg_node	**node, t_envp_list *list, t_fuc funct)
 	buffer->content = (*node)->content;
 	buffer->curr_state = check_expand_type(*((*node)->content));
 	buffer->index = 1;
-	if (buffer->curr_state == EX_DO_QUO || buffer->curr_state == EX_SI_QUO)
-	{
-		buffer->content++;
-		buffer->index = 0;
-	}
 	buffer->env_list = list;
 	while (1)
 	{
@@ -62,6 +57,7 @@ void	ft_expand(t_pipe_list *pipe, t_envp_list *env)
 		temp_arg = temp_pipe->arg_list->front;
 		while (temp_arg != NULL)
 		{
+			printf("next!\n");//
 			ft_expander_arg(&temp_arg, env, funct);
 			temp_arg = temp_arg->next;
 		}
