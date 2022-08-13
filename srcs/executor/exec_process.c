@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:50:42 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/10 23:27:43 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/13 17:44:16 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	ft_exe_child_process(t_pipe_node *cmd, t_executor *exec)
 {
 	t_redir_node	*redir;
 
-	exec->cnt_child += 1;
 	redir = cmd->redir_list->front;
 	while (redir)
 	{
@@ -59,19 +58,20 @@ int	ft_get_exit_status(int status)
 	return (0);
 }
 
-int	ft_wait_all_child(int pid, int n)
+int	ft_wait_all_child(int pid)
 {
 	int	stat;
+	int	wait_ret;
 	int	ret;
-	int	i;
 
-	ret = 0;
-	i = 0;
-	while (i < n)
+	ret = EXIT_FAILURE;
+	while (1)
 	{
-		if (waitpid(-1, &stat, 0) == pid)
+		wait_ret = waitpid(-1, &stat, 0);
+		if (wait_ret < 0)
+			break ;
+		if (wait_ret == pid)
 			ret = ft_get_exit_status(stat);
-		i++;
 	}
 	return (ret);
 }

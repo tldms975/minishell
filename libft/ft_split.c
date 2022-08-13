@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 11:50:07 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/08 05:39:54 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/13 18:19:05 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,13 @@ unsigned int	cnt_word(char *s, char c)
 	return (cnt);
 }
 
-static void	*ft_valid_malloc(char const *s, char c, char *str)
+static void	*ft_valid_malloc(char *s, size_t size)
 {
 	void	*res;
 
 	if (!s)
-		return (NULL);
-	str = (char *)s;
-	res = malloc(sizeof(cnt_word(str, c)) + 1);
+		return (s);
+	res = malloc(size);
 	return (res);
 }
 
@@ -78,8 +77,8 @@ char	**ft_split(char const *s, char c)
 	char			*str;
 	unsigned int	i;
 
-	str = NULL;
-	res = ft_valid_malloc((char *)s, c, str);
+	str = (char *)s;
+	res = (char **)ft_valid_malloc(str, sizeof(char *) * cnt_word(str, c) + 1);
 	if (!res)
 		return (NULL);
 	i = 0;

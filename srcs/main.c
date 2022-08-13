@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 17:12:20 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/13 17:10:33 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/13 17:30:52 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	ft_minishell(t_envp_list *env)
 		add_history(line);
 		ft_parse(&pipe_list, env, line);
 		ft_print(&pipe_list);
-		// exit_code = ft_execute(&pipe_list, env);
+		exit_code = ft_execute(&pipe_list, env);
 		ft_parser_free(&pipe_list);
 		ft_free((void **) &line);
 	}
@@ -94,7 +94,6 @@ int	ft_minishell(t_envp_list *env)
 int	main(int ac, char *av[], char *envp[])
 {
 	t_envp_list	env_list;
-	// t_envp_node	position;
 	int	ret;
 
 	(void)av;

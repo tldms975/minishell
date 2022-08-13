@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:08:46 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/13 17:05:19 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/13 17:39:15 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,6 @@ void	ft_heredoc(t_limiter_q *lim_q, t_executor *exec);
 void	ft_redirection(enum e_token_type type, const char *file_name, \
 t_executor *exec);
 
-int	ft_wait_all_child(int pid, int n);
+int	ft_wait_all_child(int pid);
 
 #endif
