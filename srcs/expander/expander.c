@@ -33,6 +33,7 @@ void	ft_expander_arg(t_arg_node	**node, t_envp_list *list, t_fuc funct)
 		buffer->content++;
 		if (check_expand_type(*(buffer->content)) == EX_DOLLAR)
 		{
+			buffer->content++;
 			while (check_meta((buffer->content)[buffer->index]) == EX_NORMAL)
 				buffer->index++;
 			ft_dollar(&buffer);
@@ -48,6 +49,8 @@ void	ft_expander_arg(t_arg_node	**node, t_envp_list *list, t_fuc funct)
 					buffer->curr_state = EX_NULL;
 			}
 		}
+		else
+			buffer->index = 0;
 	}
 	while (1)
 	{

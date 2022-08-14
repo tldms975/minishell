@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 17:12:20 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/13 20:30:49 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/13 17:30:52 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,20 +53,19 @@ void	ft_print(t_pipe_list *pipe)
 	}
 }
 
-void	ft_parse(t_pipe_list *pipe_list, t_envp_list *env, char *line)
+t_pipe_list	*ft_parse(t_pipe_list *pipe_list, t_envp_list *env, char *line)
 {
 	t_lexer		lexer;
 
 	pipe_list->head = NULL;
 	pipe_list->tail = NULL;
 	pipe_list->cnt_pipe = -1;
-	if (ft_strncmp(line, "", 2) == 0)
-		return ;
 	lexer_setting(&lexer, line);
 	if (ft_lexer(&lexer) < 0)
 		ft_putstr_fd("syntax error\n", STDERR_FILENO);
 	else
 		ft_parser(pipe_list, lexer.head, env);
+	return (0);
 }
 
 int	ft_minishell(t_envp_list *env)
@@ -85,7 +84,7 @@ int	ft_minishell(t_envp_list *env)
 		add_history(line);
 		ft_parse(&pipe_list, env, line);
 		ft_print(&pipe_list);
-		// exit_code = ft_execute(&pipe_list, env);
+		exit_code = ft_execute(&pipe_list, env);
 		ft_parser_free(&pipe_list);
 		ft_free((void **) &line);
 	}
