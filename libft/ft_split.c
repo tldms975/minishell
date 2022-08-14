@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 11:50:07 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/15 02:11:40 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/15 03:24:34 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ static char	**free_str(char **str)
 	while (str[i])
 	{
 		free(str[i]);
-		str[i] = NULL;
+		str[i] = 0;
 		i++;
 	}
-	return (NULL);
+	return (0);
 }
 
 static size_t	cnt_word(char *s, char c)
@@ -68,7 +68,7 @@ static char	**ft_alloc_split(char **res, char *s, char c)
 			if (!res[j++])
 				return (free_str(res));
 		}
-		res[j] = NULL;
+		res[j] = 0;
 	}
 	return (res);
 }
@@ -78,14 +78,14 @@ char	**ft_split(char const *s, char c)
 	char	**res;
 
 	if (!s)
-		return (NULL);
+		return (0);
 	res = (char **)ft_calloc(sizeof(char *), (cnt_word((char *)s, c) + 1));
 	if (!res)
-		return (NULL);
+		return (0);
 	if (!ft_alloc_split(res, (char *)s, c))
 	{
 		free(res);
-		res = NULL;
+		res = 0;
 	}
 	return (res);
 }
