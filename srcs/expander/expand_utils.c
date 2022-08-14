@@ -27,9 +27,10 @@ t_expand_state	check_expand_type(char c)
 
 t_expand_state check_meta(char c)
 {
-	if (c == '\"' || c == '\'' || ft_check_meta(c) != NON_META)
-		return (EX_META);
 	if (c == '$')
 		return (EX_DOLLAR);
-	return (EX_NORMAL);
+	else if (('A' <= c && c <= 'Z') || ('a' <= c && c <= 'z')
+		|| ('0' <= c && c <= '9') || c == '_')
+		return (EX_NORMAL);
+	return (EX_META);
 }
