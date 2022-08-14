@@ -6,96 +6,86 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 11:50:07 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/13 18:19:05 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/15 02:11:40 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char	**free_str(char **str, unsigned int i)
+static char	**free_str(char **str)
 {
-	while (i--)
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
 		free(str[i]);
-	free(str);
-	str = NULL;
+		str[i] = NULL;
+		i++;
+	}
 	return (NULL);
 }
 
-static char	*alloc_word(char *str, char c)
+static size_t	cnt_word(char *s, char c)
 {
-	char			*word;
-	unsigned int	len;
-
-	len = 0;
-	while (str[len] && !(str[len] == c))
-		len++;
-	word = (char *)malloc(sizeof(char) * (len + 1));
-	if (!word)
-		return (NULL);
-	len = 0;
-	while (str[len] && !(str[len] == c))
-	{
-		word[len] = str[len];
-		len++;
-	}
-	word[len] = '\0';
-	return (word);
-}
-
-unsigned int	cnt_word(char *s, char c)
-{
-	unsigned int	cnt;
+	size_t	cnt;
+	int		i;
+	int		tmp;
 
 	cnt = 0;
-	while (*s)
+	i = 0;
+	while (s[i])
 	{
-		while (*s && (*s == c))
-			s++;
-		if (*s && !(*s == c))
-		{
+		while (s[i] && (s[i] == c))
+			i++;
+		tmp = i;
+		while (s[i] && s[i] != c)
+			i++;
+		if (s[i] && (tmp != i))
 			cnt++;
-			while (*s && !(*s == c))
-				s++;
-		}
 	}
 	return (cnt);
 }
 
-static void	*ft_valid_malloc(char *s, size_t size)
+static char	**ft_alloc_split(char **res, char *s, char c)
 {
-	void	*res;
+	int	i;
+	int	j;
+	int	tmp;
 
-	if (!s)
-		return (s);
-	res = malloc(size);
+	i = 0;
+	j = 0;
+	while (s[i])
+	{
+		while (s[i] && (s[i] == c))
+			i++;
+		tmp = i;
+		while (s[i] && (s[i] != c))
+			i++;
+		if (s[i] && (tmp != i))
+		{
+			res[j] = ft_substr(s, tmp, i - tmp);
+			if (!res[j++])
+				return (free_str(res));
+		}
+		res[j] = NULL;
+	}
 	return (res);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	char			**res;
-	char			*str;
-	unsigned int	i;
+	char	**res;
 
-	str = (char *)s;
-	res = (char **)ft_valid_malloc(str, sizeof(char *) * cnt_word(str, c) + 1);
+	if (!s)
+		return (NULL);
+	res = (char **)ft_calloc(sizeof(char *), (cnt_word((char *)s, c) + 1));
 	if (!res)
 		return (NULL);
-	i = 0;
-	while (*str)
+	if (!ft_alloc_split(res, (char *)s, c))
 	{
-		while (*str && (*str == c))
-			str++;
-		if (*str && !(*str == c))
-		{
-			res[i] = alloc_word(str, c);
-			if (!(res[i]))
-				return (free_str(res, i));
-			i++;
-			while (*str && !(*str == c))
-				str++;
-		}
+		free(res);
+		res = NULL;
 	}
-	res[i] = NULL;
 	return (res);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_tool.c                                         :+:      :+:    :+:   */
+/*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 21:29:24 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/13 21:22:56 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/14 23:28:09 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,9 @@ void	ft_add_env_var(t_envp_list *env, const char *key, const char *value)
 void	ft_mod_env_value(t_envp_list *env, const char *key, \
 const char *new_value)
 {
-	char	*value;
-
-	value = ft_get_env_value_ptr(env, key);
-	ft_free((void **) &value);
-	value = ft_strdup(new_value);
+	t_envp_node	*target_node;
+	
+	target_node = ft_get_env_node_ptr(env, key);
+	ft_free((void **) &(target_node->value));
+	target_node->value = ft_strdup(new_value);
 }

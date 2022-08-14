@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 02:03:46 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/13 22:36:46 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/15 02:25:49 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,21 +40,25 @@ static int	ft_cd_to_path(t_envp_list *env, char *path)
 	}
 	else if (exit_status == -1)
 	{
-		ft_putstr_fd("cd: ", STDERR_FILENO);
-		ft_perror(path);
+		ft_putstr_fd("minishell: cd: ", STDERR_FILENO);
+		ft_putstr_fd(path, STDERR_FILENO);
+		ft_putendl_fd(": No such file or directory", STDERR_FILENO);
+		return (EXIT_NOTFOUND);
 	}
 	return (exit_status);
 }
 
-static int	ft_cd_by_arg(t_envp_list *env, char *dir)
+static int	ft_cd_by_arg(t_envp_list *env, t_arg_node *dir)
 {
-	char		**cdpath;
+	char	*path;
 
-	cdpath = ft_split(ft_get_env_value_ptr(env, "CDPATH"), ':');
-	if (!cdpath)
+	path = dir->content;
+	if (dir->next)
+	{
+		ft_putstr_fd("minishell: cd: Too many arguments\n", STDERR_FILENO);
 		return (EXIT_FAILURE);
-	(void)dir;
-	return (0);//test
+	}
+	return (ft_cd_to_path(env, path));
 }
 
 static int	ft_cd_by_env(t_envp_list *env, char *key)
@@ -62,16 +66,14 @@ static int	ft_cd_by_env(t_envp_list *env, char *key)
 	char	*path;
 
 	path = ft_get_env_value_ptr(env, key);
-	printf("path: %s\n", path);
 	if (!path)
 	{
-		ft_putstr_fd("cd: ", STDERR_FILENO);
+		ft_putstr_fd("minishell cd: ", STDERR_FILENO);
 		ft_putstr_fd(key, STDERR_FILENO);
 		ft_putendl_fd(" not set", STDERR_FILENO);
-		return (EXIT_FAILURE);
+		return (EXIT_NOTFOUND);
 	}
-	else
-		return (ft_cd_to_path(env, path));
+	return (ft_cd_to_path(env, path));
 }
 
 int	ft_bi_cd(t_pipe_node *cmd)
@@ -81,12 +83,12 @@ int	ft_bi_cd(t_pipe_node *cmd)
 	dir = cmd->arg_list->front->next;
 	if (!dir)
 		return (ft_cd_by_env(cmd->env_list, "HOME"));
-	else
+	else if (!(dir->next))
 	{
-		if (ft_strncmp(dir->content, "~", 2))
+		if (ft_strncmp(dir->content, "~", 2) == 0)
 			return (ft_cd_by_env(cmd->env_list, "HOME"));
-		if (ft_strncmp(dir->content, "-", 2))
+		if (ft_strncmp(dir->content, "-", 2) == 0)
 			return (ft_cd_by_env(cmd->env_list, "OLDPWD"));
 	}
-	return (ft_cd_by_arg(cmd->env_list, dir->content));
+	return (ft_cd_by_arg(cmd->env_list, dir));
 }

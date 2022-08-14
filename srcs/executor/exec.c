@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:38:06 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/13 22:51:03 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/14 21:09:22 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,11 @@ int	ft_execute(t_pipe_list *pipe_list, t_envp_list *env_list)
 			ft_pipe(exec.pipe_fd);
 			exec.pid = ft_fork();
 			if (exec.pid == 0)
+			{
 				ft_exe_child_process(pipe_line, &exec);
+				fprintf(stderr,"fd_read: %d\n", exec.fd_read);
+				fprintf(stderr, "fd_write: %d\n", exec.fd_write);
+			}
 		}
 		ret = ft_wait_all_child(exec.pid);
 		pipe_line = pipe_line->next;
