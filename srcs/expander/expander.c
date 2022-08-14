@@ -31,7 +31,7 @@ void	ft_expander_arg(t_arg_node	**node, t_envp_list *list, t_fuc funct)
 	else if (buffer->curr_state == EX_SI_QUO || buffer->curr_state == EX_DO_QUO)
 	{
 		buffer->content++;
-		if (check_expand_type(*(buffer->content)) == EX_DOLLAR)
+		if (check_expand_type(*(buffer->content)) == EX_DOLLAR && buffer->curr_state == EX_DO_QUO)
 		{
 			buffer->content++;
 			while (check_meta((buffer->content)[buffer->index]) == EX_NORMAL)
