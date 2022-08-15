@@ -28,7 +28,7 @@ void	ft_enqueue(t_limiter_q **queue, char *data)
 {
 	t_limiter_node	*new;
 
-	new = (t_limiter_node *)ft_malloc(sizeof(new));
+	new = (t_limiter_node *)ft_malloc(sizeof(t_limiter_node));
 	new->data = data;
 	new->next = NULL;
 	if (ft_is_empty_q(*queue))
