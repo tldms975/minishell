@@ -30,12 +30,20 @@ READLINE_FLAGS	=	-L$(READLINE_LIB_DIR) -lreadline -I$(READLINE_INC_DIR)
 
 PARSER_SRCS		=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/parser/,\
 					parse\
+					ft_enque\
+					ft_state0to4\
+					ft_state5to9\
+					ft_state10\
+					new_q_and_list\
 					lexer\
 					table\
 					utils_lexer\
 					ft_goto\
 					reduce\
 					free_of_parsing\
+					function1\
+					function2\
+					function3\
 					function))
 EXPANDER_SRCS	=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/expander/,\
 					expand_function\

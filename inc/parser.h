@@ -208,6 +208,13 @@ t_state_num ft_state_10(t_action_state **state, t_token_type type);
 void	ft_goto(t_action_state **state, t_token **token);
 int	ft_parser(t_pipe_list *pipe_head, t_token *token, t_envp_list *env);
 void	ft_set_type(t_token_type *type, t_action_state **state, t_token **token);
+void	ft_enqueue_arg(t_pipe_node **pipe, char *data);
+void	ft_enqueue_redir(t_pipe_node **pipe, t_token_type type, char *data);
+int	ft_is_empty_q_pipe(t_pipe_list *queue);
+void	ft_enqueue_pipe(t_pipe_list **queue);
+t_limiter_q	*new_limiter_q(void);
+t_redir_list	*new_redir_list(void);
+t_arg_list	*new_arg_list(void);
 
 void	ft_print(t_pipe_list *pipe);
 void	ft_state_free(t_action_state **state);
