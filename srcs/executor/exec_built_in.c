@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:26:47 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/15 16:54:32 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/15 17:42:53 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,16 @@ int	ft_check_builtin(t_pipe_node *cmd, t_executor *exec)
 {
 	const char	*built_in[7] = \
 	{"cd", "echo", "env", "exit", "export", "pwd", "unset"};
+	char		*target;
 	int			i;
 
 	i = 0;
+	if (!(cmd->arg_list->front))
+		return (FALSE);
+	target = cmd->arg_list->front->content;
 	while (i < 7)
 	{
-		if (ft_strncmp(cmd->arg_list->front->content, built_in[i], \
+		if (ft_strncmp(target, built_in[i], \
 		(ft_strlen(built_in[i]) + 1)) == 0)
 		{
 			exec->is_builtin = TRUE;
@@ -44,5 +48,5 @@ int	ft_check_builtin(t_pipe_node *cmd, t_executor *exec)
 		}
 		i++;
 	}
-	return (0);
+	return (FALSE);
 }

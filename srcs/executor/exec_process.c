@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:50:42 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/15 16:54:32 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/15 20:27:12 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,15 @@
 
 int	ft_exe_in_parent_process(t_pipe_node *cmd, t_executor *exec)
 {
-	t_redir_node	*redir;
-
-	redir = cmd->redir_list->front;
-	while (redir)
-	{
-		ft_redirection(redir->type, redir->file_name, exec);
-		if (exec->fd_read < 0 || exec->fd_write < 0)
-			ft_perror("open");
-		redir = redir->next;
-	}
+	ft_redirection(cmd->redir_list->front, exec);
+	ft_dup2(exec->fd_read, STDIN_FILENO);
+	ft_dup2(exec->fd_write, STDOUT_FILENO);
 	return (ft_execute_built_in(cmd, exec->built_in_code));
 }
 
 void	ft_exe_in_child_process(t_pipe_node *cmd, t_executor *exec)
 {
-	t_redir_node	*redir;
-
-	redir = cmd->redir_list->front;
-	while (redir)
-	{
-		ft_redirection(redir->type, redir->file_name, exec);
-		if (exec->fd_read < 0 || exec->fd_write < 0)
-			exit(EXIT_FAILURE);
-		redir = redir->next;
-	}
-	if (exec->is_heredoc == TRUE)
-		ft_close(exec->heredoc_fd[WRITE]);
+	ft_redirection(cmd->redir_list->front, exec);
 	ft_dup2(exec->fd_read, STDIN_FILENO);
 	ft_dup2(exec->fd_write, STDOUT_FILENO);
 	if (exec->is_builtin)

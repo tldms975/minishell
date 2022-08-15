@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:14:35 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/15 15:04:17 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/15 21:15:00 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,12 @@ static void	ft_update_env_var(char *str, t_envp_list *env, int idx_equal)
 	}
 	key = ft_substr(str, 0, idx_equal);
 	value = ft_substr(str, idx_equal + 1, ft_strlen(str) - ft_strlen(key) - 1);
-	ft_add_env_var(env, key, value);
+	if (!value)
+		value = ft_strdup("");
+	if (ft_get_env_node_ptr(env, key))
+		ft_mod_env_value(env, key, value);
+	else
+		ft_add_env_var(env, key, value);
 	ft_free((void **) &key);
 	ft_free((void **) &value);
 }

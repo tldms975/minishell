@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 02:29:44 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/15 16:10:15 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/15 17:54:22 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ void	ft_execute_cmd(t_arg_list *arg_list, t_envp_list *env)
 	char	*cmd_path;
 	char	**cmd_vec;
 
+	if (!(arg_list->front))
+		return ;
 	cmd_path = ft_get_cmd_path(arg_list->front->content, env);
 	cmd_vec = ft_get_cmd_vec(arg_list);
 	execve(cmd_path, cmd_vec, env->vec);

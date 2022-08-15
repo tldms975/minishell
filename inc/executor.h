@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:08:46 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/15 16:54:32 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/15 18:47:16 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@
 # include "envp.h"
 # include "builtin.h"
 
-typedef struct stat				t_stat;
-typedef enum e_process			t_process;
-typedef enum e_mybool			t_mybool;
-typedef struct s_executor		t_executor;
+typedef struct stat			t_stat;
+typedef enum e_process		t_process;
+typedef enum e_mybool		t_mybool;
+typedef struct s_executor	t_executor;
 
-enum e_exit_stat
+enum e_exit
 {
 	EXIT_UNEXECUTABLE = 126,
 	EXIT_NOTFOUND = 127,
@@ -73,15 +73,14 @@ int		ft_execute_built_in(t_pipe_node *cmd, int code);
 int		ft_execute(t_pipe_list *pipe_list, t_envp_list *env_list);
 void	ft_execute_cmd(t_arg_list *arg_list, t_envp_list *env);
 
-int		ft_exe_in_parent_process(t_pipe_node *cmd, t_executor *exec);
-void	ft_exe_in_child_process(t_pipe_node *cmd, t_executor *exec);
-
 void	ft_check_heredoc(t_limiter_q *lim_q, t_executor *exec);
 void	ft_heredoc(t_limiter_q *lim_q, t_executor *exec);
 
-void	ft_redirection(enum e_token_type type, const char *file_name, \
-t_executor *exec);
+void	ft_redirection(t_redir_node *redir, t_executor *exec);
 
-int	ft_wait_all_child(int pid);
+int		ft_wait_all_child(int pid);
+void	ft_exe_in_child_process(t_pipe_node *cmd, t_executor *exec);
+int		ft_exe_in_parent_process(t_pipe_node *cmd, t_executor *exec);
+
 
 #endif

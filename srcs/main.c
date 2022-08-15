@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 17:12:20 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/15 14:54:02 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/15 17:42:49 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,11 +92,6 @@ int	ft_minishell(t_envp_list *env)
 	return (exit_code);
 }
 
-void	ft_init_terminal(void)
-{
-	
-}
-
 int	main(int ac, char *av[], char *envp[])
 {
 	t_envp_list	env_list;
@@ -105,7 +100,7 @@ int	main(int ac, char *av[], char *envp[])
 	(void)av;
 	if (ac > 1)
 		ft_error("Wrong Argc\n");
-	ft_init_terminal();
+	//ft_init_terminal();
 	ft_init_env_list(&env_list, envp);
 	ret = ft_minishell(&env_list);
 	return (ret);

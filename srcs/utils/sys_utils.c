@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 22:29:57 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/15 15:15:15 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/15 19:58:35 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,13 @@ int	ft_dup2(int fd1, int fd2)
 	if (fd1 != fd2)
 	{
 		ret = dup2(fd1, fd2);
-		close(fd1);
+		ft_close(fd1);
 	}
 	if (ret < 0)
+	{
 		ft_perror("dup2");
+		ft_exit(EXIT_FAILURE);
+	}
 	return (ret);
 }
 
@@ -53,7 +56,9 @@ int	ft_close(int fd)
 
 	ret = 0;
 	if (fd > 2)
+	{
 		ret = close(fd);
+	}
 	if (ret == -1)
 		ft_perror("close");
 	return (ret);
