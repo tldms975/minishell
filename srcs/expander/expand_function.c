@@ -62,10 +62,6 @@ void	ft_dollar(t_buffer **buffer)
 		}
 		temp2 = temp2->next;
 	}
-	if (temp2 == NULL)
-	{
-		printf("!\n");
-	}
 	if (ft_check_type(((*buffer)->content)[(*buffer)->index]) != ST_NULL)
 	{
 		(*buffer)->content += (*buffer)->index;
@@ -127,9 +123,17 @@ int	ft_ex_norm_to_dollar(t_buffer *buffer)
 				buffer->index++;
 			ft_dollar(&buffer);
 			if (ft_check_type(*(buffer->content)) == SINGLE_QUOTE)
+			{
 				buffer->curr_state = EX_SI_QUO;
+				buffer->content++;
+				buffer->index = 0;
+			}
 			else if (ft_check_type(*(buffer->content)) == DOUBLE_QUOTE)
+			{
 				buffer->curr_state = EX_DO_QUO;
+				buffer->content++;
+				buffer->index = 0;
+			}
 			else if (*(buffer->content) == '\\')
 			{
 				buffer->content++;
@@ -215,12 +219,18 @@ int	ft_ex_dollar_to(t_buffer *buffer)
 			while (check_meta((buffer->content)[buffer->index]) == EX_NORMAL)
 				buffer->index++;
 			ft_dollar(&buffer);
-			printf("*(buffer->content) : %c\n", *(buffer->content));
-			printf("(buffer->content)[idx] : %c\n", (buffer->content)[buffer->index]);
 			if (ft_check_type(*(buffer->content)) == SINGLE_QUOTE)
+			{
 				buffer->curr_state = EX_SI_QUO;
+				buffer->content++;
+				buffer->index = 0;
+			}
 			else if (ft_check_type(*(buffer->content)) == DOUBLE_QUOTE)
+			{
 				buffer->curr_state = EX_DO_QUO;
+				buffer->content++;
+				buffer->index = 0;
+			}
 			else if (check_meta(*(buffer->content)) == EX_META)
 			{
 				buffer->curr_state = EX_NORMAL;
