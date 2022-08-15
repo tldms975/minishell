@@ -84,8 +84,8 @@ int	ft_minishell(t_envp_list *env)
 			ft_exit(EXIT_SUCCESS);
 		add_history(line);
 		ft_parse(&pipe_list, env, line);
-		//ft_print(&pipe_list);
-		exit_code = ft_execute(&pipe_list, env);
+		ft_print(&pipe_list);
+		// exit_code = ft_execute(&pipe_list, env);
 		ft_parser_free(&pipe_list);
 		ft_free((void **) &line);
 	}

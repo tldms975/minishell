@@ -12,90 +12,71 @@
 
 #include "minishell.h"
 
-int	ft_parsing(t_pipe_node **pipe, t_token **token)
+int	ft_arg_pipe(t_token **token)
 {
 	t_token	*temp;
 
-	if ((*token)->type == ID)
+	free((*token)->content);
+	temp = (*token);
+	(*token) = (*token)->next;
+	free(temp);
+	return (1);
+}
+
+int	ft_redir(t_pipe_node **pipe, t_token **token)
+{
+	if ((*token)->type == REDIR_IN)
 	{
-		ft_enqueue_arg(pipe, (*token)->content);
-		temp = *token;
-		(*token) = (*token)->next;
-		free(temp);
-	}
-	else if ((*token)->type == REDIR_IN)
-	{
-		free((*token)->content);
-		temp = (*token);
-		(*token) = (*token)->next;
-		free(temp);
-		if ((*token)->type == ID)
-		{
-			ft_enqueue_redir(pipe, REDIR_IN, (*token)->content);
-			temp = *token;
-			(*token) = (*token)->next;
-			free(temp);
-		}
-		else
+		if (ft_arg_redir_in(pipe, token) == -1)
 			return (-1);
 	}
 	else if ((*token)->type == REDIR_OUT)
 	{
-		free((*token)->content);
-		temp = (*token);
-		(*token) = (*token)->next;
-		free(temp);
-		if ((*token)->type == ID)
-		{
-			ft_enqueue_redir(pipe, REDIR_OUT, (*token)->content);
-			temp = *token;
-			(*token) = (*token)->next;
-			free(temp);
-		}
-		else
+		if (ft_arg_redir_out(pipe, token) == -1)
 			return (-1);
 	}
 	else if ((*token)->type == REDIR_APPEND)
 	{
-		free((*token)->content);
-		temp = (*token);
-		(*token) = (*token)->next;
-		free(temp);
-		if ((*token)->type == ID)
-		{
-			ft_enqueue_redir(pipe, REDIR_APPEND, (*token)->content);
-			temp = *token;
-			(*token) = (*token)->next;
-			free(temp);
-		}
-		else
+		if (ft_arg_redir_append(pipe, token) == -1)
 			return (-1);
 	}
 	else if ((*token)->type == REDIR_HEREDOC)
 	{
-		free((*token)->content);
-		temp = (*token);
-		(*token) = (*token)->next;
-		free(temp);
-		if ((*token)->type == ID)
-		{
-			ft_enqueue(&((*pipe)->lim_q), (*token)->content);
-			temp = *token;
-			(*token) = (*token)->next;
-			free(temp);
-		}
-		else
+		if (ft_arg_heredoc(pipe, token) == -1)
 			return (-1);
 	}
 	else if ((*token)->type == PIPE)
+		if (ft_arg_pipe(token) == 1)
+			return (1);
+	return (0);
+}
+
+int	ft_parsing(t_pipe_node **pipe, t_token **token)
+{
+	int	ret;
+
+	if ((*token)->type == ID)
+		ft_arg_id(pipe, token);
+	else
 	{
-		free((*token)->content);
-		temp = (*token);
-		(*token) = (*token)->next;
-		free(temp);
-		return (1);
+		ret = ft_redir(pipe, token);
+		if (ret == -1)
+			return (-1);
+		else if (ret == 1)
+			return (1);
 	}
 	return (0);
+}
+
+void	ft_parser_sub(t_pipe_list **pipe_list, t_token **token, void *temp)
+{
+	*token = temp;
+	ft_enqueue_pipe(pipe_list);
+	while (*token != NULL)
+	{
+		if (ft_parsing(&((*pipe_list)->tail), token) == 1)
+			ft_enqueue_pipe(pipe_list);
+	}
 }
 
 int	ft_parser(t_pipe_list *pipe_list, t_token *token, t_envp_list *env)
@@ -118,15 +99,7 @@ int	ft_parser(t_pipe_list *pipe_list, t_token *token, t_envp_list *env)
 		return (-1);
 	}
 	else
-	{
-		token = temp;
-		ft_enqueue_pipe(&pipe_list);
-		while (token != NULL)
-		{
-			if (ft_parsing(&(pipe_list->tail), &token) == 1)
-				ft_enqueue_pipe(&pipe_list);
-		}
-	}
+		ft_parser_sub(&pipe_list, &token, temp);
 	ft_state_free(&temp_state);
 	ft_expand(pipe_list, env);
 	return (0);

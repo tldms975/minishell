@@ -40,7 +40,9 @@ PARSER_SRCS		=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/parser/,\
 					utils_lexer\
 					ft_goto\
 					reduce\
+					reduce5to7\
 					free_of_parsing\
+					ft_arg\
 					function1\
 					function2\
 					function3\

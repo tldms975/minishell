@@ -215,6 +215,12 @@ void	ft_enqueue_pipe(t_pipe_list **queue);
 t_limiter_q	*new_limiter_q(void);
 t_redir_list	*new_redir_list(void);
 t_arg_list	*new_arg_list(void);
+void	ft_arg_id(t_pipe_node **pipe, t_token **token);
+int	ft_arg_redir_in(t_pipe_node **pipe, t_token **token);
+int	ft_arg_redir_out(t_pipe_node **pipe, t_token **token);
+int	ft_arg_redir_append(t_pipe_node **pipe, t_token **token);
+int	ft_arg_heredoc(t_pipe_node **pipe, t_token **token);
+int	ft_arg_pipe(t_token **token);
 
 void	ft_print(t_pipe_list *pipe);
 void	ft_state_free(t_action_state **state);
