@@ -76,7 +76,7 @@ void	ft_expander_arg(t_arg_node	**node, t_envp_list *list, t_fuc funct)
 	if (buffer->save_content != NULL)
 		(*node)->content = buffer->save_content;
 	else
-		(*node)->content = ft_strdup("");
+		(*node)->content = ft_strdup(""); // NULL일때 접근 가능하도록 빌트인 수정하기
 	free(buffer);
 }
 
