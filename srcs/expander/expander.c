@@ -73,7 +73,10 @@ void	ft_expander_arg(t_arg_node	**node, t_envp_list *list, t_fuc funct)
 	if (buffer->curr_state == EX_NORMAL)
 		new_save(&buffer);
 	free((*node)->content);
-	(*node)->content = buffer->save_content;
+	if (buffer->save_content != NULL)
+		(*node)->content = buffer->save_content;
+	else
+		(*node)->content = ft_strdup("");
 	free(buffer);
 }
 
