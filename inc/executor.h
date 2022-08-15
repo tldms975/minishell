@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:08:46 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/15 05:03:02 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/15 16:54:32 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 
 typedef struct stat				t_stat;
 typedef enum e_process			t_process;
+typedef enum e_mybool			t_mybool;
 typedef struct s_executor		t_executor;
 
 enum e_exit_stat
@@ -42,7 +43,7 @@ enum e_read_write
 	WRITE
 };
 
-enum e_true_false
+enum e_mybool
 {
 	FALSE,
 	TRUE
@@ -56,7 +57,8 @@ struct s_executor
 	int			l_pipe_fd_read;
 	int			r_pipe_fd[2];
 	int			heredoc_fd[2];
-	int			is_built_in;
+	t_mybool	is_heredoc;
+	t_mybool	is_builtin;
 	int			built_in_code;
 	int			times;
 	t_process	in;

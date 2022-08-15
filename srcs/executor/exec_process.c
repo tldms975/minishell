@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:50:42 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/15 15:19:44 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/15 16:54:32 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,14 @@ void	ft_exe_in_child_process(t_pipe_node *cmd, t_executor *exec)
 	{
 		ft_redirection(redir->type, redir->file_name, exec);
 		if (exec->fd_read < 0 || exec->fd_write < 0)
-			exit(EXIT_FAILURE);//TODO: check
+			exit(EXIT_FAILURE);
 		redir = redir->next;
 	}
+	if (exec->is_heredoc == TRUE)
+		ft_close(exec->heredoc_fd[WRITE]);
 	ft_dup2(exec->fd_read, STDIN_FILENO);
 	ft_dup2(exec->fd_write, STDOUT_FILENO);
-	if (exec->is_built_in)
+	if (exec->is_builtin)
 		ft_execute_built_in(cmd, exec->built_in_code);
 	else
 		ft_execute_cmd(cmd->arg_list, cmd->env_list);

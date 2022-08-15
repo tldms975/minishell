@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:26:47 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/15 06:01:36 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/15 16:54:32 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ int	ft_check_builtin(t_pipe_node *cmd, t_executor *exec)
 		if (ft_strncmp(cmd->arg_list->front->content, built_in[i], \
 		(ft_strlen(built_in[i]) + 1)) == 0)
 		{
-			exec->is_built_in = 1;
+			exec->is_builtin = TRUE;
 			exec->built_in_code = i;
-			return (exec->is_built_in);
+			return (exec->is_builtin);
 		}
 		i++;
 	}

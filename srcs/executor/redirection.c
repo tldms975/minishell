@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 19:32:41 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/15 15:17:24 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/15 16:44:01 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_executor *exec)
 		ft_close(exec->fd_read);
 		exec->fd_read = open(file_name, O_RDONLY);
 	}
-	else if(type == REDIR_HEREDOC)
+	else if (type == REDIR_HEREDOC)
 	{
 		ft_close(exec->fd_read);
 		exec->fd_read = exec->heredoc_fd[READ];
