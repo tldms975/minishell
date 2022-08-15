@@ -6,15 +6,32 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:38:06 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/15 21:06:25 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/16 04:09:05 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_set_fd(t_executor *exec, int cnt_pipe)
+static void	ft_close_pipes(t_executor *exec)
 {
-	printf(">>child: %d<<\n", exec->times);//
+	if (exec->is_heredoc)
+	{
+		if (exec->fd_read != exec->heredoc_fd[READ])
+			ft_close(exec->fd_read);
+		if (exec->fd_write != exec->heredoc_fd[WRITE])
+			ft_close(exec->fd_write);
+		ft_close(exec->heredoc_fd[READ]);
+		ft_close(exec->heredoc_fd[WRITE]);
+	}
+	else
+	{
+		ft_close(exec->fd_read);
+		ft_close(exec->fd_write);
+	}
+}
+
+static void	ft_set_pipe_fd(t_executor *exec, int cnt_pipe)
+{
 	if (exec->times == (cnt_pipe + 1))
 		exec->l_pipe_fd_read = exec->r_pipe_fd[READ];
 	else
@@ -38,8 +55,10 @@ static void	ft_set_fd(t_executor *exec, int cnt_pipe)
 		if (exec->times != (cnt_pipe + 1))
 			exec->fd_write = exec->r_pipe_fd[WRITE];
 	}
-	printf("fd_read: %d, ", exec->fd_read);//
-	printf("fd_write: %d\n", exec->fd_write);//
+	////
+	printf(">>child %d's pipe rdir<<\n", exec->times);//
+	printf("basic(%d, ", exec->fd_read);//
+	printf("%d)\n", exec->fd_write);//
 }
 
 static void	ft_ready_to_exec(t_pipe_node *cmd, t_executor *exec, \
@@ -60,8 +79,9 @@ t_envp_list *env, int cnt_pipe)
 	else
 	{
 		exec->in = CHILD;
-		ft_set_fd(exec, cnt_pipe);
+		ft_set_pipe_fd(exec, cnt_pipe);
 	}
+	ft_redirection(cmd->redir_list->front, exec);
 }
 
 int	ft_execute(t_pipe_list *pipe_list, t_envp_list *env_list)
@@ -82,6 +102,7 @@ int	ft_execute(t_pipe_list *pipe_list, t_envp_list *env_list)
 			exec.pid = ft_fork();
 			if (exec.pid == 0)
 				ft_exe_in_child_process(pipe_line, &exec);
+			ft_close_pipes(&exec);
 		}
 		ret = ft_wait_all_child(exec.pid);
 		pipe_line = pipe_line->next;

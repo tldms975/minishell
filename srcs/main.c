@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 17:12:20 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/15 17:42:49 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/16 04:24:29 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	ft_minishell(t_envp_list *env)
 			ft_exit(EXIT_SUCCESS);
 		add_history(line);
 		ft_parse(&pipe_list, env, line);
-		//ft_print(&pipe_list);
+		//ft_print(&pipe_list);//for testing
 		exit_code = ft_execute(&pipe_list, env);
 		ft_parser_free(&pipe_list);
 		ft_free((void **) &line);

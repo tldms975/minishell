@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 18:55:39 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/15 21:08:46 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/16 04:19:01 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ static void	ft_heredoc_write_in_pipe(t_limiter_q *lim_q, t_executor *exec)
 			break ;
 		if (ft_strncmp(line, limiter, (ft_strlen(limiter) + 1)) == 0)
 			break ;
-		write(exec->r_pipe_fd[WRITE], line, ft_strlen(line));
-		write(exec->r_pipe_fd[WRITE], "\n", 1);
+		write(exec->heredoc_fd[WRITE], line, ft_strlen(line));
+		write(exec->heredoc_fd[WRITE], "\n", 1);
 		free(line);
 	}
 	ft_dequeue(lim_q);
@@ -56,12 +56,15 @@ void	ft_check_heredoc(t_limiter_q *lim_q, t_executor *exec)
 {
 	if (lim_q->cnt == 0)
 	{
-		exec->is_builtin = FALSE;
-		return ;
+		exec->is_heredoc = FALSE;
 	}
-	exec->is_heredoc = TRUE;
-	ft_ready_last_heredoc(lim_q);
-	ft_pipe(exec->heredoc_fd);
-	ft_close(exec->heredoc_fd[READ]);
-	ft_heredoc_write_in_pipe(lim_q, exec);
+	else
+	{
+		exec->is_heredoc = TRUE;
+		ft_ready_last_heredoc(lim_q);
+		ft_pipe(exec->heredoc_fd);
+		ft_heredoc_write_in_pipe(lim_q, exec);
+
+		printf("heredoc(%d, %d)\n", exec->heredoc_fd[READ], exec->heredoc_fd[WRITE]);//
+	}
 }
