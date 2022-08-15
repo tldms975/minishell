@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 17:55:38 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/05 22:53:31 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/15 15:17:32 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	ft_perror(char *str);
 void	ft_print_exit(void);
 void	ft_exit(int exit_status);
 
-int		ft_open(const char *str, int flag);
 int		ft_pipe(int fd[2]);
 int		ft_dup2(int fd1, int fd2);
 pid_t	ft_fork(void);

@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 19:32:41 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/14 20:55:16 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/15 15:17:24 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_executor *exec)
 	if (type == REDIR_IN)
 	{
 		ft_close(exec->fd_read);
-		exec->fd_read = ft_open(file_name, O_RDONLY);
+		exec->fd_read = open(file_name, O_RDONLY);
 	}
 	else if(type == REDIR_HEREDOC)
 	{
@@ -28,11 +28,11 @@ t_executor *exec)
 	else if (type == REDIR_OUT)
 	{
 		ft_close(exec->fd_read);
-		exec->fd_write = ft_open(file_name, O_WRONLY | O_CREAT | O_TRUNC);
+		exec->fd_write = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	}
 	else if (type == REDIR_APPEND)
 	{
 		ft_close(exec->fd_read);
-		exec->fd_write = ft_open(file_name, O_WRONLY | O_CREAT | O_APPEND);
+		exec->fd_write = open(file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	}
 }

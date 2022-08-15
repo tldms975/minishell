@@ -6,21 +6,11 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 22:29:57 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/15 06:11:58 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/15 15:15:15 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
-
-int	ft_open(const char *str, int flag)
-{
-	int	fd;
-
-	fd = open(str, flag);
-	if (fd < 0)
-		ft_perror("open");
-	return (fd);
-}
 
 int	ft_pipe(int fd[2])
 {

@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:14:33 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/08 18:10:16 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/15 15:57:14 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	ft_exit_with_errmsg_numeric(char *str)
 	exit(EXIT_OVER);
 }
 
-static int ft_exit_fail_too_many_args(void)
+static int	ft_exit_fail_too_many_args(void)
 {
 	ft_print_exit();
 	ft_putendl_fd("bash: exit: too many arguments", STDERR_FILENO);
@@ -43,12 +43,12 @@ static int ft_exit_fail_too_many_args(void)
 
 int	ft_bi_exit(t_pipe_node *cmd)
 {
-	t_arg_node *bi_arg;
+	t_arg_node	*bi_arg;
 
 	bi_arg = cmd->arg_list->front->next;
 	if (!bi_arg)
 	{
-		ft_exit(0);//현재상태 알 수있도록 전역변수 써야할듯
+		ft_exit(EXIT_SUCCESS);
 	}
 	else if (ft_isnumeric(bi_arg->content))
 	{

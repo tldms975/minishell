@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 17:51:38 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/13 20:24:49 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/15 15:04:02 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,5 @@ void	ft_free_env_list(t_envp_list *env_list)
 		ft_free((void **) &env);
 		env = tmp;
 	}
-	ft_free((void **) &env_list->head);
-	ft_free((void **) &env_list->tail);
-	ft_free((void **) &env_list->vec);
-	ft_free((void **) &env_list->len);
+	ft_free((void **) &env_list);
 }

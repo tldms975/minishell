@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:50:42 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/15 05:59:10 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/15 15:19:44 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	ft_exe_in_parent_process(t_pipe_node *cmd, t_executor *exec)
 	while (redir)
 	{
 		ft_redirection(redir->type, redir->file_name, exec);
+		if (exec->fd_read < 0 || exec->fd_write < 0)
+			ft_perror("open");
 		redir = redir->next;
 	}
 	return (ft_execute_built_in(cmd, exec->built_in_code));
