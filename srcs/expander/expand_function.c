@@ -83,7 +83,7 @@ void	ft_question_mark(t_buffer *buffer)
 	char	*temp2;
 
 	temp = buffer->save_content;
-	temp2 = ft_itoa();
+	temp2 = ft_itoa(g_exit_status);
 	if (temp == NULL)
 		buffer->save_content = ft_strdup(temp2);
 	else

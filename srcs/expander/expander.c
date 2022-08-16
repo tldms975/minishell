@@ -12,6 +12,24 @@
 
 #include "minishell.h"
 
+int	buffer_init(t_arg_node	**node, t_buffer **buffer, t_envp_list *list)
+{
+	*buffer = ft_malloc(sizeof(t_buffer));
+	(*buffer)->content = (*node)->content;
+	(*buffer)->curr_state = check_expand_type(*((*node)->content));
+	(*buffer)->save_content = NULL;
+	(*buffer)->index = 1;
+	(*buffer)->env_list = list;
+	if ((*buffer)->curr_state == EX_DOLLAR
+			&& (check_expand_type(((*buffer)->content)[(*buffer)->index]) == EX_NULL))
+	{
+		(*buffer)->curr_state = EX_NORMAL;
+		return (1);
+	}
+	return (0);
+	
+}
+
 void	ft_expander_arg(t_arg_node	**node, t_envp_list *list, t_fuc funct)
 {
 	t_expand_state		next_state;
@@ -19,15 +37,8 @@ void	ft_expander_arg(t_arg_node	**node, t_envp_list *list, t_fuc funct)
 	t_fuc_exp			function;
 	t_buffer			*buffer;
 
-	buffer = ft_malloc(sizeof(t_buffer));
-	buffer->content = (*node)->content;
-	buffer->curr_state = check_expand_type(*((*node)->content));
-	buffer->save_content = NULL;
-	buffer->index = 1;
-	buffer->env_list = list;
-	if (buffer->curr_state == EX_DOLLAR
-			&& (check_expand_type((buffer->content)[buffer->index]) == EX_NULL))
-		buffer->curr_state = EX_NORMAL;
+	if (buffer_init(node, &buffer, list) == 1)
+		;
 	else if (buffer->curr_state == EX_SI_QUO || buffer->curr_state == EX_DO_QUO)
 	{
 		buffer->content++;
@@ -37,6 +48,8 @@ void	ft_expander_arg(t_arg_node	**node, t_envp_list *list, t_fuc funct)
 			buffer->index = 0;
 			if ('0' <= *(buffer->content) && *(buffer->content) <= '9')
 				buffer->content++;
+			else if (*(buffer->content) == '?')
+				ft_question_mark(buffer);
 			else
 			{
 				while (check_meta((buffer->content)[buffer->index]) == EX_NORMAL)
