@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:14:24 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/15 15:57:22 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/16 19:17:14 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,32 @@ static void	ft_echo_args(t_arg_node *arg)
 	}
 }
 
+static int	ft_check_echo_options(t_arg_node *arg, int flag)
+{
+	char	*str;
+	int		i;
+
+	while (arg && (arg->content[0] == '-'))
+	{
+		str = arg->content;
+		i = 1;
+		while (str[i] && str[i] == 'n')
+			i++;
+		if (!str[i])
+		{
+			flag = TRUE;
+			arg = arg->next;
+		}
+		else if (flag == TRUE) // not null && not 'n'
+			ft_check_echo_options(arg, flag);
+		else
+			return (FALSE);
+	}
+	if (flag == TRUE)
+		ft_echo_args(arg);
+	return (flag);
+}
+
 int	ft_bi_echo(t_pipe_node *cmd)
 {
 	t_arg_node	*arg;
@@ -34,9 +60,7 @@ int	ft_bi_echo(t_pipe_node *cmd)
 	}
 	else
 	{
-		if (ft_strncmp(arg->content, "-n", 3) == 0)
-			ft_echo_args(arg->next);
-		else
+		if (!ft_check_echo_options(arg, FALSE))
 		{
 			ft_echo_args(arg);
 			printf("\n");
