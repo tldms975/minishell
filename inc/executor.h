@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:08:46 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/16 19:38:33 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/17 02:36:11 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ enum e_mybool
 
 struct s_executor
 {
+	pid_t		last_pid;
 	pid_t		pid;
 	int			fd_read;
 	int			fd_write;
@@ -66,7 +67,7 @@ struct s_executor
 	t_envp_list	*env;
 };
 
-int		ft_get_exit_status(int status);
+int		ft_get_child_exit_status(int status);
 
 int		ft_check_builtin(t_pipe_node *cmd, t_executor *exec);
 int		ft_execute_built_in(t_pipe_node *cmd, int code);
@@ -82,6 +83,5 @@ int		ft_redirection(t_arg_node *arg, t_redir_node *redir, t_executor *exec);
 int		ft_wait_all_child(int pid);
 void	ft_exe_in_child_process(t_pipe_node *cmd, t_executor *exec);
 int		ft_exe_in_parent_process(t_pipe_node *cmd, t_executor *exec);
-
 
 #endif

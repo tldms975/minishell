@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:04:46 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/13 17:01:04 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/17 02:37:36 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,5 @@ int	ft_bi_env(t_pipe_node *cmd);
 int	ft_bi_export(t_pipe_node *cmd);
 int	ft_bi_unset(t_pipe_node *cmd);
 int	ft_bi_exit(t_pipe_node *cmd);
-
-
-
 
 #endif

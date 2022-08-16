@@ -6,15 +6,13 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 18:02:18 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/12 18:41:30 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/17 02:33:25 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-
-static void ft_swap_env_node(t_envp_node *node1, t_envp_node *node2)
+static void	t_swap_env_node(t_envp_node *node1, t_envp_node *node2)
 {
 	char	*tmp_key;
 	char	*tmp_value;
@@ -60,10 +58,9 @@ t_envp_list	*ft_get_sorted_env(t_envp_list *env_list)
 		node2 = node1->next;
 		while (node2)
 		{
-			if (ft_strncmp(node1->key, node2->key, ft_strlen(node1->key) + 1) > 0)
-			{
+			if (ft_strncmp(node1->key, node2->key, \
+			ft_strlen(node1->key) + 1) > 0)
 				ft_swap_env_node(node1, node2);
-			}
 			node2 = node2->next;
 		}
 		node1 = node1->next;

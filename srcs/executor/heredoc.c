@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 18:55:39 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/16 17:50:23 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/17 01:33:49 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ void	ft_check_heredoc(t_limiter_q *lim_q, t_executor *exec)
 		ft_ready_last_heredoc(lim_q);
 		ft_pipe(exec->heredoc_fd);
 		ft_heredoc_write_in_pipe(lim_q, exec);
-
 		printf("heredoc(%d, %d)\n", exec->heredoc_fd[READ], exec->heredoc_fd[WRITE]);//
 	}
 }

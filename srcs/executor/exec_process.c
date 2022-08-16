@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:50:42 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/16 03:13:29 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/17 02:29:45 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_exe_in_child_process(t_pipe_node *cmd, t_executor *exec)
 		ft_execute_cmd(cmd->arg_list, cmd->env_list);
 }
 
-int	ft_get_exit_status(int status)
+int	ft_get_child_exit_status(int status)
 {
 	const int	w_status = status & 0177;
 
@@ -42,7 +42,7 @@ int	ft_get_exit_status(int status)
 	return (0);
 }
 
-int	ft_wait_all_child(int pid)
+int	ft_wait_all_child(int last_pid)
 {
 	int	stat;
 	int	wait_ret;
@@ -54,8 +54,8 @@ int	ft_wait_all_child(int pid)
 		wait_ret = waitpid(-1, &stat, 0);
 		if (wait_ret < 0)
 			break ;
-		if (wait_ret == pid)
-			ret = ft_get_exit_status(stat);
+		if (wait_ret == last_pid)
+			ret = stat;
 	}
 	return (ret);
 }

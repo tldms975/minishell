@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:38:06 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/16 20:23:38 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/17 02:32:11 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ static void	ft_set_pipe_fd(t_executor *exec, int cnt_pipe)
 		if (exec->times != (cnt_pipe + 1))
 			exec->fd_write = exec->r_pipe_fd[WRITE];
 	}
-	////
 	printf(">>[%d] pipe_line rdir<<\n", exec->times);//
 	printf("basic(%d, ", exec->fd_read);//
 	printf("%d)\n", exec->fd_write);//
@@ -64,8 +63,6 @@ static void	ft_set_pipe_fd(t_executor *exec, int cnt_pipe)
 static int	ft_ready_to_exec(t_pipe_node *cmd, t_executor *exec, \
 t_envp_list *env, int cnt_pipe)
 {
-	int	ret;
-
 	exec->times += 1;
 	exec->fd_read = STDIN_FILENO;
 	exec->fd_write = STDOUT_FILENO;
@@ -85,8 +82,7 @@ t_envp_list *env, int cnt_pipe)
 		exec->in = CHILD;
 		ft_set_pipe_fd(exec, cnt_pipe);
 	}
-	ret = ft_redirection(cmd->arg_list->front, cmd->redir_list->front, exec);
-	return (ret);
+	return (ft_redirection(cmd->arg_list->front, cmd->redir_list->front, exec));
 }
 
 int	ft_execute(t_pipe_list *pipe_list, t_envp_list *env_list)
@@ -106,13 +102,13 @@ int	ft_execute(t_pipe_list *pipe_list, t_envp_list *env_list)
 			return (ft_exe_in_parent_process(pipe_line, &exec));
 		else if (exec.in == CHILD)
 		{
-			exec.pid = ft_fork();
+			exec.pid = ft_fork_getting_last_pid(pipe_line, &exec);
 			if (exec.pid == 0)
 				ft_exe_in_child_process(pipe_line, &exec);
+			ret = ft_wait_all_child(exec.last_pid);
 			ft_close_pipes(&exec);
-			ret = ft_wait_all_child(exec.pid);
 		}
 		pipe_line = pipe_line->next;
 	}
-	return (ret);
+	return (ft_get_child_exit_status(ret));
 }

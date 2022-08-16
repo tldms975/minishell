@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 17:55:38 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/15 15:17:32 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/17 02:24:26 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "../libft/libft.h"
 # include "parser.h"
+# include "executor.h"
 # include <stddef.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -32,6 +33,7 @@ void	ft_exit(int exit_status);
 
 int		ft_pipe(int fd[2]);
 int		ft_dup2(int fd1, int fd2);
+pid_t	ft_fork_getting_last_pid(t_pipe_node *pipe_line, t_executor *exec);
 pid_t	ft_fork(void);
 int		ft_close(int fd);
 

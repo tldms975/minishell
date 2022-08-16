@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 02:29:44 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/16 20:37:37 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/17 01:26:28 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,14 @@ void	ft_execute_cmd(t_arg_list *arg_list, t_envp_list *env)
 	char	*cmd_path;
 	char	**cmd_vec;
 
-	if (!(arg_list->front))
-		return ;
-	cmd_path = ft_get_cmd_path(arg_list->front->content, env);
+	if (ft_strchr(arg_list->front->content, '/'))
+		cmd_path = arg_list->front->content;
+	else
+		cmd_path = ft_get_cmd_path(arg_list->front->content, env);
 	cmd_vec = ft_get_cmd_vec(arg_list);
 	execve(cmd_path, cmd_vec, env->vec);
-	ft_perror("execve");
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd(arg_list->front->content, STDERR_FILENO);
+	ft_perror("");
 	exit(EXIT_UNEXECUTABLE);
 }
