@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:08:46 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/16 17:30:39 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/16 17:45:41 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,11 @@ enum e_exit
 	EXIT_OVER = 255
 };
 
-enum e_process
+enum e_exe
 {
 	PARENT,
-	CHILD
+	CHILD,
+	DO_NOT
 };
 
 enum e_read_write

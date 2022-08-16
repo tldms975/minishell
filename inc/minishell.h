@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 17:12:35 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/15 17:04:33 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/16 17:51:13 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,7 @@
 # include "builtin.h"
 # include "envp.h"
 # include "expander.h"
+
+extern int	g_exit_status;
 
 #endif

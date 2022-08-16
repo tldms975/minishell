@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:38:06 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/16 17:30:06 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/16 17:50:58 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	ft_set_pipe_fd(t_executor *exec, int cnt_pipe)
 			exec->fd_write = exec->r_pipe_fd[WRITE];
 	}
 	////
-	printf(">>child %d's pipe rdir<<\n", exec->times);//
+	printf(">>[%d] pipe_line rdir<<\n", exec->times);//
 	printf("basic(%d, ", exec->fd_read);//
 	printf("%d)\n", exec->fd_write);//
 }
@@ -66,9 +66,9 @@ t_envp_list *env, int cnt_pipe)
 {
 	int	ret;
 
+	exec->times += 1;
 	exec->fd_read = STDIN_FILENO;
 	exec->fd_write = STDOUT_FILENO;
-	exec->times += 1;
 	if (env->vec)
 		ft_free((void **) &env->vec);
 	env->vec = ft_get_env_vector(env);
@@ -76,7 +76,9 @@ t_envp_list *env, int cnt_pipe)
 	ft_check_heredoc(cmd->lim_q, exec);
 	exec->is_builtin = FALSE;
 	exec->built_in_code = 0;
-	if (!cnt_pipe && ft_check_builtin(cmd, exec))
+	if (!(cmd->arg_list->front))
+		exec->in = DO_NOT;
+	else if (!cnt_pipe && ft_check_builtin(cmd, exec))
 		exec->in = PARENT;
 	else
 	{
@@ -102,14 +104,14 @@ int	ft_execute(t_pipe_list *pipe_list, t_envp_list *env_list)
 			return (EXIT_FAILURE);
 		if (exec.in == PARENT)
 			return (ft_exe_in_parent_process(pipe_line, &exec));
-		else
+		else if (exec.in == CHILD)
 		{
 			exec.pid = ft_fork();
 			if (exec.pid == 0)
 				ft_exe_in_child_process(pipe_line, &exec);
 			ft_close_pipes(&exec);
+			ret = ft_wait_all_child(exec.pid);
 		}
-		ret = ft_wait_all_child(exec.pid);
 		pipe_line = pipe_line->next;
 	}
 	return (ret);
