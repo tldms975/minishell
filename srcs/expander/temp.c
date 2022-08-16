@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   expand_function.c                                  :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/25 18:11:25 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/16 17:59:19 by sielee           ###   ########seoul.kr  */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 extern g_exit_status;
@@ -80,20 +68,3 @@ void	ft_dollar(t_buffer **buffer)
 }
 
 void	ft_question_mark(t_buffer *buffer)
-{
-	char	*temp;
-	char	*temp2;
-
-	temp = buffer->save_content;
-	temp2 = ft_itoa(g_exit_status);
-	if (temp == NULL)
-		buffer->save_content = ft_strdup(temp2);
-	else
-	{
-		buffer->save_content = ft_strjoin(temp, temp2);
-		free(temp);
-	}
-	free(temp2);
-	buffer->content++;
-	buffer->index = 0;
-}

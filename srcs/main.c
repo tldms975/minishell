@@ -6,11 +6,14 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 17:12:20 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/16 04:24:29 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/16 18:00:45 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int	g_exit_status;
+
 #include <stdio.h>
 void	ft_print(t_pipe_list *pipe)
 {
@@ -73,9 +76,8 @@ int	ft_minishell(t_envp_list *env)
 {
 	t_pipe_list	pipe_list;
 	char	*line;
-	int		exit_code;
 
-	exit_code = EXIT_SUCCESS;
+	g_exit_status = EXIT_SUCCESS;
 	while (1)
 	{
 		ft_default_signal();
@@ -85,11 +87,11 @@ int	ft_minishell(t_envp_list *env)
 		add_history(line);
 		ft_parse(&pipe_list, env, line);
 		//ft_print(&pipe_list);//for testing
-		exit_code = ft_execute(&pipe_list, env);
+		g_exit_status = ft_execute(&pipe_list, env);
 		ft_parser_free(&pipe_list);
 		ft_free((void **) &line);
 	}
-	return (exit_code);
+	return (g_exit_status);
 }
 
 int	main(int ac, char *av[], char *envp[])

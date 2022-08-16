@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:08:46 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/16 17:45:41 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/16 17:54:23 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include "builtin.h"
 
 typedef struct stat			t_stat;
-typedef enum e_process		t_process;
+typedef enum e_exe_in		t_exe_in;
 typedef enum e_mybool		t_mybool;
 typedef struct s_executor	t_executor;
 
@@ -31,7 +31,7 @@ enum e_exit
 	EXIT_OVER = 255
 };
 
-enum e_exe
+enum e_exe_in
 {
 	PARENT,
 	CHILD,
@@ -62,7 +62,7 @@ struct s_executor
 	t_mybool	is_builtin;
 	int			built_in_code;
 	int			times;
-	t_process	in;
+	t_exe_in	in;
 	t_envp_list	*env;
 };
 
