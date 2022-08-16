@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:14:24 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/16 19:17:14 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/16 19:59:27 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,11 @@ static int	ft_check_echo_options(t_arg_node *arg, int flag)
 			flag = TRUE;
 			arg = arg->next;
 		}
-		else if (flag == TRUE) // not null && not 'n'
-			ft_check_echo_options(arg, flag);
+		else if (flag == TRUE)
+		{
+			ft_echo_args(arg);
+			return (TRUE);
+		}
 		else
 			return (FALSE);
 	}

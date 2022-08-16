@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:08:46 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/16 17:54:23 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/16 19:38:33 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ enum e_exe_in
 {
 	PARENT,
 	CHILD,
-	DO_NOT
+	DO_NOT_EXE
 };
 
 enum e_read_write

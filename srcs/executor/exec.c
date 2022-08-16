@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:38:06 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/16 17:50:58 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/16 20:23:38 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ t_envp_list *env, int cnt_pipe)
 	ft_check_heredoc(cmd->lim_q, exec);
 	exec->is_builtin = FALSE;
 	exec->built_in_code = 0;
-	if (!(cmd->arg_list->front))
-		exec->in = DO_NOT;
+	if (!cmd->arg_list->front)
+		exec->in = DO_NOT_EXE;
 	else if (!cnt_pipe && ft_check_builtin(cmd, exec))
 		exec->in = PARENT;
 	else
