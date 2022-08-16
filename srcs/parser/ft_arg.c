@@ -80,7 +80,7 @@ int	ft_arg_heredoc(t_pipe_node **pipe, t_token **token)
 	free(temp);
 	if ((*token)->type == ID)
 	{
-		ft_enqueue(&((*pipe)->lim_q), (*token)->content);
+		ft_enqueue_redir(pipe, REDIR_HEREDOC, (*token)->content);
 		temp = *token;
 		(*token) = (*token)->next;
 		free(temp);
