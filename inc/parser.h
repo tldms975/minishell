@@ -117,6 +117,7 @@ typedef struct s_redir_node
 	char				*file_name;
 	t_token_type		type;
 	struct s_redir_node	*next;
+	struct s_redir_node	*prev;
 }	t_redir_node;
 
 typedef struct s_arg_list
@@ -130,6 +131,7 @@ typedef struct s_arg_node
 {
 	char				*content;
 	struct s_arg_node	*next;
+	struct s_arg_node	*prev;
 }	t_arg_node;
 
 typedef struct s_pipe_node

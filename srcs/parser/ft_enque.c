@@ -7,12 +7,14 @@ void	ft_enqueue_arg(t_pipe_node **pipe, char *data)
 	new = ft_malloc(sizeof(t_arg_node));
 	new->content = data;
 	new->next = NULL;
+	new->prev = NULL;
 	if ((*pipe)->arg_list->front == NULL)
 	{
 		(*pipe)->arg_list->front = new;
 	}
 	else
 	{
+		new->prev = (*pipe)->arg_list->rear;
 		(*pipe)->arg_list->rear->next = new;
 	}
 	(*pipe)->arg_list->rear = new;
@@ -27,12 +29,14 @@ void	ft_enqueue_redir(t_pipe_node **pipe, t_token_type type, char *data)
 	new->file_name = data;
 	new->type = type;
 	new->next = NULL;
+	new->prev = NULL;
 	if ((*pipe)->redir_list->front == NULL)
 	{
 		(*pipe)->redir_list->front = new;
 	}
 	else
 	{
+		new->prev = (*pipe)->redir_list->rear;
 		(*pipe)->redir_list->rear->next = new;
 	}
 	(*pipe)->redir_list->rear = new;

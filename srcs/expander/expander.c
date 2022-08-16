@@ -36,7 +36,18 @@ void	ft_expander_arg(t_arg_node	**node, t_envp_list *list, t_fuc funct)
 	if (buffer->save_content != NULL)
 		(*node)->content = buffer->save_content;
 	else
-		(*node)->content = NULL; // NULL일때 접근 가능하도록 빌트인 수정하기
+	{
+		t_arg_node	*temp;
+		t_arg_node	*temp2;
+
+		(*node)->content = NULL;
+		temp = *node;
+		if ((*node)->prev != NULL)
+			(*node)->prev->next = (*node)->next;
+		if (temp->next != NULL)
+			temp->next->prev = temp->prev;
+		ft_free((void **)&temp2);
+	}
 	free(buffer);
 }
 
