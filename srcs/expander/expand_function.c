@@ -84,6 +84,11 @@ void	ft_dollar(t_buffer **buffer)
 			temp2 = temp2->next;
 		}
 		free(temp);
+		if (temp2 == NULL && (*buffer)->curr_state == EX_DO_QUO)
+		{
+			if ((*buffer)->save_content == NULL)
+				(*buffer)->save_content = ft_strdup("");
+		}
 	}
 	ft_dollar_sub(buffer);
 }
