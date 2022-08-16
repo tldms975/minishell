@@ -6,13 +6,20 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 19:32:41 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/16 04:16:07 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/16 13:40:00 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_redir_out(t_token_type type, const char *file_name, \
+static void	ft_print_error(char *file_name)
+{
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd(file_name, STDERR_FILENO);
+	ft_perror("");
+}
+
+static void	ft_redir_out(t_token_type type, char *file_name, \
 t_executor *exec)
 {
 	int	tmp;
@@ -24,7 +31,7 @@ t_executor *exec)
 			ft_close(exec->fd_write);
 		tmp = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (tmp < 0)
-			ft_perror("open");
+			ft_print_error(file_name);
 		else
 			exec->fd_write = tmp;
 		printf("files[%s]'s fd: %d\n", file_name, tmp);//
@@ -36,14 +43,14 @@ t_executor *exec)
 			ft_close(exec->fd_write);
 		tmp = open(file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
 		if (tmp < 0)
-			ft_perror("open");
+			ft_print_error(file_name);
 		else
 			exec->fd_write = tmp;
 		printf("file[%s]'s fd: %d\n", file_name, tmp);//
 	}
 }
 
-static void	ft_redir_in(t_token_type type, const char *file_name, \
+static void	ft_redir_in(t_token_type type, char *file_name, \
 t_executor *exec)
 {
 	int	tmp;
@@ -53,7 +60,7 @@ t_executor *exec)
 		tmp = open(file_name, O_RDONLY);
 		if (tmp < 0)
 		{
-			ft_perror("open");
+			ft_print_error(file_name);
 			return ;
 		}
 		if (!(exec->is_heredoc) || \
