@@ -30,6 +30,16 @@ t_expand_state check_meta(char c)
 	if (c == '$')
 		return (EX_DOLLAR);
 	else if (('A' <= c && c <= 'Z') || ('a' <= c && c <= 'z')
+		|| ('0' <= c && c <= '9') || c == '_' || c == '?')
+		return (EX_NORMAL);
+	return (EX_META);
+}
+
+t_expand_state check_meta_qu(char c)
+{
+	if (c == '$')
+		return (EX_DOLLAR);
+	else if (('A' <= c && c <= 'Z') || ('a' <= c && c <= 'z')
 		|| ('0' <= c && c <= '9') || c == '_')
 		return (EX_NORMAL);
 	return (EX_META);

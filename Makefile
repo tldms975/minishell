@@ -51,6 +51,7 @@ EXPANDER_SRCS	=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/expander/,\
 					expand_function\
 					expand_function1\
 					expand_function2\
+					expander_init\
 					expand_utils\
 					expander_table\
 					expander))

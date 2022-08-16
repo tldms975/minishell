@@ -61,5 +61,6 @@ void	ft_expander_init(t_arg_node	**node, t_buffer **buffer, t_envp_list *list);
 int	buffer_init(t_arg_node	**node, t_buffer **buffer, t_envp_list *list);
 void	ft_que_init_sub(t_buffer *buffer);
 void	ft_que_init(t_buffer *buffer);
+t_expand_state check_meta_qu(char c);
 
 #endif

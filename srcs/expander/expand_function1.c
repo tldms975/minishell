@@ -61,16 +61,15 @@ int	ft_ex_norm_to_dollar(t_buffer *buffer)
 	{
 		new_save(&buffer);
 		buffer->content += 1;
+		buffer->index = 0;
 		if ('0' <= *(buffer->content) && *(buffer->content) <= '9')
 		{
 			buffer->content++;
 			buffer->index = 0;
 		}
-		else if (*(buffer->content) == '?')
-			ft_question_mark(buffer);
 		else
 		{
-			while (check_meta((buffer->content)[buffer->index]) == EX_NORMAL)
+			while (check_meta_qu((buffer->content)[buffer->index]) == EX_NORMAL)
 				buffer->index++;
 			ft_dollar(&buffer);
 			ft_ex_norm_to_dollar_sub(buffer);

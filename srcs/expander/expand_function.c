@@ -57,26 +57,35 @@ void	ft_dollar(t_buffer **buffer)
 	char			*temp1;
 	t_envp_node		*temp2;
 
-	temp = ft_substr((*buffer)->content, 0, (*buffer)->index);
-	temp2 = (*buffer)->env_list->head;
-	while (temp2 != NULL)
+	if (((*buffer)->content)[(*buffer)->index] == '?')
 	{
-		if (ft_strncmp(temp, temp2->key, ft_strlen(temp)) == 0)
+		ft_question_mark(*buffer);
+		(*buffer)->content++;
+		(*buffer)->index = 0;
+	}
+	else
+	{
+		temp = ft_substr((*buffer)->content, 0, (*buffer)->index);
+		temp2 = (*buffer)->env_list->head;
+		while (temp2 != NULL)
 		{
-			temp1 = (*buffer)->save_content;
-			if (temp1 == NULL)
-				(*buffer)->save_content = ft_strdup(temp2->value);
-			else
+			if (ft_strncmp(temp, temp2->key, ft_strlen(temp)) == 0)
 			{
-				(*buffer)->save_content = ft_strjoin(temp1, temp2->value);
-				free(temp1);
+				temp1 = (*buffer)->save_content;
+				if (temp1 == NULL)
+					(*buffer)->save_content = ft_strdup(temp2->value);
+				else
+				{
+					(*buffer)->save_content = ft_strjoin(temp1, temp2->value);
+					free(temp1);
+				}
+				break ;
 			}
-			break ;
+			temp2 = temp2->next;
 		}
-		temp2 = temp2->next;
+		free(temp);
 	}
 	ft_dollar_sub(buffer);
-	free(temp);
 }
 
 void	ft_question_mark(t_buffer *buffer)
@@ -94,6 +103,4 @@ void	ft_question_mark(t_buffer *buffer)
 		free(temp);
 	}
 	free(temp2);
-	buffer->content++;
-	buffer->index = 0;
 }
