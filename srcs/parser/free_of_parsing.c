@@ -59,7 +59,7 @@ void	ft_limq_free(t_limiter_q *lim_q)
 	while (lim_q->front != NULL)
 	{
 		temp = lim_q->front;
-		ft_free((void **)&(lim_q->front->data));
+		// ft_free((void **)&(lim_q->front->data)); //ft_strdup사용하기!
 		lim_q->front = lim_q->front->next;
 		ft_free((void **)&temp);
 	}
