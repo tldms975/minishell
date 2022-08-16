@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:38:06 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/16 04:09:05 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/16 17:30:06 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,11 @@ static void	ft_set_pipe_fd(t_executor *exec, int cnt_pipe)
 	printf("%d)\n", exec->fd_write);//
 }
 
-static void	ft_ready_to_exec(t_pipe_node *cmd, t_executor *exec, \
+static int	ft_ready_to_exec(t_pipe_node *cmd, t_executor *exec, \
 t_envp_list *env, int cnt_pipe)
 {
+	int	ret;
+
 	exec->fd_read = STDIN_FILENO;
 	exec->fd_write = STDOUT_FILENO;
 	exec->times += 1;
@@ -81,7 +83,8 @@ t_envp_list *env, int cnt_pipe)
 		exec->in = CHILD;
 		ft_set_pipe_fd(exec, cnt_pipe);
 	}
-	ft_redirection(cmd->redir_list->front, exec);
+	ret = ft_redirection(cmd->arg_list->front, cmd->redir_list->front, exec);
+	return (ret);
 }
 
 int	ft_execute(t_pipe_list *pipe_list, t_envp_list *env_list)
@@ -94,7 +97,9 @@ int	ft_execute(t_pipe_list *pipe_list, t_envp_list *env_list)
 	pipe_line = pipe_list->head;
 	while (pipe_line)
 	{
-		ft_ready_to_exec(pipe_line, &exec, env_list, pipe_list->cnt_pipe);
+		if (ft_ready_to_exec(pipe_line, &exec, env_list, pipe_list->cnt_pipe) \
+		== EXIT_FAILURE)
+			return (EXIT_FAILURE);
 		if (exec.in == PARENT)
 			return (ft_exe_in_parent_process(pipe_line, &exec));
 		else
