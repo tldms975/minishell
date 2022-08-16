@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-extern g_exit_status;
+extern int	g_exit_status;
 
 void	new_save(t_buffer **buffer)
 {

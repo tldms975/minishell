@@ -57,5 +57,9 @@ void	ft_expander_arg(t_arg_node	**node, t_envp_list *list, t_fuc funct);
 void	ft_expand(t_pipe_list *pipe, t_envp_list *env);
 int	ft_ex_dollar_to(t_buffer *buffer);
 void	ft_question_mark(t_buffer *buffer);
+void	ft_expander_init(t_arg_node	**node, t_buffer **buffer, t_envp_list *list);
+int	buffer_init(t_arg_node	**node, t_buffer **buffer, t_envp_list *list);
+void	ft_que_init_sub(t_buffer *buffer);
+void	ft_que_init(t_buffer *buffer);
 
 #endif

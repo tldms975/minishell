@@ -17,7 +17,7 @@ void	ft_expander_init(t_arg_node	**node, t_buffer **buffer, t_envp_list *list)
 	if (buffer_init(node, buffer, list) == 1)
 		;
 	else if ((*buffer)->curr_state == EX_SI_QUO || (*buffer)->curr_state == EX_DO_QUO)
-		ft_que_init(buffer);
+		ft_que_init(*buffer);
 }
 
 int	buffer_init(t_arg_node	**node, t_buffer **buffer, t_envp_list *list)
