@@ -56,5 +56,6 @@ void	ft_expander_table(t_fuc *funct);
 void	ft_expander_arg(t_arg_node	**node, t_envp_list *list, t_fuc funct);
 void	ft_expand(t_pipe_list *pipe, t_envp_list *env);
 int	ft_ex_dollar_to(t_buffer *buffer);
+void	ft_question_mark(t_buffer *buffer);
 
 #endif

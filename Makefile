@@ -49,6 +49,8 @@ PARSER_SRCS		=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/parser/,\
 					function))
 EXPANDER_SRCS	=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/expander/,\
 					expand_function\
+					expand_function1\
+					expand_function2\
 					expand_utils\
 					expander_table\
 					expander))
