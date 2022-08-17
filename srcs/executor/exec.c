@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:38:06 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/17 19:05:50 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/17 22:55:38 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_envp_list *env, int cnt_pipe)
 		ft_free((void **) &env->vec);
 	env->vec = ft_get_env_vector(env);
 	cmd->env_list = env;
-	ft_check_heredoc(cmd->lim_q, exec);
+	ft_check_heredoc(cmd->lim_q, exec, env);
 	exec->is_builtin = FALSE;
 	exec->built_in_code = 0;
 	if (!cmd->arg_list->front)

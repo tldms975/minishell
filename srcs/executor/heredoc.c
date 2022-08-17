@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 18:55:39 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/17 22:52:42 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/17 22:55:20 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	ft_heredoc_write_in_pipe(t_limiter_q *lim_q, t_executor *exec, t_env
 	ft_close(exec->heredoc_fd[WRITE]);
 }
 
-static void	ft_ready_last_heredoc(t_limiter_q *lim_q, t_envp_list *env_list)
+static void	ft_ready_last_heredoc(t_limiter_q *lim_q)
 {
 	char	*line;
 	char	*limiter;
@@ -84,7 +84,7 @@ void	ft_check_heredoc(t_limiter_q *lim_q, t_executor *exec, t_envp_list *env_lis
 		exec->is_heredoc = TRUE;
 		ft_ready_last_heredoc(lim_q);
 		ft_pipe(exec->heredoc_fd);
-		ft_heredoc_write_in_pipe(lim_q, exec);
+		ft_heredoc_write_in_pipe(lim_q, exec, env_list);
 		ft_default_signal();
 		printf("heredoc(%d, %d)\n", exec->heredoc_fd[READ], exec->heredoc_fd[WRITE]);//
 	}
