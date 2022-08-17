@@ -37,10 +37,25 @@ void	ft_expander_arg(t_arg_node	**node, t_envp_list *list, t_fuc funct)
 		(*node)->content = buffer->save_content;
 	else
 		(*node)->content = NULL;
-	printf("arg_prev : %p\n", (*node)->prev);
-	printf("arg_node : %p\n", (*node));
-	printf("arg_next : %p\n", (*node)->next);
 	free(buffer);
+}
+
+void	ft_del_node(t_arg_node **temp_arg, t_arg_node **front)
+{
+	t_arg_node	*temp;
+
+	temp = (*temp_arg)->next;
+	if ((*temp_arg)->content == NULL)
+	{
+		if ((*temp_arg)->prev == NULL)
+			*front = (*front)->next;
+		else if ((*temp_arg)->prev != NULL)
+			(*temp_arg)->prev->next = (*temp_arg)->next;
+		if ((*temp_arg)->next != NULL)
+			(*temp_arg)->next->prev = (*temp_arg)->prev;
+		ft_free((void **)temp_arg);
+	}
+	*temp_arg = temp;
 }
 
 void	ft_expand(t_pipe_list *pipe, t_envp_list *env)
@@ -51,7 +66,6 @@ void	ft_expand(t_pipe_list *pipe, t_envp_list *env)
 	t_limiter_node	*temp_lim;
 	t_fuc			funct;
 
-	printf("arg_head : %p\n", pipe->head->arg_list->front);
 	ft_expander_table(&funct);
 	temp_pipe = pipe->head;
 	while (temp_pipe != NULL)
@@ -59,20 +73,8 @@ void	ft_expand(t_pipe_list *pipe, t_envp_list *env)
 		temp_arg = temp_pipe->arg_list->front;
 		while (temp_arg != NULL)
 		{
-			printf("arg_head in : %p\n", pipe->head->arg_list->front);
 			ft_expander_arg(&temp_arg, env, funct);
-			if (temp_arg->content == NULL)
-			{
-				if (temp_arg->prev != NULL)
-					temp_arg->prev->next = temp_arg->next;
-				if (temp_arg->next != NULL)
-					temp_arg->next->prev = temp_arg->prev;
-				ft_free((void **)&temp_arg);
-			}
-			printf("arg_head in : %p\n", pipe->head->arg_list->front);
-			printf("temp in : %p\n", temp_arg);
-			if (temp_arg != NULL)
-				temp_arg = temp_arg->next;
+			ft_del_node(&temp_arg, &(temp_pipe->arg_list->front));
 		}
 		temp_redir = temp_pipe->redir_list->front;
 		while (temp_redir != NULL)
