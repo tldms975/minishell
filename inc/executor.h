@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:08:46 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/17 22:53:18 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/18 01:23:24 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,8 @@ int		ft_execute_built_in(t_pipe_node *cmd, int code);
 int		ft_execute(t_pipe_list *pipe_list, t_envp_list *env_list);
 void	ft_execute_cmd(t_arg_list *arg_list, t_envp_list *env);
 
-void	ft_heredoc(t_limiter_q *lim_q, t_executor *exec, t_envp_list *env_list);
+void	ft_check_heredoc(t_limiter_q *lim_q, t_executor *exec, \
+		t_envp_list *env_list);
 
 int		ft_check_valid_redir_files(t_arg_node *arg, t_redir_node *redir);
 int		ft_redirection(t_arg_node *arg, t_redir_node *redir, t_executor *exec);

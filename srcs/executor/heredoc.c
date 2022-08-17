@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 18:55:39 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/17 22:55:20 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/18 01:24:52 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	ft_heredoc_sgh()
 	signal(SIGINT, ft_escape_heredoc);
 }
 
-static void	ft_heredoc_write_in_pipe(t_limiter_q *lim_q, t_executor *exec, t_envp_list *env_list)
+static void	ft_heredoc_write_in_pipe(t_limiter_q *lim_q, t_executor *exec, \
+t_envp_list *env_list)
 {
 	char	*line;
 	char	*limiter;
