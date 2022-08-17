@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:50:42 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/17 20:25:32 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/18 02:26:46 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ int	ft_exe_in_parent_process(t_pipe_node *cmd, t_executor *exec)
 
 void	ft_exe_in_child_process(t_pipe_node *cmd, t_executor *exec)
 {
-	ft_dup2(exec->fd_read, STDIN_FILENO);
-	ft_dup2(exec->fd_write, STDOUT_FILENO);
+	ft_dup2_for_child(exec->fd_read, STDIN_FILENO);
+	ft_dup2_for_child(exec->fd_write, STDOUT_FILENO);
 	if (exec->is_builtin)
 		ft_execute_built_in(cmd, exec->built_in_code);
 	else

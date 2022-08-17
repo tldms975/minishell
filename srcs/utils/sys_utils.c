@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 22:29:57 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/17 19:19:39 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/18 01:44:20 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_pipe(int fd[2])
 	return (ret);
 }
 
-int	ft_dup2(int fd1, int fd2)
+int	ft_dup2_for_child(int fd1, int fd2)
 {
 	int	ret;
 

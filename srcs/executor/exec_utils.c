@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 02:29:44 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/17 01:26:28 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/18 03:06:40 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,29 @@ static char	**ft_get_cmd_vec(t_arg_list *arg_list)
 	return (res);
 }
 
-void	ft_exit_by_wrong_cmd(char *arg, char *msg, int stat)
+static void	ft_check_cmd_path(char *arg, char *cmd)
 {
-	ft_putstr_fd("minishell: ", STDERR_FILENO);
-	ft_putstr_fd(arg, STDERR_FILENO);
-	ft_putstr_fd(": ", STDERR_FILENO);
-	ft_putendl_fd(msg, STDERR_FILENO);
-	exit(stat);
+	t_stat	stat;
+	int		lst_ret;
+
+	lst_ret = lstat(cmd, &stat);
+	if (lst_ret == -1)
+	{
+		ft_print_errmsg_unexecutable(cmd);//perr맞는지확인
+		exit (EXIT_NOTFOUND);
+	}
+	if (stat.st_mode & S_IFDIR)
+	{
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
+		ft_putstr_fd(arg, STDERR_FILENO);
+		ft_putendl_fd(": is a directory", STDERR_FILENO);
+		exit (EXIT_UNEXECUTABLE);
+	}
+	if (!(stat.st_mode & S_IXUSR))
+	{
+		ft_print_errmsg_no_permission(arg);
+		exit (EXIT_UNEXECUTABLE);
+	}
 }
 
 static char	*ft_get_cmd_path(char *cmd, t_envp_list *env)
@@ -61,8 +77,6 @@ static char	*ft_get_cmd_path(char *cmd, t_envp_list *env)
 		ft_free((void **) &res);
 		path_vec++;
 	}
-	if (!res)
-		ft_exit_by_wrong_cmd(cmd, "command not found", EXIT_NOTFOUND);
 	return (res);
 }
 
@@ -75,10 +89,7 @@ void	ft_execute_cmd(t_arg_list *arg_list, t_envp_list *env)
 		cmd_path = arg_list->front->content;
 	else
 		cmd_path = ft_get_cmd_path(arg_list->front->content, env);
+	ft_check_cmd_path(arg_list->front->content, cmd_path);
 	cmd_vec = ft_get_cmd_vec(arg_list);
 	execve(cmd_path, cmd_vec, env->vec);
-	ft_putstr_fd("minishell: ", STDERR_FILENO);
-	ft_putstr_fd(arg_list->front->content, STDERR_FILENO);
-	ft_perror("");
-	exit(EXIT_UNEXECUTABLE);
 }
