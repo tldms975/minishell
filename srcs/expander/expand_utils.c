@@ -55,3 +55,12 @@ t_expand_state	check_expand_lim_type(char c)
 		return (EX_DO_QUO);
 	return (EX_NORMAL);
 }
+
+t_expand_state	check_expand_heredoc_type(char c)
+{
+	if (c == '\0')
+		return (EX_NULL);
+	else if (c == '$')
+		return (EX_DOLLAR);
+	return (EX_NORMAL);
+}

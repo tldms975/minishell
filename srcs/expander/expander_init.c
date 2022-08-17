@@ -23,7 +23,6 @@ int	buffer_init(char *str, t_buffer **buffer, t_envp_list *list)
 		return (1);
 	}
 	return (0);
-	
 }
 
 void	ft_que_init_sub(t_buffer *buffer)

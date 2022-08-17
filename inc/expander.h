@@ -68,5 +68,6 @@ void	ft_expander_lim(t_limiter_node **node, t_fuc funct);
 void	ft_expander_redir(t_redir_node **node, t_envp_list *list, t_fuc funct);
 void	ft_del_node_arg(t_arg_node **temp_arg, t_arg_node **front);
 void	ft_del_node_redir(t_redir_node **temp_arg, t_redir_node **front);
+t_expand_state	check_expand_heredoc_type(char c);
 
 #endif
