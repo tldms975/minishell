@@ -6,17 +6,11 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 19:32:41 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/17 19:28:43 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/17 19:45:16 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// static void	ft_close_pipes(t_executor *exec)
-// {
-// 	ft_close(exec->heredoc_fd[READ]);
-// 	ft_close(exec->heredoc_fd[WRITE]);
-// }
 
 static void	ft_redir_out(t_token_type type, char *file_name, \
 t_executor *exec)
@@ -63,8 +57,6 @@ int	ft_redirection(t_arg_node *arg, t_redir_node *redir, t_executor *exec)
 	int	valid_code;
 
 	printf("redir~~\n");//
-	if (exec->in == DO_NOT_EXE && exec->is_heredoc)
-		ft_close(exec->heredoc_fd[READ]);//ft_close_pipes(exec);
 	while (redir)
 	{
 		valid_code = ft_check_valid_redir_files(arg, redir);
@@ -82,6 +74,8 @@ int	ft_redirection(t_arg_node *arg, t_redir_node *redir, t_executor *exec)
 		}
 		redir = redir->next;
 	}
+	if (exec->in == DO_NOT_EXE && exec->is_heredoc)
+		ft_close(exec->heredoc_fd[READ]);
 	printf("final(%d, %d)\n", exec->fd_read, exec->fd_write);//
 	return (EXIT_SUCCESS);
 }

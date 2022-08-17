@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:50:42 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/17 18:44:49 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/17 20:25:32 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,22 @@
 
 int	ft_exe_in_parent_process(t_pipe_node *cmd, t_executor *exec)
 {
-	ft_dup2(exec->fd_read, STDIN_FILENO);
-	ft_dup2(exec->fd_write, STDOUT_FILENO);
-	return (ft_execute_built_in(cmd, exec->built_in_code));
+	int	ret;
+	int	old_fd_in;
+	int	old_fd_out;
+
+	old_fd_in = dup(STDIN_FILENO);
+	old_fd_out = dup(STDOUT_FILENO);
+	if (exec->fd_read != STDIN_FILENO)
+		dup2(exec->fd_read, STDIN_FILENO);
+	if (exec->fd_write != STDOUT_FILENO)
+		dup2(exec->fd_write, STDOUT_FILENO);
+	ret = ft_execute_built_in(cmd, exec->built_in_code);
+	if (exec->fd_read != STDIN_FILENO)
+		dup2(old_fd_in, STDIN_FILENO);
+	if (exec->fd_write != STDOUT_FILENO)
+		dup2(old_fd_out, STDOUT_FILENO);
+	return (ret);
 }
 
 void	ft_exe_in_child_process(t_pipe_node *cmd, t_executor *exec)
