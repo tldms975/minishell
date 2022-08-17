@@ -29,8 +29,10 @@ t_envp_list *env_list)
 {
 	char	*line;
 	char	*limiter;
+	t_fuc	funct;
 
 	line = NULL;
+	ft_expander_heredoc_table(&funct);
 	while (1)
 	{
 		limiter = lim_q->front->data;
@@ -42,6 +44,8 @@ t_envp_list *env_list)
 		}
 		if (ft_strncmp(line, limiter, (ft_strlen(limiter) + 1)) == 0)
 			break ;
+		if (lim_q->front->state == QOUTE_OFF)
+			ft_expander_heredoc(&line, env_list, funct);
 		write(exec->heredoc_fd[WRITE], line, ft_strlen(line));
 		write(exec->heredoc_fd[WRITE], "\n", 1);
 		free(line);
