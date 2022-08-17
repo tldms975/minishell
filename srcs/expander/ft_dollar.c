@@ -27,7 +27,7 @@ void	ft_dollar_non_qu(t_buffer **buffer)
 	temp2 = (*buffer)->env_list->head;
 	while (temp2 != NULL)
 	{
-		if (ft_strncmp(temp, temp2->key, ft_strlen(temp)) == 0)
+		if (ft_strncmp(temp, temp2->key, ft_strlen(temp) + 1) == 0)
 		{
 			temp1 = (*buffer)->save_content;
 			if (temp1 == NULL)

@@ -69,5 +69,10 @@ void	ft_expander_redir(t_redir_node **node, t_envp_list *list, t_fuc funct);
 void	ft_del_node_arg(t_arg_node **temp_arg, t_arg_node **front);
 void	ft_del_node_redir(t_redir_node **temp_arg, t_redir_node **front);
 t_expand_state	check_expand_heredoc_type(char c);
+void	ft_expander_heredoc(char **str, t_envp_list *list, t_fuc funct);
+
+int	ft_ex_norm_to_dollar_heredoc(t_buffer *buffer);
+int	ft_ex_dollar_to_heredoc(t_buffer *buffer);
+void	ft_expander_heredoc_table(t_fuc *funct);
 
 #endif

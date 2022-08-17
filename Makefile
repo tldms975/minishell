@@ -57,6 +57,8 @@ EXPANDER_SRCS	=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/expander/,\
 					ft_expander_arg\
 					ft_expander_redir\
 					ft_expander_lim\
+					ft_expander_heredoc\
+					ft_expander_heredoc_function\
 					ft_dollar\
 					expander))
 UTILS_SRCS		=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/utils/,\

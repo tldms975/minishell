@@ -49,6 +49,8 @@ void	ft_ex_norm_to_dollar_sub(t_buffer *buffer)
 		buffer->content++;
 		buffer->index = 0;
 	}
+	else if (buffer->curr_state != EX_NULL)
+		buffer->index = 0;
 }
 
 int	ft_ex_norm_to_dollar(t_buffer *buffer)
