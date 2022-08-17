@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 18:55:39 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/17 19:32:31 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/17 22:52:42 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_heredoc_sgh()
 	signal(SIGINT, ft_escape_heredoc);
 }
 
-static void	ft_heredoc_write_in_pipe(t_limiter_q *lim_q, t_executor *exec)
+static void	ft_heredoc_write_in_pipe(t_limiter_q *lim_q, t_executor *exec, t_envp_list *env_list)
 {
 	char	*line;
 	char	*limiter;
@@ -49,7 +49,7 @@ static void	ft_heredoc_write_in_pipe(t_limiter_q *lim_q, t_executor *exec)
 	ft_close(exec->heredoc_fd[WRITE]);
 }
 
-static void	ft_ready_last_heredoc(t_limiter_q *lim_q)
+static void	ft_ready_last_heredoc(t_limiter_q *lim_q, t_envp_list *env_list)
 {
 	char	*line;
 	char	*limiter;
@@ -72,7 +72,7 @@ static void	ft_ready_last_heredoc(t_limiter_q *lim_q)
 	}
 }
 
-void	ft_check_heredoc(t_limiter_q *lim_q, t_executor *exec)
+void	ft_check_heredoc(t_limiter_q *lim_q, t_executor *exec, t_envp_list *env_list)
 {
 	if (lim_q->cnt == 0)
 	{

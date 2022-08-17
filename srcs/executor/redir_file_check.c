@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 16:34:43 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/17 20:05:56 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/17 22:50:28 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	ft_check_valid_redir_files(t_arg_node *arg, t_redir_node *redir)
 			ft_print_errmsg_by_isdir(arg, redir->file_name, redir->type);
 		else if ((lstat_ret != -1) && ((((redir->type == REDIR_IN) \
 		&& !(stat.st_mode & S_IRUSR))) || ((redir->type == REDIR_OUT) \
-		&& (!(stat.st_mode & S_IRUSR) && !(stat.st_mode & S_IWUSR)))))
+		&& !((stat.st_mode & S_IRUSR) && (stat.st_mode & S_IWUSR)))))
 			ft_print_errmsg_no_permission(redir->file_name);
 		else
 			return (EXIT_SUCCESS);
