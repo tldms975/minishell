@@ -6,13 +6,13 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 18:02:18 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/17 02:33:25 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/17 14:42:39 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	t_swap_env_node(t_envp_node *node1, t_envp_node *node2)
+static void	ft_swap_env_node(t_envp_node *node1, t_envp_node *node2)
 {
 	char	*tmp_key;
 	char	*tmp_value;

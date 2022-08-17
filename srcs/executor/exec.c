@@ -6,13 +6,13 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:38:06 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/17 02:32:11 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/17 15:52:32 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_close_pipes(t_executor *exec)
+void	ft_close_pipes(t_executor *exec)
 {
 	if (exec->is_heredoc)
 	{
@@ -75,7 +75,7 @@ t_envp_list *env, int cnt_pipe)
 	exec->built_in_code = 0;
 	if (!cmd->arg_list->front)
 		exec->in = DO_NOT_EXE;
-	else if (!cnt_pipe && ft_check_builtin(cmd, exec))
+	else if (ft_check_builtin(cmd, exec) && (cnt_pipe == 0))
 		exec->in = PARENT;
 	else
 	{

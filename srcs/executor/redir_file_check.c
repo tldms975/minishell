@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 16:34:43 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/17 02:31:36 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/17 15:58:30 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	ft_print_errmsg_by_notfound(char *file_name)
 	ft_perror("");
 }
 
-static void	ft_print_errmsg_by_ifdir(t_arg_node *arg, char *file_name, \
+static void	ft_print_errmsg_by_isdir(t_arg_node *arg, char *file_name, \
 t_token_type type)
 {
 	if ((type == REDIR_OUT) || (type == REDIR_APPEND))
@@ -41,19 +41,24 @@ static void	ft_print_errmsg_no_permission(char *file_name)
 	ft_putendl_fd("minishell: ", STDERR_FILENO);
 	ft_putstr_fd(file_name, STDERR_FILENO);
 	ft_putendl_fd(": Permission denied", STDERR_FILENO);
+
 }
 
 int	ft_check_valid_redir_files(t_arg_node *arg, t_redir_node *redir)
 {
+	int		lstat_ret;
 	t_stat	stat;
 
 	if (redir->type != REDIR_HEREDOC)
 	{
-		if (lstat(redir->file_name, &stat) == -1)
+		lstat_ret = lstat(redir->file_name, &stat);
+		if (lstat_ret == -1 && redir->type == REDIR_IN)
 			ft_print_errmsg_by_notfound(redir->file_name);
-		else if (stat.st_mode & S_IFDIR)
-			ft_print_errmsg_by_ifdir(arg, redir->file_name, redir->type);
-		else if (!(stat.st_mode & S_IXUSR))
+		else if ((lstat_ret != -1) && (stat.st_mode & S_IFDIR))
+			ft_print_errmsg_by_isdir(arg, redir->file_name, redir->type);
+		else if ((lstat_ret != -1) && \
+		((((redir->type == REDIR_IN) && !(stat.st_mode & S_IRUSR))) \
+		|| ((redir->type == REDIR_OUT) && !(stat.st_mode & 00600))))
 			ft_print_errmsg_no_permission(redir->file_name);
 		else
 			return (EXIT_SUCCESS);
