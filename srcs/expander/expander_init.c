@@ -1,18 +1,18 @@
 #include "minishell.h"
 
-void	ft_expander_init(t_arg_node	**node, t_buffer **buffer, t_envp_list *list)
+void	ft_expander_init(char *str, t_buffer **buffer, t_envp_list *list)
 {
-	if (buffer_init(node, buffer, list) == 1)
+	if (buffer_init(str, buffer, list) == 1)
 		;
 	else if ((*buffer)->curr_state == EX_SI_QUO || (*buffer)->curr_state == EX_DO_QUO)
 		ft_que_init(*buffer);
 }
 
-int	buffer_init(t_arg_node	**node, t_buffer **buffer, t_envp_list *list)
+int	buffer_init(char *str, t_buffer **buffer, t_envp_list *list)
 {
 	*buffer = ft_malloc(sizeof(t_buffer));
-	(*buffer)->content = (*node)->content;
-	(*buffer)->curr_state = check_expand_type(*((*node)->content));
+	(*buffer)->content = str;
+	(*buffer)->curr_state = check_expand_type(*str);
 	(*buffer)->save_content = NULL;
 	(*buffer)->index = 1;
 	(*buffer)->env_list = list;

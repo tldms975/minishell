@@ -41,7 +41,12 @@ void	ft_enqueue_redir(t_pipe_node **pipe, t_token_type type, char *data)
 	}
 	(*pipe)->redir_list->rear = new;
 	if (type == REDIR_HEREDOC)
-		ft_enqueue(&((*pipe)->lim_q), data);
+	{
+		if (data == NULL)
+			ft_enqueue(&((*pipe)->lim_q), data);
+		else
+			ft_enqueue(&((*pipe)->lim_q), ft_strdup(data));
+	};
 }
 
 int	ft_is_empty_q_pipe(t_pipe_list *queue)

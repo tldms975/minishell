@@ -18,6 +18,13 @@ typedef struct s_lexer		t_lexer;
 
 typedef int		(*t_function)(t_lexer *lexer);
 
+typedef enum e_qoute_state
+{
+	QOUTE_ON = 0,
+	QOUTE_OFF
+}	t_qoute_state;
+
+
 typedef enum e_meta
 {
 	LINE_EOF = 0,
@@ -79,6 +86,7 @@ typedef struct s_limiter_node
 {
 	struct s_limiter_node	*next;
 	char					*data;
+	t_qoute_state			state;
 }				t_limiter_node;
 
 typedef struct s_limiter_q

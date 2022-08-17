@@ -43,7 +43,6 @@ PARSER_SRCS		=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/parser/,\
 					reduce5to7\
 					free_of_parsing\
 					ft_arg\
-					ft_dollar\
 					function1\
 					function2\
 					function3\
@@ -55,6 +54,7 @@ EXPANDER_SRCS	=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/expander/,\
 					expander_init\
 					expand_utils\
 					expander_table\
+					ft_dollar\
 					expander))
 UTILS_SRCS		=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/utils/,\
 					basic_utils\
