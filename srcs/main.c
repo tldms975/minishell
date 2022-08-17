@@ -6,13 +6,13 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 17:12:20 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/17 16:56:43 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/17 17:22:39 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern int g_exit_status;
+int g_exit_status;
 
 #include <stdio.h>
 void	ft_print(t_pipe_list *pipe)
@@ -92,6 +92,18 @@ int	ft_minishell(t_envp_list *env)
 		ft_free((void **) &line);
 	}
 	return (g_exit_status);
+}
+
+void	ft_init_terminal()
+{
+	t_term	term;
+
+	tcgetattr(STDIN_FILENO, &term);
+	term.c_iflag &=  ~ICANON;
+	term.c_iflag &=  ~ECHO;
+	term.c_cc[VMIN] = 1;
+	term.c_cc[VTIME] = 0;
+	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 }
 
 int	main(int ac, char *av[], char *envp[])

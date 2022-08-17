@@ -6,13 +6,13 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:11:25 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/16 17:59:19 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/17 17:22:27 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	g_exit_status;
+extern int	g_exit_status;
 
 void	new_save(t_buffer **buffer)
 {
