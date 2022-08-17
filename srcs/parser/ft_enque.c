@@ -5,6 +5,7 @@ void	ft_enqueue_arg(t_pipe_node **pipe, char *data)
 	t_arg_node	*new;
 
 	new = ft_malloc(sizeof(t_arg_node));
+	printf("%p\n", new);
 	new->content = data;
 	new->next = NULL;
 	new->prev = NULL;
