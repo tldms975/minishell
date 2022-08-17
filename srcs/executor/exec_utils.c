@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 02:29:44 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/18 03:06:40 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/18 03:52:01 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	ft_check_cmd_path(char *arg, char *cmd)
 	lst_ret = lstat(cmd, &stat);
 	if (lst_ret == -1)
 	{
-		ft_print_errmsg_unexecutable(cmd);//perr맞는지확인
+		ft_print_errmsg_unexecutable(arg);
 		exit (EXIT_NOTFOUND);
 	}
 	if (stat.st_mode & S_IFDIR)

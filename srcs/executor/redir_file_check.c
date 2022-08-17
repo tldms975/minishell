@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 16:34:43 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/18 02:50:54 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/18 03:54:31 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_print_errmsg_unexecutable(char *file_name)
 {
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putstr_fd(file_name, STDERR_FILENO);
-	ft_perror("");
+	ft_putendl_fd(": command not found", STDERR_FILENO);
 }
 
 static void	ft_print_errmsg_by_isdir(t_arg_node *arg, char *file_name, \
@@ -41,7 +41,6 @@ void	ft_print_errmsg_no_permission(char *file_name)
 	ft_putendl_fd("minishell: ", STDERR_FILENO);
 	ft_putstr_fd(file_name, STDERR_FILENO);
 	ft_putendl_fd(": Permission denied", STDERR_FILENO);
-
 }
 
 int	ft_check_valid_redir_files(t_arg_node *arg, t_redir_node *redir)

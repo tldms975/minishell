@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 17:12:20 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/18 01:31:28 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/18 03:40:14 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ void	ft_init_terminal(void)
 	t_term	term;
 
 	tcgetattr(STDIN_FILENO, &term);
-	term.c_iflag &=  ~ICANON;
 	term.c_iflag &=  ~ECHOCTL;
 	term.c_iflag &=  ~ISIG;
 	term.c_cc[VMIN] = 1;
