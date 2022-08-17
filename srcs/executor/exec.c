@@ -6,22 +6,19 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:38:06 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/17 16:19:50 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/17 18:36:00 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_close_pipes(t_executor *exec)
+static void	ft_close_pipes(t_executor *exec)
 {
 	if (exec->is_heredoc)
 	{
 		if (exec->fd_read != exec->heredoc_fd[READ])
 			ft_close(exec->fd_read);
-		if (exec->fd_write != exec->heredoc_fd[WRITE])
-			ft_close(exec->fd_write);
 		ft_close(exec->heredoc_fd[READ]);
-		ft_close(exec->heredoc_fd[WRITE]);
 	}
 	else
 	{

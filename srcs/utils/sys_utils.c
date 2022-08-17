@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 22:29:57 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/17 02:26:10 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/17 18:44:15 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,12 @@ int	ft_close(int fd)
 	ret = 0;
 	if (fd > 2)
 	{
-		printf("in [%d], ", getpid());//
-		printf("closing... %d\n", fd);//
 		ret = close(fd);
+		if (ret != -1)//
+		{//
+			printf("in [%d], ", getpid());//
+			printf("closed..! %d\n", fd);//
+		}//
 	}
 	if (ret == -1)
 		ft_perror("close");

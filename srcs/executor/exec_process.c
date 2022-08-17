@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:50:42 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/17 16:20:10 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/17 18:44:49 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ int	ft_exe_in_parent_process(t_pipe_node *cmd, t_executor *exec)
 
 void	ft_exe_in_child_process(t_pipe_node *cmd, t_executor *exec)
 {
-	if (exec->is_heredoc == TRUE)
-		ft_close(exec->heredoc_fd[WRITE]);
 	ft_dup2(exec->fd_read, STDIN_FILENO);
 	ft_dup2(exec->fd_write, STDOUT_FILENO);
 	if (exec->is_builtin)

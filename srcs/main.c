@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 17:12:20 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/17 17:52:55 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/17 18:20:12 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	ft_minishell(t_envp_list *env)
 		ft_default_signal();
 		line = readline("minishell$ ");
 		if (!line)
-			ft_exit(EXIT_SUCCESS);
+			ft_exit(g_exit_status);
 		add_history(line);
 		ft_parse(&pipe_list, env, line);
 		// ft_print(&pipe_list);//for testing
@@ -99,7 +99,7 @@ void	ft_init_terminal(t_term *term)
 	tcgetattr(STDIN_FILENO, term);
 	term->c_iflag &=  ~ICANON;
 	term->c_iflag &=  ~ECHO;
-	term->c_iflag &=  (~ISIG);
+	term->c_iflag &=  ~ISIG;
 	term->c_cc[VMIN] = 1;
 	term->c_cc[VTIME] = 0;
 	tcsetattr(STDIN_FILENO, TCSANOW, term);

@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:08:46 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/17 15:22:42 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/17 18:36:20 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ int		ft_check_builtin(t_pipe_node *cmd, t_executor *exec);
 int		ft_execute_built_in(t_pipe_node *cmd, int code);
 
 int		ft_execute(t_pipe_list *pipe_list, t_envp_list *env_list);
-void	ft_close_pipes(t_executor *exec);
 void	ft_execute_cmd(t_arg_list *arg_list, t_envp_list *env);
 
 void	ft_check_heredoc(t_limiter_q *lim_q, t_executor *exec);
