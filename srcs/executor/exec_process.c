@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:50:42 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/17 02:29:45 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/17 16:20:10 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,5 @@ int	ft_wait_all_child(int last_pid)
 		if (wait_ret == last_pid)
 			ret = stat;
 	}
-	return (ret);
+	return (ft_get_child_exit_status(ret));
 }

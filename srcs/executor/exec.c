@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:38:06 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/17 15:52:32 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/17 16:19:50 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,7 @@ int	ft_execute(t_pipe_list *pipe_list, t_envp_list *env_list)
 	pipe_line = pipe_list->head;
 	while (pipe_line)
 	{
-		if (ft_ready_to_exec(pipe_line, &exec, env_list, pipe_list->cnt_pipe) \
-		== EXIT_FAILURE)
-			return (EXIT_FAILURE);
+		ret = ft_ready_to_exec(pipe_line, &exec, env_list, pipe_list->cnt_pipe);
 		if (exec.in == PARENT)
 			return (ft_exe_in_parent_process(pipe_line, &exec));
 		else if (exec.in == CHILD)
@@ -110,5 +108,5 @@ int	ft_execute(t_pipe_list *pipe_list, t_envp_list *env_list)
 		}
 		pipe_line = pipe_line->next;
 	}
-	return (ft_get_child_exit_status(ret));
+	return (ret);
 }

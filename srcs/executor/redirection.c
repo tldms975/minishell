@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 19:32:41 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/17 15:33:38 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/17 16:17:33 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,10 @@ int	ft_redirection(t_arg_node *arg, t_redir_node *redir, t_executor *exec)
 				ft_close_pipes(exec);
 		}
 		else if (valid_code == EXIT_FAILURE)
+		{
+			exec->in = DO_NOT_EXE;
 			return (EXIT_FAILURE);
+		}
 		redir = redir->next;
 	}
 	printf("final(%d, %d)\n", exec->fd_read, exec->fd_write);//
