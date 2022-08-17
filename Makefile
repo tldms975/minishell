@@ -6,7 +6,7 @@
 #    By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/13 17:14:48 by sielee            #+#    #+#              #
-#    Updated: 2022/08/17 02:35:26 by sielee           ###   ########seoul.kr   #
+#    Updated: 2022/08/17 18:55:47 by sielee           ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,9 @@ ENVP_SRCS		=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/envp/,\
 					env_utils\
 					env_vec))
 TERMINAL_SRCS	=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/terminal/,\
-					sig_handling))
+					default_sgh\
+					heredoc_sgh\
+					init_term))
 BUILTIN_SRCS	=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/builtin/,\
 					ft_bi_cd\
 					ft_bi_echo\

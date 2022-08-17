@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 22:29:57 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/17 18:44:15 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/17 19:19:39 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,14 @@ int	ft_close(int fd)
 		}//
 	}
 	if (ret == -1)
+	{
+		ft_putstr_fd("[", 2);//
+		ft_putstr_fd(ft_itoa(getpid()), 2);//
+		ft_putstr_fd("]'s ", 2);//
+		ft_putstr_fd("fd[", 2);//
+		ft_putnbr_fd(fd, 2);//
+		ft_putstr_fd("] ", 2);//
 		ft_perror("close");
+	}
 	return (ret);
 }
