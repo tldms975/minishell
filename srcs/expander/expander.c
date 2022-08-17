@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:11:25 by sielee            #+#    #+#             */
-/*   Updated: 2022/07/25 20:16:48 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/17 16:50:46 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_expander_arg(t_arg_node	**node, t_envp_list *list, t_fuc funct)
 	}
 	if (buffer->curr_state == EX_NORMAL)
 		new_save(&buffer);
-	free((*node)->content);
+	ft_free((void **)(&(*node)->content));
 	if (buffer->save_content != NULL)
 		(*node)->content = buffer->save_content;
 	else
@@ -52,7 +52,6 @@ void	ft_expand(t_pipe_list *pipe, t_envp_list *env)
 	t_fuc			funct;
 
 	printf("arg_head : %p\n", pipe->head->arg_list->front);
-	printf("arg_head_next : %p\n", pipe->head->arg_list->front->next);
 	ft_expander_table(&funct);
 	temp_pipe = pipe->head;
 	while (temp_pipe != NULL)
