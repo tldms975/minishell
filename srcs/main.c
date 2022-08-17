@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 17:12:20 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/17 17:43:45 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/17 17:52:55 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,27 +94,27 @@ int	ft_minishell(t_envp_list *env)
 	return (g_exit_status);
 }
 
-void	ft_init_terminal()
+void	ft_init_terminal(t_term *term)
 {
-	t_term	term;
-
-	tcgetattr(STDIN_FILENO, &term);
-	term.c_iflag &=  ~ICANON;
-	term.c_iflag &=  ~ECHO;
-	term.c_cc[VMIN] = 1;
-	term.c_cc[VTIME] = 0;
-	tcsetattr(STDIN_FILENO, TCSANOW, &term);
+	tcgetattr(STDIN_FILENO, term);
+	term->c_iflag &=  ~ICANON;
+	term->c_iflag &=  ~ECHO;
+	term->c_iflag &=  (~ISIG);
+	term->c_cc[VMIN] = 1;
+	term->c_cc[VTIME] = 0;
+	tcsetattr(STDIN_FILENO, TCSANOW, term);
 }
 
 int	main(int ac, char *av[], char *envp[])
 {
 	t_envp_list	env_list;
+	t_term	term;
 	int	ret;
 
 	(void)av;
 	if (ac > 1)
 		ft_error("Wrong Argc");
-	ft_init_terminal();
+	ft_init_terminal(&term);
 	ft_init_env_list(&env_list, envp);
 	ret = ft_minishell(&env_list);
 	return (ret);

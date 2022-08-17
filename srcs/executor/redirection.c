@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 19:32:41 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/17 16:17:33 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/17 18:10:50 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ int	ft_redirection(t_arg_node *arg, t_redir_node *redir, t_executor *exec)
 	int	valid_code;
 
 	printf("redir~~\n");//
+	if (exec->in == DO_NOT_EXE && exec->is_heredoc)
+		ft_close_pipes(exec);
 	while (redir)
 	{
 		valid_code = ft_check_valid_redir_files(arg, redir);
@@ -66,8 +68,6 @@ int	ft_redirection(t_arg_node *arg, t_redir_node *redir, t_executor *exec)
 				ft_redir_in(redir->type, redir->file_name, exec);
 			else
 				ft_redir_out(redir->type, redir->file_name, exec);
-			if (exec->in == DO_NOT_EXE)
-				ft_close_pipes(exec);
 		}
 		else if (valid_code == EXIT_FAILURE)
 		{
