@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 17:12:20 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/18 22:37:34 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/19 03:46:57 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,6 @@ int	ft_minishell(t_envp_list *env)
 		ft_free((void **) &line);
 	}
 	return (g_exit_status);
-}
-
-void	ft_init_terminal(void)
-{
-	struct termios	term;
-
-	tcgetattr(STDIN_FILENO, &term);
-	term.c_lflag &= ~(ECHOCTL);
-	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 }
 
 int	main(int ac, char *av[], char *envp[])

@@ -6,23 +6,11 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 18:55:39 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/18 20:04:00 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/19 04:50:09 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	ft_escape_heredoc(int sig)
-{
-	if (sig == SIGINT)
-	{
-		printf("sigint in heredoc\n");
-	}
-}
-void	ft_heredoc_sgh()
-{
-	signal(SIGINT, ft_escape_heredoc);
-}
 
 static void	ft_heredoc_write_in_pipe(t_limiter_q *lim_q, t_executor *exec, \
 t_envp_list *env_list)
@@ -40,7 +28,10 @@ t_envp_list *env_list)
 		if (!line)
 			break ;
 		if (ft_strncmp(line, limiter, (ft_strlen(limiter) + 1)) == 0)
-			return (ft_free((void **) &line));
+		{
+			ft_free((void **) &line);
+			break ;
+		}
 		if (lim_q->front->state == QOUTE_OFF)
 			ft_expander_heredoc(&line, env_list, funct);
 		write(exec->heredoc_fd[WRITE], line, ft_strlen(line));
@@ -71,7 +62,8 @@ static void	ft_ready_last_heredoc(t_limiter_q *lim_q)
 		ft_free((void **) &line);
 }
 
-void	ft_check_heredoc(t_limiter_q *lim_q, t_executor *exec, t_envp_list *env_list)
+void	ft_check_heredoc(t_limiter_q *lim_q, t_executor *exec, \
+t_envp_list *env_list)
 {
 	if (lim_q->cnt == 0)
 	{
@@ -79,8 +71,8 @@ void	ft_check_heredoc(t_limiter_q *lim_q, t_executor *exec, t_envp_list *env_lis
 	}
 	else
 	{
-		ft_heredoc_sgh();
 		exec->is_heredoc = TRUE;
+		ft_heredoc_sgh();
 		ft_ready_last_heredoc(lim_q);
 		ft_pipe(exec->heredoc_fd);
 		ft_heredoc_write_in_pipe(lim_q, exec, env_list);

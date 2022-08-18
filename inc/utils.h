@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 17:55:38 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/18 01:44:20 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/19 01:03:07 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_print_exit(void);
 void	ft_exit(int exit_status);
 
 int		ft_pipe(int fd[2]);
-int		ft_dup2_for_child(int fd1, int fd2);
+int		ft_dup2(int fd1, int fd2);
 pid_t	ft_fork_getting_last_pid(t_pipe_node *pipe_line, t_executor *exec);
 pid_t	ft_fork(void);
 int		ft_close(int fd);

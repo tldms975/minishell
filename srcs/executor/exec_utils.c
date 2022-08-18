@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 02:29:44 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/18 21:56:22 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/19 00:44:18 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,14 @@ void	ft_execute_cmd(t_arg_list *arg_list, t_envp_list *env)
 	if (ft_strchr(arg_list->front->content, '/'))
 	{
 		cmd_path = arg_list->front->content;
-		ft_check_cmd_path(arg_list->front->content, cmd_path, ": No such file or directory");
+		ft_check_cmd_path(arg_list->front->content, cmd_path, \
+		": No such file or directory");
 	}
 	else
 	{
 		cmd_path = ft_get_cmd_path(arg_list->front->content, env);
-		ft_check_cmd_path(arg_list->front->content, cmd_path, ": command not found");
+		ft_check_cmd_path(arg_list->front->content, cmd_path, \
+		": command not found");
 	}
 	cmd_vec = ft_get_cmd_vec(arg_list);
 	execve(cmd_path, cmd_vec, env->vec);

@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 20:35:18 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/18 20:36:28 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/19 00:49:23 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	ft_print_errmsg_unexecutable(char *file_name, char *msg)
 	ft_putendl_fd(msg, STDERR_FILENO);
 }
 
-void	ft_check_cmd_path(char *arg, char *cmd,char *msg)
+void	ft_check_cmd_path(char *arg, char *cmd, char *msg)
 {
 	t_stat	stat;
 	int		lst_ret;

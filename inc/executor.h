@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:08:46 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/18 22:56:45 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/19 02:01:50 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ struct s_executor
 	pid_t		pid;
 	int			fd_read;
 	int			fd_write;
-	int			l_pipe_fd_read;
+	int			l_pipe_fd[2];
 	int			r_pipe_fd[2];
 	int			heredoc_fd[2];
 	t_mybool	is_heredoc;
@@ -85,7 +85,8 @@ int		ft_redirection(t_arg_node *arg, t_redir_node *redir, t_executor *exec);
 
 int		ft_get_child_exit_status(int status);
 int		ft_wait_all_child(int last_pid);
-void	ft_exe_in_child_process(t_pipe_node *cmd, t_executor *exec);
+void	ft_exe_in_child_process(t_pipe_node *cmd, t_executor *exec, \
+		int cnt_pipe);
 int		ft_exe_in_parent_process(t_pipe_node *cmd, t_executor *exec);
 
 #endif
