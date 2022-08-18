@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:38:06 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/18 18:28:10 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/18 19:32:26 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 static void	ft_close_pipes(t_executor *exec)
 {
-	if (exec->in == DO_NOT_EXE && exec->is_heredoc)
-		ft_close(exec->heredoc_fd[READ]);
-	else if (exec->is_heredoc)
+	if (exec->is_heredoc)
 	{
 		if (exec->fd_read != exec->heredoc_fd[READ])
 			ft_close(exec->fd_read);
@@ -103,9 +101,9 @@ int	ft_execute(t_pipe_list *pipe_list, t_envp_list *env_list)
 			if (exec.pid == 0)
 				ft_exe_in_child_process(pipe_line, &exec);
 		}
+		ft_close_pipes(&exec);
 		pipe_line = pipe_line->next;
 	}
 	ret = ft_wait_all_child(exec.last_pid);
-	ft_close_pipes(&exec);
 	return (ret);
 }

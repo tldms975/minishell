@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 01:51:18 by sielee            #+#    #+#             */
-/*   Updated: 2022/07/31 01:35:24 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/18 20:01:18 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ void	ft_dequeue(t_limiter_q *queue)
 	{
 		tmp = queue->front;
 		queue->front = tmp->next;
-		free(tmp);
+		ft_free((void **) &tmp->data);
+		ft_free((void **) &tmp);
 		queue->cnt -= 1;
 	}
 }

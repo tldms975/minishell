@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 18:55:39 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/18 19:15:06 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/18 20:04:00 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,15 @@ t_envp_list *env_list)
 		limiter = lim_q->front->data;
 		line = readline("> ");
 		if (!line)
-		{
-
 			break ;
-		}
 		if (ft_strncmp(line, limiter, (ft_strlen(limiter) + 1)) == 0)
-			break ;
+			return (ft_free((void **) &line));
 		if (lim_q->front->state == QOUTE_OFF)
 			ft_expander_heredoc(&line, env_list, funct);
 		write(exec->heredoc_fd[WRITE], line, ft_strlen(line));
 		write(exec->heredoc_fd[WRITE], "\n", 1);
-		free(line);
+		ft_free((void **) &line);
 	}
-	if (line)
-		free(line);
 	ft_dequeue(lim_q);
 	ft_close(exec->heredoc_fd[WRITE]);
 }
@@ -67,16 +62,13 @@ static void	ft_ready_last_heredoc(t_limiter_q *lim_q)
 		limiter = lim_q->front->data;
 		line = readline("> ");
 		if (!line)
-		{
-			rl_replace_line("", 0);
-			rl_on_new_line();
-			rl_redisplay();
-			ft_dequeue(lim_q);
-		}
+			break ;
 		else if (ft_strncmp(line, limiter, (ft_strlen(limiter) + 1)) == 0)
 			ft_dequeue(lim_q);
-		free(line);
+		ft_free((void **) &line);
 	}
+	if (line)
+		ft_free((void **) &line);
 }
 
 void	ft_check_heredoc(t_limiter_q *lim_q, t_executor *exec, t_envp_list *env_list)
