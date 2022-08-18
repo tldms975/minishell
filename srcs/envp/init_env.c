@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 21:27:04 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/14 22:30:11 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/18 18:29:17 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,15 @@ void	ft_init_env_list(t_envp_list *env, char *envp[])
 		ft_free((void **) &value);
 		envp++;
 		line = *envp;
+	}
+}
+
+
+void	ft_free_env_vec(char *vec[])
+{
+	while (*vec)
+	{
+		free(*vec);
+		vec++;
 	}
 }
