@@ -6,25 +6,24 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:14:41 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/18 20:46:29 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/18 21:02:28 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	ft_check_valid(char *str)
+static int	ft_check_valid(t_arg_node *arg)
 {
 	int	i;
 
 	i = 0;
-	if (str[i] == '$')
-		i++;
-	while (str[i])
+	while (arg->content[i])
 	{
-		if (!ft_isalpha(str[i]))
+		if (!ft_isalpha(arg->content[i]))
 		{
+			printf("%s\n", arg->content);
 			ft_putstr_fd("bash: unset: `", STDERR_FILENO);
-			ft_putstr_fd(str, STDERR_FILENO);
+			ft_putstr_fd(arg->content, STDERR_FILENO);
 			ft_putendl_fd("' not a valid identifier", STDERR_FILENO);
 			return (FALSE);
 		}
@@ -42,7 +41,7 @@ int	ft_bi_unset(t_pipe_node *cmd)
 	exit_code = EXIT_SUCCESS;
 	while (arg)
 	{
-		if (ft_check_valid(arg->content))
+		if (ft_check_valid(arg))
 			ft_del_env_var(cmd->env_list, arg->content);
 		else
 			exit_code = EXIT_FAILURE;

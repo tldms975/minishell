@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:38:06 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/18 19:32:26 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/18 22:38:57 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,11 @@ t_envp_list *env, int cnt_pipe)
 	env->vec = ft_get_env_vector(env);
 	cmd->env_list = env;
 	ft_check_heredoc(cmd->lim_q, exec, env);
-	exec->is_builtin = FALSE;
 	exec->built_in_code = 0;
+	exec->is_builtin = ft_check_builtin(cmd, exec);
 	if (!cmd->arg_list->front)
 		exec->in = DO_NOT_EXE;
-	else if (ft_check_builtin(cmd, exec) && (cnt_pipe == 0))
+	else if (exec->is_builtin && (cnt_pipe == 0))
 		exec->in = PARENT;
 	else
 	{
@@ -101,9 +101,10 @@ int	ft_execute(t_pipe_list *pipe_list, t_envp_list *env_list)
 			if (exec.pid == 0)
 				ft_exe_in_child_process(pipe_line, &exec);
 		}
-		ft_close_pipes(&exec);
 		pipe_line = pipe_line->next;
 	}
-	ret = ft_wait_all_child(exec.last_pid);
+	if (exec.in != DO_NOT_EXE)
+		ft_close_pipes(&exec);
+	ret = ft_wait_all_child(&exec, exec.last_pid);
 	return (ret);
 }

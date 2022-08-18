@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 02:29:44 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/18 20:36:41 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/18 21:56:22 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,10 @@ static char	*ft_get_cmd_path(char *cmd, t_envp_list *env)
 	res = NULL;
 	path_vec = ft_split(ft_get_env_value_ptr(env, "PATH"), ':');
 	if (!path_vec)
-		return (NULL);
+	{
+		cmd = ft_strjoin("./", cmd);
+		return (cmd);
+	}
 	while (*path_vec)
 	{
 		tmp_path = ft_strjoin(*path_vec, "/");
