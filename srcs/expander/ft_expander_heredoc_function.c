@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_expander_heredoc_function.c                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iyun <iyun@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/18 17:59:52 by iyun              #+#    #+#             */
+/*   Updated: 2022/08/18 17:59:54 by iyun             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	ft_ex_norm_to_dollar_heredoc_sub(t_buffer *buffer)
@@ -35,7 +47,7 @@ int	ft_ex_norm_to_dollar_heredoc(t_buffer *buffer)
 
 void	ft_ex_dollar_to_heredoc_sub(t_buffer *buffer)
 {
-    while (check_meta_qu((buffer->content)[buffer->index]) == EX_NORMAL)
+	while (check_meta_qu((buffer->content)[buffer->index]) == EX_NORMAL)
 		buffer->index++;
 	ft_dollar(&buffer);
 	if (check_meta_qu(*(buffer->content)) == EX_META)

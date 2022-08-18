@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_enque.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iyun <iyun@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/18 18:36:57 by iyun              #+#    #+#             */
+/*   Updated: 2022/08/18 18:36:59 by iyun             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	ft_enqueue_arg(t_pipe_node **pipe, char *data)
@@ -46,7 +58,7 @@ void	ft_enqueue_redir(t_pipe_node **pipe, t_token_type type, char *data)
 			ft_enqueue(&((*pipe)->lim_q), data);
 		else
 			ft_enqueue(&((*pipe)->lim_q), ft_strdup(data));
-	};
+	}
 }
 
 int	ft_is_empty_q_pipe(t_pipe_list *queue)

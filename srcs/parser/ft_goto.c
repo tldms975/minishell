@@ -33,7 +33,8 @@ void	ft_set_type(t_token_type *type, t_action_state **state, t_token **token)
 		*type = (*state)->type;
 }
 
-void	linked_state(t_action_state **state, t_action_state **next, t_token **token)
+void	linked_state(t_action_state **state,
+		t_action_state **next, t_token **token)
 {
 	if ((*next)->state == STATE_STAY)
 		free(*next);
@@ -52,7 +53,8 @@ void	linked_state(t_action_state **state, t_action_state **next, t_token **token
 	}
 }
 
-int	ft_goto_sub(t_action_state **state, t_action_state **next, t_token_type type)
+int	ft_goto_sub(t_action_state **state,
+		t_action_state **next, t_token_type type)
 {
 	if ((*state)->state == STATE_0)
 		(*next)->state = ft_state_0(type);
@@ -71,7 +73,7 @@ int	ft_goto_sub(t_action_state **state, t_action_state **next, t_token_type type
 	return (0);
 }
 
-void ft_goto(t_action_state **state, t_token **token)
+void	ft_goto(t_action_state **state, t_token **token)
 {
 	t_action_state	*next;
 	t_token_type	type;

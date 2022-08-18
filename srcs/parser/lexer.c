@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iyun <iyun@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/18 18:37:19 by iyun              #+#    #+#             */
+/*   Updated: 2022/08/18 18:37:20 by iyun             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	lexer_setting(t_lexer *lexer, char *input_line)
@@ -11,7 +23,7 @@ void	lexer_setting(t_lexer *lexer, char *input_line)
 	ft_table(lexer);
 }
 
-int ft_lexer(t_lexer *lexer)
+int	ft_lexer(t_lexer *lexer)
 {
 	t_state		next_state;
 	char		next_char;

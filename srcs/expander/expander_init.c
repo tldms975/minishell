@@ -1,10 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expander_init.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iyun <iyun@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/18 17:59:38 by iyun              #+#    #+#             */
+/*   Updated: 2022/08/18 17:59:40 by iyun             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	ft_expander_init(char *str, t_buffer **buffer, t_envp_list *list)
 {
 	if (buffer_init(str, buffer, list) == 1)
 		;
-	else if ((*buffer)->curr_state == EX_SI_QUO || (*buffer)->curr_state == EX_DO_QUO)
+	else if ((*buffer)->curr_state == EX_SI_QUO
+		|| (*buffer)->curr_state == EX_DO_QUO)
 		ft_que_init(*buffer);
 }
 
@@ -17,7 +30,8 @@ int	buffer_init(char *str, t_buffer **buffer, t_envp_list *list)
 	(*buffer)->index = 1;
 	(*buffer)->env_list = list;
 	if ((*buffer)->curr_state == EX_DOLLAR
-			&& (check_expand_type(((*buffer)->content)[(*buffer)->index]) == EX_NULL))
+		&& (check_expand_type(((*buffer)->content)[(*buffer)->index])
+		== EX_NULL))
 	{
 		(*buffer)->curr_state = EX_NORMAL;
 		return (1);
@@ -48,7 +62,8 @@ void	ft_que_init_sub(t_buffer *buffer)
 void	ft_que_init(t_buffer *buffer)
 {
 	buffer->content++;
-	if (check_expand_type(*(buffer->content)) == EX_DOLLAR && buffer->curr_state == EX_DO_QUO)
+	if (check_expand_type(*(buffer->content)) == EX_DOLLAR
+		&& buffer->curr_state == EX_DO_QUO)
 	{
 		buffer->content++;
 		buffer->index = 0;

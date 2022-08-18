@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_expander_heredoc.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iyun <iyun@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/18 17:59:50 by iyun              #+#    #+#             */
+/*   Updated: 2022/08/18 17:59:51 by iyun             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	buffer_heredoc_init(char *str, t_buffer **buffer, t_envp_list *list)
@@ -9,7 +21,8 @@ int	buffer_heredoc_init(char *str, t_buffer **buffer, t_envp_list *list)
 	(*buffer)->index = 1;
 	(*buffer)->env_list = list;
 	if ((*buffer)->curr_state == EX_DOLLAR
-			&& (check_expand_type(((*buffer)->content)[(*buffer)->index]) == EX_NULL))
+		&& (check_expand_type(((*buffer)->content)[(*buffer)->index])
+		== EX_NULL))
 	{
 		(*buffer)->curr_state = EX_NORMAL;
 		return (1);
@@ -41,6 +54,6 @@ void	ft_expander_heredoc(char **str, t_envp_list *list, t_fuc funct)
 	if (buffer->save_content != NULL)
 		*str = buffer->save_content;
 	else
-		*str = ft_strdup(""); // or NULL
+		*str = ft_strdup("");
 	free(buffer);
 }
