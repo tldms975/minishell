@@ -25,7 +25,7 @@ t_expand_state	check_expand_type(char c)
 	return (EX_NORMAL);
 }
 
-t_expand_state check_meta(char c)
+t_expand_state	check_meta(char c)
 {
 	if (c == '$')
 		return (EX_DOLLAR);
@@ -35,7 +35,7 @@ t_expand_state check_meta(char c)
 	return (EX_META);
 }
 
-t_expand_state check_meta_qu(char c)
+t_expand_state	check_meta_qu(char c)
 {
 	if (c == '$')
 		return (EX_DOLLAR);

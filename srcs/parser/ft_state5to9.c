@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_state5to9.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iyun <iyun@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/18 18:37:06 by iyun              #+#    #+#             */
+/*   Updated: 2022/08/18 18:37:08 by iyun             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-t_state_num ft_state_5(t_action_state **state, t_token_type type)
+t_state_num	ft_state_5(t_action_state **state, t_token_type type)
 {
 	if (type == REDIR_APPEND || type == REDIR_HEREDOC
 		|| type == REDIR_IN || type == REDIR_OUT
@@ -13,14 +25,14 @@ t_state_num ft_state_5(t_action_state **state, t_token_type type)
 	return (STATE_ERR);
 }
 
-t_state_num ft_state_6(t_token_type type)
+t_state_num	ft_state_6(t_token_type type)
 {
 	if (type == ID)
 		return (STATE_9);
 	return (STATE_ERR);
 }
 
-t_state_num ft_state_7(t_token_type type)
+t_state_num	ft_state_7(t_token_type type)
 {
 	if (type == REDIR_APPEND || type == REDIR_HEREDOC
 		|| type == REDIR_IN || type == REDIR_OUT)
@@ -38,7 +50,7 @@ t_state_num ft_state_7(t_token_type type)
 	return (STATE_ERR);
 }
 
-t_state_num ft_state_8(t_action_state **state, t_token_type type)
+t_state_num	ft_state_8(t_action_state **state, t_token_type type)
 {
 	if (type == REDIR_APPEND || type == REDIR_HEREDOC
 		|| type == REDIR_IN || type == REDIR_OUT
@@ -51,7 +63,7 @@ t_state_num ft_state_8(t_action_state **state, t_token_type type)
 	return (STATE_ERR);
 }
 
-t_state_num ft_state_9(t_action_state **state, t_token_type type)
+t_state_num	ft_state_9(t_action_state **state, t_token_type type)
 {
 	if (type == REDIR_APPEND || type == REDIR_HEREDOC
 		|| type == REDIR_IN || type == REDIR_OUT

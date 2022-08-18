@@ -36,7 +36,7 @@ void	ft_table(t_lexer *lexer)
 	(lexer->function)[DOUBLE_QUOTE][META] = ft_next_char;
 	(lexer->function)[META][NORMAL] = ft_meta_to_norm;
 	(lexer->function)[META][BLANK] = ft_meta_to_blank;
-	(lexer->function)[META][SINGLE_QUOTE] =  ft_meta_to_sq;
+	(lexer->function)[META][SINGLE_QUOTE] = ft_meta_to_sq;
 	(lexer->function)[META][DOUBLE_QUOTE] = ft_meta_to_dq;
 	(lexer->function)[META][META] = ft_meta_to_meta;
 }

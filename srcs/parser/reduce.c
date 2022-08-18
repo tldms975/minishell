@@ -16,7 +16,7 @@ void	reduce_1(t_action_state **state)
 {
 	int				count;
 	t_action_state	*temp;
-	
+
 	count = -1;
 	while (++count < 3)
 	{
@@ -32,7 +32,7 @@ void	reduce_1(t_action_state **state)
 void	reduce_2(t_action_state **state)
 {
 	t_action_state	*temp;
-	
+
 	temp = (*state);
 	(*state) = (*state)->prev;
 	temp->prev = NULL;
@@ -44,7 +44,7 @@ void	reduce_2(t_action_state **state)
 void	reduce_3(t_action_state **state)
 {
 	t_action_state	*temp;
-	
+
 	temp = (*state);
 	(*state) = (*state)->prev;
 	temp->prev = NULL;
@@ -57,7 +57,7 @@ void	reduce_4(t_action_state **state)
 {
 	int				count;
 	t_action_state	*temp;
-	
+
 	count = -1;
 	while (++count < 2)
 	{

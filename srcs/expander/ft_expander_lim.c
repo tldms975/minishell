@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_expander_lim.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iyun <iyun@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/18 17:59:55 by iyun              #+#    #+#             */
+/*   Updated: 2022/08/18 17:59:56 by iyun             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	ft_exp_lim_init(t_buffer **buffer, t_limiter_node **node)
@@ -7,7 +19,8 @@ void	ft_exp_lim_init(t_buffer **buffer, t_limiter_node **node)
 	(*buffer)->save_content = NULL;
 	(*buffer)->curr_state = check_expand_lim_type(*((*node)->data));
 	(*buffer)->index = 1;
-	if ((*buffer)->curr_state != EX_SI_QUO && (*buffer)->curr_state != EX_DO_QUO)
+	if ((*buffer)->curr_state != EX_SI_QUO
+		&& (*buffer)->curr_state != EX_DO_QUO)
 		(*node)->state = QOUTE_OFF;
 	else
 	{
@@ -29,7 +42,8 @@ void	ft_expander_lim(t_limiter_node **node, t_fuc funct)
 	{
 		next_char = (buffer->content)[buffer->index];
 		next_state = check_expand_lim_type(next_char);
-		if ((next_state == EX_SI_QUO || next_state == EX_DO_QUO) && (*node)->state == QOUTE_OFF)
+		if ((next_state == EX_SI_QUO || next_state == EX_DO_QUO)
+			&& (*node)->state == QOUTE_OFF)
 			(*node)->state = QOUTE_ON;
 		if (next_state == EX_NULL)
 			break ;

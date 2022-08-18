@@ -14,7 +14,7 @@
 
 void	ft_state_free(t_action_state **state)
 {
-	t_action_state *temp;
+	t_action_state	*temp;
 
 	while (*state != NULL)
 	{
@@ -59,7 +59,7 @@ void	ft_limq_free(t_limiter_q *lim_q)
 	while (lim_q->front != NULL)
 	{
 		temp = lim_q->front;
-		ft_free((void **)&(lim_q->front->data)); //ft_strdup사용하기!
+		ft_free((void **)&(lim_q->front->data));
 		lim_q->front = lim_q->front->next;
 		ft_free((void **)&temp);
 	}
@@ -67,10 +67,10 @@ void	ft_limq_free(t_limiter_q *lim_q)
 
 void	ft_parser_free(t_pipe_list *pipe)
 {
+	void	*temp;
+
 	while (pipe->head != NULL)
 	{
-		void	*temp;
-
 		temp = pipe->head;
 		ft_arg_free(pipe->head->arg_list);
 		ft_free((void **)&(pipe->head->arg_list));

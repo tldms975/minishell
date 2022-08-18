@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-extern int	g_exit_status;
+int	g_exit_status;
 
 void	new_save(t_buffer **buffer)
 {
@@ -20,7 +20,8 @@ void	new_save(t_buffer **buffer)
 	char	*temp;
 
 	if ((*buffer)->save_content == NULL)
-		(*buffer)->save_content = ft_substr((*buffer)->content, 0, (*buffer)->index);
+		(*buffer)->save_content = ft_substr((*buffer)->content,
+				0, (*buffer)->index);
 	else
 	{
 		temp = ((*buffer)->save_content);

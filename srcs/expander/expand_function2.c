@@ -1,4 +1,16 @@
- #include "minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expand_function2.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iyun <iyun@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/18 17:59:28 by iyun              #+#    #+#             */
+/*   Updated: 2022/08/18 17:59:32 by iyun             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
 
 void	ft_ex_qou_to_dollar_sub(t_buffer *buffer)
 {
@@ -58,7 +70,7 @@ int	ft_ex_quo_to_quo(t_buffer *buffer)
 
 void	ft_ex_dollar_to_sub(t_buffer *buffer)
 {
-    while (check_meta_qu((buffer->content)[buffer->index]) == EX_NORMAL)
+	while (check_meta_qu((buffer->content)[buffer->index]) == EX_NORMAL)
 		buffer->index++;
 	ft_dollar(&buffer);
 	if (ft_check_type(*(buffer->content)) == SINGLE_QUOTE)
