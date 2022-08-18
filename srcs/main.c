@@ -90,7 +90,7 @@ int	ft_minishell(t_envp_list *env)
 		add_history(line);
 		ft_parse(&pipe_list, env, line);
 		// ft_print(&pipe_list);//for testing
-		// g_exit_status = ft_execute(&pipe_list, env);
+		g_exit_status = ft_execute(&pipe_list, env);
 		ft_parser_free(&pipe_list);
 		ft_free((void **) &line);
 	}
