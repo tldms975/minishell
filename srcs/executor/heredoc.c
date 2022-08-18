@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 18:55:39 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/19 04:50:09 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/19 06:25:54 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,12 @@ static void	ft_ready_last_heredoc(t_limiter_q *lim_q)
 		limiter = lim_q->front->data;
 		line = readline("> ");
 		if (!line)
-			break ;
-		else if (ft_strncmp(line, limiter, (ft_strlen(limiter) + 1)) == 0)
 			ft_dequeue(lim_q);
-		ft_free((void **) &line);
+		else if (ft_strncmp(line, limiter, (ft_strlen(limiter) + 1)) == 0)
+		{
+			ft_free((void **) &line);
+			ft_dequeue(lim_q);
+		}
 	}
 	if (line)
 		ft_free((void **) &line);
