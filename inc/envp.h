@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 21:27:29 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/18 18:29:01 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/18 19:11:41 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ struct s_envp_list
 
 void		ft_init_env_list(t_envp_list *env, char *envp[]);
 
+void		ft_free_env_list(t_envp_list *env_list);
 void		ft_free_env_vec(char *vec[]);
 
 char		*ft_make_env_line(t_envp_node *node);
