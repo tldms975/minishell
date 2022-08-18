@@ -19,8 +19,6 @@
 # include <readline/history.h>
 # include <signal.h>
 
-typedef struct termios	t_term;
-
 void	ft_newline_handler(int sig);
 void	ft_default_signal(void);
 

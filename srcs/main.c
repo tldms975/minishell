@@ -56,13 +56,10 @@ int	ft_minishell(t_envp_list *env)
 
 void	ft_init_terminal(void)
 {
-	t_term	term;
+	struct termios	term;
 
 	tcgetattr(STDIN_FILENO, &term);
-	term.c_iflag &=  ~ECHOCTL;
-	term.c_iflag &=  ~ISIG;
-	term.c_cc[VMIN] = 1;
-	term.c_cc[VTIME] = 0;
+	term.c_lflag &=  ~(ECHOCTL);
 	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 }
 
