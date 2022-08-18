@@ -6,26 +6,11 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 21:52:37 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/18 21:59:25 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/18 22:56:12 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// static void	ft_close_pipes(t_executor *exec)
-// {
-// 	if (exec->is_heredoc)
-// 	{
-// 		if (exec->fd_read != exec->heredoc_fd[READ])
-// 			ft_close(exec->fd_read);
-// 		ft_close(exec->heredoc_fd[READ]);
-// 	}
-// 	else
-// 	{
-// 		ft_close(exec->fd_read);
-// 		ft_close(exec->fd_write);
-// 	}
-// }
 
 int	ft_exe_in_parent_process(t_pipe_node *cmd, t_executor *exec)
 {
@@ -52,7 +37,7 @@ void	ft_exe_in_child_process(t_pipe_node *cmd, t_executor *exec)
 	ft_dup2_for_child(exec->fd_read, STDIN_FILENO);
 	ft_dup2_for_child(exec->fd_write, STDOUT_FILENO);
 	if (exec->is_builtin)
-		ft_execute_built_in(cmd, exec->built_in_code);
+		exit(ft_execute_built_in(cmd, exec->built_in_code));
 	else
 		ft_execute_cmd(cmd->arg_list, cmd->env_list);
 }
@@ -68,7 +53,7 @@ int	ft_get_child_exit_status(int status)
 	return (0);
 }
 
-int	ft_wait_all_child(t_executor *exec, int last_pid)
+int	ft_wait_all_child(int last_pid)
 {
 	int	stat;
 	int	wait_ret;
@@ -83,7 +68,5 @@ int	ft_wait_all_child(t_executor *exec, int last_pid)
 		if (wait_ret == last_pid)
 			ret = stat;
 	}
-	//if (exec->in != DO_NOT_EXE)
-	(void) exec;
 	return (ft_get_child_exit_status(ret));
 }
