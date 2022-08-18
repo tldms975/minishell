@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:38:06 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/17 22:55:38 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/18 18:02:23 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 static void	ft_close_pipes(t_executor *exec)
 {
-	if (exec->is_heredoc)
+	if (exec->in == DO_NOT_EXE && exec->is_heredoc)
+		ft_close(exec->heredoc_fd[READ]);
+	else if (exec->is_heredoc)
 	{
 		if (exec->fd_read != exec->heredoc_fd[READ])
 			ft_close(exec->fd_read);
@@ -63,8 +65,8 @@ t_envp_list *env, int cnt_pipe)
 	exec->times += 1;
 	exec->fd_read = STDIN_FILENO;
 	exec->fd_write = STDOUT_FILENO;
-	if (env->vec)
-		ft_free((void **) &env->vec);
+	// if (env->vec)
+	// 	ft_free((void **) &env->vec);
 	env->vec = ft_get_env_vector(env);
 	cmd->env_list = env;
 	ft_check_heredoc(cmd->lim_q, exec, env);
@@ -100,10 +102,10 @@ int	ft_execute(t_pipe_list *pipe_list, t_envp_list *env_list)
 			exec.pid = ft_fork_getting_last_pid(pipe_line, &exec);
 			if (exec.pid == 0)
 				ft_exe_in_child_process(pipe_line, &exec);
-			ret = ft_wait_all_child(exec.last_pid);
-			ft_close_pipes(&exec);
 		}
 		pipe_line = pipe_line->next;
 	}
+	ret = ft_wait_all_child(exec.last_pid);
+	ft_close_pipes(&exec);
 	return (ret);
 }

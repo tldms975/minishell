@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 02:03:46 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/15 02:25:49 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/18 17:53:28 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	ft_cd_to_path(t_envp_list *env, char *path)
 		ft_putstr_fd("minishell: cd: ", STDERR_FILENO);
 		ft_putstr_fd(path, STDERR_FILENO);
 		ft_putendl_fd(": No such file or directory", STDERR_FILENO);
-		return (EXIT_NOTFOUND);
+		return (EXIT_FAILURE);
 	}
 	return (exit_status);
 }
