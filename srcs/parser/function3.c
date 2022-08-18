@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   function3.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iyun <iyun@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 18:37:17 by iyun              #+#    #+#             */
-/*   Updated: 2022/08/18 18:37:18 by iyun             ###   ########.fr       */
+/*   Updated: 2022/08/18 20:24:01 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ int	ft_meta_to_meta(t_lexer *lexer)
 	if (here != next)
 	{
 		lexer->tail = new_content(lexer);
-		printf("!\n");
 		if (lexer->tail->type == ERR)
 			return (-1);
 		return (0);

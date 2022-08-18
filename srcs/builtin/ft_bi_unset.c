@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:14:41 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/09 06:22:28 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/18 20:46:29 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static int	ft_check_valid(char *str)
 	int	i;
 
 	i = 0;
+	if (str[i] == '$')
+		i++;
 	while (str[i])
 	{
 		if (!ft_isalpha(str[i]))

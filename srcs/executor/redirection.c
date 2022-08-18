@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 19:32:41 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/18 19:33:55 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/18 20:22:10 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	ft_redirection(t_arg_node *arg, t_redir_node *redir, t_executor *exec)
 	printf("redir~~\n");//
 	while (redir)
 	{
-		valid_code = ft_check_valid_redir_files(arg, redir);
+		valid_code = ft_check_valid_redir_files(arg, redir, exec);
 		if (valid_code == EXIT_SUCCESS)
 		{
 			if (redir->type == REDIR_IN || redir->type == REDIR_HEREDOC)

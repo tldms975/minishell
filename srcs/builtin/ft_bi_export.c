@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:14:35 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/15 21:15:00 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/18 20:08:28 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,18 @@ static int	ft_check_valid(char *str, int *idx_equal)
 		if (i > 0 && str[i] == '=')
 		{
 			*idx_equal = i;
-			return (1);
+			return (TRUE);
 		}
 		else if (!ft_isalpha(str[i]))
 		{
 			ft_putstr_fd("bash: export: `", STDERR_FILENO);
 			ft_putstr_fd(str, STDERR_FILENO);
 			ft_putendl_fd("' not a valid identifier", STDERR_FILENO);
-			return (0);
+			return (FALSE);
 		}
 		i++;
 	}
-	return (1);
+	return (TRUE);
 }
 
 static void	ft_print_export(t_envp_list *env_list)
@@ -62,6 +62,8 @@ static void	ft_print_export(t_envp_list *env_list)
 	t_envp_list	*sorted_list;
 	t_envp_node	*sorted;
 
+	if (!env_list)
+		return ;
 	sorted_list = ft_get_sorted_env(env_list);
 	if (!sorted_list)
 		return ;

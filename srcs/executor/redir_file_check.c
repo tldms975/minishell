@@ -6,17 +6,17 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 16:34:43 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/18 03:54:31 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/18 20:27:28 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_print_errmsg_unexecutable(char *file_name)
+static void	ft_print_errmsg_unexecutable(char *file_name)
 {
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putstr_fd(file_name, STDERR_FILENO);
-	ft_putendl_fd(": command not found", STDERR_FILENO);
+	ft_putendl_fd(": No such file or directory", STDERR_FILENO);
 }
 
 static void	ft_print_errmsg_by_isdir(t_arg_node *arg, char *file_name, \
@@ -38,12 +38,20 @@ t_token_type type)
 
 void	ft_print_errmsg_no_permission(char *file_name)
 {
-	ft_putendl_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putstr_fd(file_name, STDERR_FILENO);
 	ft_putendl_fd(": Permission denied", STDERR_FILENO);
 }
 
-int	ft_check_valid_redir_files(t_arg_node *arg, t_redir_node *redir)
+static void	ft_print_errmsg_ambigious(t_executor *exec)
+{
+	exec->in = DO_NOT_EXE;
+	ft_putstr_fd("minishell", STDERR_FILENO);
+	ft_putendl_fd(": ambiguous redirect", STDERR_FILENO);
+}
+
+int	ft_check_valid_redir_files(t_arg_node *arg, t_redir_node *redir, \
+t_executor *exec)
 {
 	int		lstat_ret;
 	t_stat	stat;
@@ -54,7 +62,7 @@ int	ft_check_valid_redir_files(t_arg_node *arg, t_redir_node *redir)
 		if (lstat_ret == -1 && (redir->type == REDIR_IN))
 			ft_print_errmsg_unexecutable(redir->file_name);
 		else if ((redir->type == REDIR_OUT) && (redir->file_name[0] == '\0'))
-			ft_print_errmsg_unexecutable(redir->file_name);
+			ft_print_errmsg_ambigious(exec);
 		else if ((lstat_ret != -1) && (stat.st_mode & S_IFDIR))
 			ft_print_errmsg_by_isdir(arg, redir->file_name, redir->type);
 		else if ((lstat_ret != -1) && ((((redir->type == REDIR_IN) \

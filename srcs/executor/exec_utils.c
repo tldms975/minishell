@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 02:29:44 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/18 03:52:01 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/18 20:36:41 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,31 +29,6 @@ static char	**ft_get_cmd_vec(t_arg_list *arg_list)
 	}
 	res[i] = NULL;
 	return (res);
-}
-
-static void	ft_check_cmd_path(char *arg, char *cmd)
-{
-	t_stat	stat;
-	int		lst_ret;
-
-	lst_ret = lstat(cmd, &stat);
-	if (lst_ret == -1)
-	{
-		ft_print_errmsg_unexecutable(arg);
-		exit (EXIT_NOTFOUND);
-	}
-	if (stat.st_mode & S_IFDIR)
-	{
-		ft_putstr_fd("minishell: ", STDERR_FILENO);
-		ft_putstr_fd(arg, STDERR_FILENO);
-		ft_putendl_fd(": is a directory", STDERR_FILENO);
-		exit (EXIT_UNEXECUTABLE);
-	}
-	if (!(stat.st_mode & S_IXUSR))
-	{
-		ft_print_errmsg_no_permission(arg);
-		exit (EXIT_UNEXECUTABLE);
-	}
 }
 
 static char	*ft_get_cmd_path(char *cmd, t_envp_list *env)
@@ -86,10 +61,15 @@ void	ft_execute_cmd(t_arg_list *arg_list, t_envp_list *env)
 	char	**cmd_vec;
 
 	if (ft_strchr(arg_list->front->content, '/'))
+	{
 		cmd_path = arg_list->front->content;
+		ft_check_cmd_path(arg_list->front->content, cmd_path, ": No such file or directory");
+	}
 	else
+	{
 		cmd_path = ft_get_cmd_path(arg_list->front->content, env);
-	ft_check_cmd_path(arg_list->front->content, cmd_path);
+		ft_check_cmd_path(arg_list->front->content, cmd_path, ": command not found");
+	}
 	cmd_vec = ft_get_cmd_vec(arg_list);
 	execve(cmd_path, cmd_vec, env->vec);
 }

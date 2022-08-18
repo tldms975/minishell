@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 22:59:15 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/09 08:44:14 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/18 20:11:18 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	ft_bi_env(t_pipe_node *cmd)
 	char		*line;
 
 	env = cmd->env_list->head;
+	if (!env)
+		return (EXIT_SUCCESS);
 	line = ft_make_env_line(env);
 	while (line)
 	{

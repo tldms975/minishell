@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:08:46 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/18 03:05:57 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/18 20:35:48 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ struct s_executor
 	t_envp_list	*env;
 };
 
-void	ft_print_errmsg_unexecutable(char *file_name);
 void	ft_print_errmsg_no_permission(char *file_name);
 
 int		ft_check_builtin(t_pipe_node *cmd, t_executor *exec);
@@ -75,11 +74,13 @@ int		ft_execute_built_in(t_pipe_node *cmd, int code);
 
 int		ft_execute(t_pipe_list *pipe_list, t_envp_list *env_list);
 void	ft_execute_cmd(t_arg_list *arg_list, t_envp_list *env);
+void	ft_check_cmd_path(char *arg, char *cmd,char *msg);
 
 void	ft_check_heredoc(t_limiter_q *lim_q, t_executor *exec, \
 		t_envp_list *env_list);
 
-int		ft_check_valid_redir_files(t_arg_node *arg, t_redir_node *redir);
+int		ft_check_valid_redir_files(t_arg_node *arg, t_redir_node *redir, \
+		t_executor *exec);
 int		ft_redirection(t_arg_node *arg, t_redir_node *redir, t_executor *exec);
 
 int		ft_get_child_exit_status(int status);

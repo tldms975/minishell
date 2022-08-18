@@ -6,7 +6,7 @@
 #    By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/13 17:14:48 by sielee            #+#    #+#              #
-#    Updated: 2022/08/17 18:55:47 by sielee           ###   ########seoul.kr   #
+#    Updated: 2022/08/18 20:37:14 by sielee           ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,7 +91,8 @@ EXECUTOR_SRCS	=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/executor/,\
 					exec\
 					heredoc\
 					redirection\
-					redir_file_check))
+					redir_file_check\
+					check_cmd))
 SRCS			=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/,\
 					main))\
 					$(UTILS_SRCS)\
