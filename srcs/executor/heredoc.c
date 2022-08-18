@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 18:55:39 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/18 17:47:01 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/18 19:15:06 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ t_envp_list *env_list)
 		write(exec->heredoc_fd[WRITE], "\n", 1);
 		free(line);
 	}
+	if (line)
+		free(line);
 	ft_dequeue(lim_q);
 	ft_close(exec->heredoc_fd[WRITE]);
 }
