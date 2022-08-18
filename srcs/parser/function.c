@@ -39,3 +39,17 @@ t_token	*new_content(t_lexer *lexer)
 		lexer->head = new;
 	return (new);
 }
+
+void	ft_token_free(t_lexer *lexer)
+{
+	void	*temp;
+
+	while (lexer->head != NULL)
+	{
+		temp = lexer->head;
+		if (lexer->head->content != NULL)
+			free(lexer->head->content);
+		lexer->head = lexer->head->next;
+		ft_free((void **)&temp);
+	}
+}

@@ -69,6 +69,9 @@ void	ft_parser_free(t_pipe_list *pipe)
 {
 	while (pipe->head != NULL)
 	{
+		void	*temp;
+
+		temp = pipe->head;
 		ft_arg_free(pipe->head->arg_list);
 		ft_free((void **)&(pipe->head->arg_list));
 		ft_redir_free(pipe->head->redir_list);
@@ -76,5 +79,6 @@ void	ft_parser_free(t_pipe_list *pipe)
 		ft_limq_free(pipe->head->lim_q);
 		ft_free((void **)&(pipe->head->lim_q));
 		pipe->head = pipe->head->next;
+		ft_free((void **)&temp);
 	}
 }

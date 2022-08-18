@@ -231,6 +231,7 @@ int	ft_arg_redir_out(t_pipe_node **pipe, t_token **token);
 int	ft_arg_redir_append(t_pipe_node **pipe, t_token **token);
 int	ft_arg_heredoc(t_pipe_node **pipe, t_token **token);
 int	ft_arg_pipe(t_token **token);
+void	ft_token_free(t_lexer *lexer);
 
 void	ft_print(t_pipe_list *pipe);
 void	ft_state_free(t_action_state **state);

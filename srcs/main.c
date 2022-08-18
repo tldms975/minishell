@@ -67,9 +67,12 @@ void	ft_parse(t_pipe_list *pipe_list, t_envp_list *env, char *line)
 		return ;
 	lexer_setting(&lexer, line);
 	if (ft_lexer(&lexer) < 0)
+	{
+		ft_token_free(&lexer);
 		ft_putstr_fd("syntax error\n", STDERR_FILENO);
-	else
-		ft_parser(pipe_list, lexer.head, env);
+	}
+	else if (ft_parser(pipe_list, lexer.head, env) < 0)
+		ft_token_free(&lexer);
 }
 
 int	ft_minishell(t_envp_list *env)
@@ -87,7 +90,7 @@ int	ft_minishell(t_envp_list *env)
 		add_history(line);
 		ft_parse(&pipe_list, env, line);
 		// ft_print(&pipe_list);//for testing
-		g_exit_status = ft_execute(&pipe_list, env);
+		// g_exit_status = ft_execute(&pipe_list, env);
 		ft_parser_free(&pipe_list);
 		ft_free((void **) &line);
 	}

@@ -96,6 +96,7 @@ int	ft_parser(t_pipe_list *pipe_list, t_token *token, t_envp_list *env)
 	if (state->state == STATE_ERR)
 	{
 		ft_putstr_fd("syntax error\n", STDERR_FILENO);
+		ft_state_free(&temp_state);
 		return (-1);
 	}
 	else
