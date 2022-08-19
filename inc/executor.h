@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:08:46 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/19 02:01:50 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/19 14:49:10 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ struct s_executor
 	pid_t		pid;
 	int			fd_read;
 	int			fd_write;
-	int			l_pipe_fd[2];
+	int			l_pipe_fd[1];
 	int			r_pipe_fd[2];
 	int			heredoc_fd[2];
 	t_mybool	is_heredoc;
@@ -74,7 +74,7 @@ int		ft_execute_built_in(t_pipe_node *cmd, int code);
 
 int		ft_execute(t_pipe_list *pipe_list, t_envp_list *env_list);
 void	ft_execute_cmd(t_arg_list *arg_list, t_envp_list *env);
-void	ft_check_cmd_path(char *arg, char *cmd,char *msg);
+void	ft_check_cmd_path(char *arg, char *cmd, char *msg);
 
 void	ft_check_heredoc(t_limiter_q *lim_q, t_executor *exec, \
 		t_envp_list *env_list);

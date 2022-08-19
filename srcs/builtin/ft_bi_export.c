@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:14:35 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/18 20:08:28 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/19 14:40:49 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ static void	ft_print_export(t_envp_list *env_list)
 	t_envp_list	*sorted_list;
 	t_envp_node	*sorted;
 
-	if (!env_list)
+	if (!env_list->head)
 		return ;
 	sorted_list = ft_get_sorted_env(env_list);
-	if (!sorted_list)
+	if (!sorted_list->head)
 		return ;
 	sorted = sorted_list->head;
 	while (sorted)

@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:38:06 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/19 05:42:04 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/19 14:49:02 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,7 @@ static void	ft_set_pipe_fd(t_executor *exec, int cnt_pipe)
 	else
 	{
 		if (exec->times != 1)
-		{
 			exec->l_pipe_fd[READ] = exec->r_pipe_fd[READ];
-			exec->l_pipe_fd[WRITE] = exec->r_pipe_fd[WRITE];
-		}
 		ft_pipe(exec->r_pipe_fd);
 		if (exec->times == 1)
 			exec->l_pipe_fd[READ] = exec->r_pipe_fd[READ];
@@ -55,9 +52,6 @@ static void	ft_set_pipe_fd(t_executor *exec, int cnt_pipe)
 		if (exec->times != (cnt_pipe + 1))
 			exec->fd_write = exec->r_pipe_fd[WRITE];
 	}
-	printf(">>[%d]'s %d pipe_line <<\n", getpid(), exec->times);//
-	printf("basic(%d, ", exec->fd_read);//
-	printf("%d)\n", exec->fd_write);//
 }
 
 static int	ft_ready_to_exec(t_pipe_node *cmd, t_executor *exec, \
