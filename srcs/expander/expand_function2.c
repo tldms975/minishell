@@ -94,6 +94,8 @@ void	ft_ex_dollar_to_sub(t_buffer *buffer)
 			buffer->index = 0;
 		}
 	}
+	else if (buffer->curr_state != EX_NULL)
+		buffer->index = 0;
 }
 
 int	ft_ex_dollar_to(t_buffer *buffer)
@@ -102,6 +104,17 @@ int	ft_ex_dollar_to(t_buffer *buffer)
 	{
 		buffer->index++;
 		buffer->curr_state = EX_NORMAL;
+	}
+	else if (check_expand_type((buffer->content)[buffer->index]) == EX_DO_QUO || \
+			check_expand_type((buffer->content)[buffer->index]) == EX_SI_QUO)
+	{
+		buffer->content += 1;
+		buffer->index = 0;
+		if (check_expand_type((buffer->content)[buffer->index]) == EX_DO_QUO)
+			buffer->curr_state = EX_DO_QUO;
+		else if (check_expand_type((buffer->content)[buffer->index]) == EX_SI_QUO)
+			buffer->curr_state = EX_SI_QUO;
+		buffer->content += 1;
 	}
 	else if (check_meta((buffer->content)[buffer->index]) == EX_META)
 		buffer->curr_state = EX_NORMAL;
