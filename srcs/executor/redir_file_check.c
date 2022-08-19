@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 16:34:43 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/19 18:48:25 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/20 02:07:09 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,4 @@ t_executor *exec)
 			return (EXIT_SUCCESS);
 		return (EXIT_FAILURE);
 	}
-	return (EXIT_SUCCESS);
 }
