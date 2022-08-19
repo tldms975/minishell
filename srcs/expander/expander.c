@@ -34,7 +34,8 @@ void	ft_while_redir(t_pipe_node **temp_pipe, t_envp_list *env, t_fuc *funct)
 		if (temp_redir->type != REDIR_HEREDOC)
 		{
 			ft_expander_redir(&temp_redir, env, *funct);
-			ft_del_node_redir(&temp_redir, &((*temp_pipe)->redir_list->front));
+			// ft_del_node_redir(&temp_redir, &((*temp_pipe)->redir_list->front));
+			temp_redir = temp_redir->next;
 		}
 		else
 			temp_redir = temp_redir->next;
