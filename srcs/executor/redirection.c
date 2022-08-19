@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 19:32:41 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/19 18:21:03 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/19 18:47:27 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ t_executor *exec)
 		|| (((exec->is_heredoc) && (exec->fd_read != exec->heredoc_fd[READ]))))
 			ft_close(exec->fd_write);
 		exec->fd_write = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		printf("files[%s]'s fd: %d\n", file_name, exec->fd_write);//
 	}
 	else if (type == REDIR_APPEND)
 	{
@@ -29,7 +28,6 @@ t_executor *exec)
 		|| (((exec->is_heredoc) && (exec->fd_read != exec->heredoc_fd[READ]))))
 			ft_close(exec->fd_write);
 		exec->fd_write = open(file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
-		printf("files[%s]'s fd: %d\n", file_name, exec->fd_write);//
 	}
 }
 
@@ -42,7 +40,6 @@ t_executor *exec)
 		|| (((exec->is_heredoc) && (exec->fd_read != exec->heredoc_fd[READ]))))
 			ft_close(exec->fd_read);
 		exec->fd_read = open(file_name, O_RDONLY);
-		printf("file[%s]'s fd: %d\n", file_name, exec->fd_read);//
 	}
 	else if (type == REDIR_HEREDOC)
 	{
@@ -59,7 +56,8 @@ t_executor *exec)
 
 	while (redir)
 	{
-		valid_code = ft_check_valid_redir_files(arg, redir, exec);
+		if (redir->type != REDIR_HEREDOC)
+			valid_code = ft_check_valid_redir_files(arg, redir, exec);
 		if (valid_code == EXIT_SUCCESS)
 		{
 			if (redir->type == REDIR_IN || redir->type == REDIR_HEREDOC)
@@ -74,6 +72,5 @@ t_executor *exec)
 		}
 		redir = redir->next;
 	}
-	printf("final(%d, %d)\n", exec->fd_read, exec->fd_write);//
 	return (EXIT_SUCCESS);
 }

@@ -6,12 +6,12 @@
 #    By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/13 17:14:48 by sielee            #+#    #+#              #
-#    Updated: 2022/08/19 18:25:10 by sielee           ###   ########seoul.kr   #
+#    Updated: 2022/08/19 18:50:54 by sielee           ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
 CC		= cc
-CFLAGS	= -Wall -Wextra -Werror -g
+CFLAGS	= -Wall -Wextra -Werror
 
 NAME	=	minishell
 

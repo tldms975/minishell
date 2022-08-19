@@ -6,13 +6,13 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 17:12:20 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/19 03:46:57 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/19 18:43:04 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int g_exit_status;
+int	g_exit_status;
 
 void	ft_parse(t_pipe_list *pipe_list, t_envp_list *env, char *line)
 {
@@ -36,7 +36,7 @@ void	ft_parse(t_pipe_list *pipe_list, t_envp_list *env, char *line)
 int	ft_minishell(t_envp_list *env)
 {
 	t_pipe_list	pipe_list;
-	char	*line;
+	char		*line;
 
 	g_exit_status = EXIT_SUCCESS;
 	while (1)
@@ -57,7 +57,7 @@ int	ft_minishell(t_envp_list *env)
 int	main(int ac, char *av[], char *envp[])
 {
 	t_envp_list	env_list;
-	int	ret;
+	int			ret;
 
 	(void)av;
 	if (ac > 1)

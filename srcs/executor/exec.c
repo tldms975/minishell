@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:38:06 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/19 18:11:20 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/19 18:50:06 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static void	ft_close_pipes(t_executor *exec, int cnt_pipe, int heredoc_in_pipe)
 {
-	fprintf(stderr, "in parents [%d]\n", getpid());//
 	if (exec->is_heredoc)
 	{
 		if (exec->fd_read != exec->heredoc_fd[READ])
@@ -59,7 +58,6 @@ static void	ft_set_pipe_fd(t_executor *exec, int cnt_pipe)
 		if (exec->times != (cnt_pipe + 1))
 			exec->fd_write = exec->r_pipe_fd[WRITE];
 	}
-	fprintf(stderr, "initial fd(%d, %d)\n", exec->fd_read, exec->fd_write);
 }
 
 static int	ft_ready_to_exec(t_pipe_node *cmd, t_executor *exec, \
