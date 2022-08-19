@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 18:55:52 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/19 20:23:53 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/19 21:35:59 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,14 @@ void	ft_escape_heredoc(int sig)
 	if (sig == SIGINT)
 	{
 		g_exit_status = EXIT_FAILURE;
-		signal(SIGINT, SIG_DFL);
+		exit(g_exit_status);
 	}
+}
+
+void	ft_heredoc_sgh_ign(void)
+{
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 }
 
 void	ft_heredoc_sgh(void)

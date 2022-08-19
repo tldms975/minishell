@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 19:32:41 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/19 18:47:27 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/19 22:37:55 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_executor *exec)
 	{
 		if (redir->type != REDIR_HEREDOC)
 			valid_code = ft_check_valid_redir_files(arg, redir, exec);
-		if (valid_code == EXIT_SUCCESS)
+		if ((valid_code == EXIT_SUCCESS) || (redir->type == REDIR_HEREDOC))
 		{
 			if (redir->type == REDIR_IN || redir->type == REDIR_HEREDOC)
 				ft_redir_in(redir->type, redir->file_name, exec);

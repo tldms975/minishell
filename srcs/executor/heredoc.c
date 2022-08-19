@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 18:55:39 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/19 20:33:04 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/19 23:05:28 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ t_envp_list *env_list, int *is_heredoc_in_pipe)
 		exec->is_heredoc = TRUE;
 		*is_heredoc_in_pipe = TRUE;
 		ft_pipe(exec->heredoc_fd);
+		ft_heredoc_sgh_ign();
 		pid = ft_fork();
 		if (pid == 0)
 		{
@@ -84,10 +85,10 @@ t_envp_list *env_list, int *is_heredoc_in_pipe)
 			ft_ready_last_heredoc(lim_q);
 			ft_close(exec->heredoc_fd[READ]);
 			ft_heredoc_write_in_pipe(lim_q, exec, env_list);
-			ft_default_signal();
 			exit (EXIT_SUCCESS);
 		}
+		waitpid(pid, &stat, 0);
+		exec->heredoc_exit = ft_get_child_exit_status(stat);
 		ft_default_signal();
-		wait(&stat);
 	}
 }

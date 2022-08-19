@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:08:46 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/19 19:59:31 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/19 22:37:14 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ struct s_executor
 	int			l_pipe_fd[1];
 	int			r_pipe_fd[2];
 	int			heredoc_fd[2];
+	int			heredoc_exit;
 	t_mybool	is_heredoc;
 	t_mybool	is_builtin;
 	int			built_in_code;
