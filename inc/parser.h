@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 15:11:50 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/16 03:00:15 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/19 16:20:16 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,7 @@ typedef struct s_pipe_list
 	t_pipe_node	*head;
 	t_pipe_node	*tail;
 	int			cnt_pipe;
+	int			is_heredoc;
 }	t_pipe_list;
 
 typedef struct s_action_state

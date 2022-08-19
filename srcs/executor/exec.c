@@ -6,36 +6,47 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:38:06 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/19 14:49:02 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/19 16:52:52 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_close_pipes(t_executor *exec, int cnt_pipe)
+static void	ft_close_pipes(t_executor *exec, int cnt_pipe, int heredoc_in_pipe)
 {
-	(void)cnt_pipe;//
 	if (exec->is_heredoc)
 	{
+		fprintf(stderr, "in parents [%d]\n", getpid());
 		if (exec->fd_read != exec->heredoc_fd[READ])
 			ft_close(exec->fd_read);
+		if (exec->fd_write != exec->heredoc_fd[WRITE])
+			ft_close(exec->fd_write);
 	}
 	else
 	{
+		if (exec)
 		ft_close(exec->fd_read);
 		ft_close(exec->fd_write);
 	}
+	if ((heredoc_in_pipe) && (exec->times == (cnt_pipe + 1)))
+	{
+		ft_close(exec->heredoc_fd[READ]);
+		ft_close(exec->heredoc_fd[WRITE]);
+	}
+	if ((exec->times == 1) && (cnt_pipe == 0))
+		ft_close(exec->r_pipe_fd[WRITE]);
 }
 
 static void	ft_set_pipe_fd(t_executor *exec, int cnt_pipe)
 {
-	if (exec->times == (cnt_pipe + 1))
+	if ((exec->times == (cnt_pipe + 1)) && (cnt_pipe != 0))
 		exec->l_pipe_fd[READ] = exec->r_pipe_fd[READ];
 	else
 	{
 		if (exec->times != 1)
 			exec->l_pipe_fd[READ] = exec->r_pipe_fd[READ];
 		ft_pipe(exec->r_pipe_fd);
+		fprintf(stderr, "new(%d, %d)\n", exec->r_pipe_fd[READ], exec->r_pipe_fd[WRITE]);
 		if (exec->times == 1)
 			exec->l_pipe_fd[READ] = exec->r_pipe_fd[READ];
 	}
@@ -43,8 +54,8 @@ static void	ft_set_pipe_fd(t_executor *exec, int cnt_pipe)
 	{
 		if (exec->times != (cnt_pipe + 1))
 			exec->fd_write = exec->r_pipe_fd[WRITE];
-		if (exec->times != 1)
-			exec->fd_read = exec->l_pipe_fd[READ];
+		if (exec->times == 1)
+			exec->fd_read = exec->r_pipe_fd[READ];
 	}
 	else if (exec->times % 2 == 0)
 	{
@@ -52,10 +63,11 @@ static void	ft_set_pipe_fd(t_executor *exec, int cnt_pipe)
 		if (exec->times != (cnt_pipe + 1))
 			exec->fd_write = exec->r_pipe_fd[WRITE];
 	}
+	fprintf(stderr, "initial fd(%d, %d)\n", exec->fd_read, exec->fd_write);
 }
 
 static int	ft_ready_to_exec(t_pipe_node *cmd, t_executor *exec, \
-t_envp_list *env, int cnt_pipe)
+t_envp_list *env, t_pipe_list *pipe_list)
 {
 	exec->times += 1;
 	exec->fd_read = STDIN_FILENO;
@@ -64,17 +76,17 @@ t_envp_list *env, int cnt_pipe)
 		ft_free_env_vec(env->vec);
 	env->vec = ft_get_env_vector(env);
 	cmd->env_list = env;
-	ft_check_heredoc(cmd->lim_q, exec, env);
+	ft_check_heredoc(cmd->lim_q, exec, env, &pipe_list->is_heredoc);
 	exec->built_in_code = 0;
 	exec->is_builtin = ft_check_builtin(cmd, exec);
 	if (!cmd->arg_list->front)
 		exec->in = DO_NOT_EXE;
-	else if (exec->is_builtin && (cnt_pipe == 0))
+	else if (exec->is_builtin && (pipe_list->cnt_pipe == 0))
 		exec->in = PARENT;
 	else
 		exec->in = CHILD;
 	if (exec->in != PARENT)
-		ft_set_pipe_fd(exec, cnt_pipe);
+		ft_set_pipe_fd(exec, pipe_list->cnt_pipe);
 	return (ft_redirection(cmd->arg_list->front, cmd->redir_list->front, exec));
 }
 
@@ -86,9 +98,10 @@ int	ft_execute(t_pipe_list *pipe_list, t_envp_list *env_list)
 
 	exec.times = 0;
 	pipe_line = pipe_list->head;
+	pipe_list->is_heredoc = 0;
 	while (pipe_line)
 	{
-		ret = ft_ready_to_exec(pipe_line, &exec, env_list, pipe_list->cnt_pipe);
+		ret = ft_ready_to_exec(pipe_line, &exec, env_list, pipe_list);
 		if (exec.in == PARENT)
 			return (ft_exe_in_parent_process(pipe_line, &exec));
 		else if (exec.in == CHILD)
@@ -97,7 +110,7 @@ int	ft_execute(t_pipe_list *pipe_list, t_envp_list *env_list)
 			if (exec.pid == 0)
 				ft_exe_in_child_process(pipe_line, &exec, pipe_list->cnt_pipe);
 		}
-		ft_close_pipes(&exec, pipe_list->cnt_pipe);
+		ft_close_pipes(&exec, pipe_list->cnt_pipe, pipe_list->is_heredoc);
 		pipe_line = pipe_line->next;
 	}
 	ret = ft_wait_all_child(exec.last_pid);

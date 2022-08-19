@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 18:55:39 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/19 15:02:52 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/19 16:20:52 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,29 +65,29 @@ static void	ft_ready_last_heredoc(t_limiter_q *lim_q)
 }
 
 void	ft_check_heredoc(t_limiter_q *lim_q, t_executor *exec, \
-t_envp_list *env_list)
+t_envp_list *env_list, int *is_heredoc_in_pipe)
 {
 	pid_t	pid;
 
 	if (lim_q->cnt == 0)
-	{
 		exec->is_heredoc = FALSE;
-	}
 	else
 	{
 		exec->is_heredoc = TRUE;
+		*is_heredoc_in_pipe = TRUE;
 		ft_heredoc_sgh();
 		ft_ready_last_heredoc(lim_q);
 		ft_pipe(exec->heredoc_fd);
 		pid = ft_fork();
 		if (pid == 0)
 		{
+			fprintf(stderr, "heredoc [%d]\n", getpid());//
+			ft_close(exec->heredoc_fd[READ]);
 			ft_heredoc_write_in_pipe(lim_q, exec, env_list);
 			exit(EXIT_FAILURE);
 		}
 		wait(0);
 		ft_default_signal();
-		ft_close(exec->heredoc_fd[WRITE]);
-		printf("heredoc(%d, %d)\n", exec->heredoc_fd[READ], exec->heredoc_fd[WRITE]);//
+		fprintf(stderr,"heredoc(%d, %d)\n", exec->heredoc_fd[READ], exec->heredoc_fd[WRITE]);//
 	}
 }
