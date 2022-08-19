@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 16:34:43 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/19 18:14:22 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/19 18:28:09 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,23 +55,29 @@ t_executor *exec)
 {
 	int		lstat_ret;
 	t_stat	stat;
+
 	if (redir->type != REDIR_HEREDOC)
 	{
-		fprintf(stderr, "filename!! %s\n", redir->file_name);//
-		lstat_ret = lstat(redir->file_name, &stat);
-		if (lstat_ret == -1 && (redir->type == REDIR_IN))
-			ft_print_errmsg_unexecutable(redir->file_name);
-		else if ((redir->type == REDIR_IN) && (redir->file_name[0] == '\0'))
+		if (!redir->file_name)
+		{
 			ft_print_errmsg_ambigious(exec);
-		else if ((lstat_ret != -1) && (stat.st_mode & S_IFDIR))
-			ft_print_errmsg_by_isdir(arg, redir->file_name, redir->type);
-		else if ((lstat_ret != -1) && ((((redir->type == REDIR_IN) \
-		&& !(stat.st_mode & S_IRUSR))) || ((redir->type == REDIR_OUT) \
-		&& !((stat.st_mode & S_IRUSR) && (stat.st_mode & S_IWUSR)))))
-			ft_print_errmsg_no_permission(redir->file_name);
+			return (EXIT_FAILURE);
+		}
 		else
-			return (EXIT_SUCCESS);
-		return (EXIT_FAILURE);
+		{
+			lstat_ret = lstat(redir->file_name, &stat);
+			if (lstat_ret == -1 && (redir->type == REDIR_IN))
+				ft_print_errmsg_unexecutable(redir->file_name);
+			else if ((lstat_ret != -1) && (stat.st_mode & S_IFDIR))
+				ft_print_errmsg_by_isdir(arg, redir->file_name, redir->type);
+			else if ((lstat_ret != -1) && ((((redir->type == REDIR_IN) \
+			&& !(stat.st_mode & S_IRUSR))) || ((redir->type == REDIR_OUT) \
+			&& !((stat.st_mode & S_IRUSR) && (stat.st_mode & S_IWUSR)))))
+				ft_print_errmsg_no_permission(redir->file_name);
+			else
+				return (EXIT_SUCCESS);
+			return (EXIT_FAILURE);
+		}
 	}
 	return (EXIT_SUCCESS);
 }

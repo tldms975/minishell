@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 19:32:41 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/19 18:14:44 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/19 18:21:03 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ t_executor *exec)
 {
 	int	valid_code;
 
-	fprintf(stderr, "redir: %p\n", redir);
 	while (redir)
 	{
 		valid_code = ft_check_valid_redir_files(arg, redir, exec);
