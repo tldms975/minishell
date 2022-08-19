@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:38:06 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/19 17:52:29 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/19 18:11:20 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ t_envp_list *env, t_pipe_list *pipe_list)
 		exec->in = CHILD;
 	if (exec->in != PARENT)
 		ft_set_pipe_fd(exec, pipe_list->cnt_pipe);
-	return (ft_redirection(cmd->arg_list->front, cmd->redir_list->front, exec,pipe_list->cnt_pipe));
+	return (ft_redirection(cmd->arg_list->front, cmd->redir_list->front, exec));
 }
 
 int	ft_execute(t_pipe_list *pipe_list, t_envp_list *env_list)

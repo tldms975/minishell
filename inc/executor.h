@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:08:46 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/19 17:09:49 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/19 18:11:12 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	ft_check_heredoc(t_limiter_q *lim_q, t_executor *exec, \
 int		ft_check_valid_redir_files(t_arg_node *arg, t_redir_node *redir, \
 		t_executor *exec);
 int		ft_redirection(t_arg_node *arg, t_redir_node *redir, \
-		t_executor *exec, int cnt_pipe);
+		t_executor *exec);
 
 int		ft_get_child_exit_status(int status);
 int		ft_wait_all_child(int last_pid);
