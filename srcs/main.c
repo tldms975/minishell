@@ -12,6 +12,7 @@
 
 #include "minishell.h"
 
+
 int g_exit_status;
 
 void	ft_parse(t_pipe_list *pipe_list, t_envp_list *env, char *line)
