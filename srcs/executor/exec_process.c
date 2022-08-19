@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 21:52:37 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/19 16:52:58 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/19 17:56:09 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ int cnt_pipe)
 	ft_dup2(exec->fd_write, STDOUT_FILENO);
 	if (exec->times != (cnt_pipe + 1))
 		ft_close(exec->r_pipe_fd[READ]);
-	if ((exec->times == 1) && (cnt_pipe == 0))
-		ft_close(exec->r_pipe_fd[WRITE]);
 	if (exec->is_builtin)
 		exit(ft_execute_built_in(cmd, exec->built_in_code));
 	else
