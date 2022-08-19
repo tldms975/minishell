@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:08:46 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/19 18:41:20 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/19 19:59:31 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ struct s_executor
 
 void	ft_print_errmsg_no_permission(char *file_name);
 
-int		ft_check_builtin(t_pipe_node *cmd, t_executor *exec);
+int		ft_check_builtin(t_pipe_node *cmd, t_executor *exec, int cnt_pipe);
 int		ft_execute_built_in(t_pipe_node *cmd, int code);
 
 int		ft_execute(t_pipe_list *pipe_list, t_envp_list *env_list);

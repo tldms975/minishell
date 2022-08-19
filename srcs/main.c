@@ -6,13 +6,11 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 17:12:20 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/19 18:43:04 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/19 19:12:19 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	g_exit_status;
 
 void	ft_parse(t_pipe_list *pipe_list, t_envp_list *env, char *line)
 {

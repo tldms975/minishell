@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:38:06 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/19 18:50:06 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/19 20:00:18 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ t_envp_list *env, t_pipe_list *pipe_list)
 	cmd->env_list = env;
 	ft_check_heredoc(cmd->lim_q, exec, env, &pipe_list->is_heredoc);
 	exec->built_in_code = 0;
-	exec->is_builtin = ft_check_builtin(cmd, exec);
+	exec->is_builtin = ft_check_builtin(cmd, exec, \
+	pipe_list->cnt_pipe);
 	if (!cmd->arg_list->front)
 		exec->in = DO_NOT_EXE;
 	else if (exec->is_builtin && (pipe_list->cnt_pipe == 0))

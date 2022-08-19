@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 18:55:39 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/19 18:49:27 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/19 19:44:37 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	ft_check_heredoc(t_limiter_q *lim_q, t_executor *exec, \
 t_envp_list *env_list, int *is_heredoc_in_pipe)
 {
 	pid_t	pid;
+	int		stat;
 
 	if (lim_q->cnt == 0)
 		exec->is_heredoc = FALSE;
@@ -83,9 +84,9 @@ t_envp_list *env_list, int *is_heredoc_in_pipe)
 		{
 			ft_close(exec->heredoc_fd[READ]);
 			ft_heredoc_write_in_pipe(lim_q, exec, env_list);
-			exit(EXIT_FAILURE);
+			exit(EXIT_SUCCESS);
 		}
-		wait(0);
+		wait(&stat);
 		ft_default_signal();
 	}
 }

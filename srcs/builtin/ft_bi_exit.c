@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:14:33 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/19 14:45:03 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/19 20:00:38 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	ft_exit_fail_too_many_args(void)
 	return (EXIT_FAILURE);
 }
 
-int	ft_bi_exit(t_pipe_node *cmd)
+int	ft_bi_exit_in_parent(t_pipe_node *cmd)
 {
 	t_arg_node	*bi_arg;
 
@@ -58,6 +58,29 @@ int	ft_bi_exit(t_pipe_node *cmd)
 			return (ft_exit_fail_too_many_args());
 		else
 			ft_exit(ft_atoi(bi_arg->content));
+	}
+	else
+	{
+		ft_exit_with_errmsg_numeric(bi_arg->content);
+	}
+	return (EXIT_SUCCESS);
+}
+
+int	ft_bi_exit_in_child(t_pipe_node *cmd)
+{
+	t_arg_node	*bi_arg;
+
+	bi_arg = cmd->arg_list->front->next;
+	if (!bi_arg)
+	{
+		exit(g_exit_status);
+	}
+	else if (ft_isnumeric(bi_arg->content))
+	{
+		if (bi_arg->next)
+			return (ft_exit_fail_too_many_args());
+		else
+			exit(ft_atoi(bi_arg->content));
 	}
 	else
 	{
