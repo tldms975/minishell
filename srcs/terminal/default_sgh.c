@@ -6,13 +6,11 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 15:46:32 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/19 14:50:43 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/19 20:12:49 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-extern int	g_exit_status;
 
 void	ft_newline_handler(int sig)
 {
