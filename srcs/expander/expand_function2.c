@@ -88,11 +88,7 @@ void	ft_ex_dollar_to_sub(t_buffer *buffer)
 	else if (check_meta_qu(*(buffer->content)) == EX_META)
 	{
 		buffer->curr_state = EX_NORMAL;
-		if (*(buffer->content) == '\\')
-		{
-			buffer->content++;
-			buffer->index = 0;
-		}
+		ft_back_slash(buffer);
 	}
 	else if (buffer->curr_state != EX_NULL)
 		buffer->index = 0;
