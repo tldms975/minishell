@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:14:35 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/19 14:40:49 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/21 01:11:29 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int	ft_check_valid(char *str, int *idx_equal)
 			*idx_equal = i;
 			return (TRUE);
 		}
-		else if (!ft_isalpha(str[i]))
+		else if (!ft_isalnum(str[i]) || str[i] != '_')
 		{
 			ft_putstr_fd("bash: export: `", STDERR_FILENO);
 			ft_putstr_fd(str, STDERR_FILENO);
