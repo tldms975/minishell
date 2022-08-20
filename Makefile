@@ -6,7 +6,7 @@
 #    By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/13 17:14:48 by sielee            #+#    #+#              #
-#    Updated: 2022/08/20 01:40:56 by sielee           ###   ########seoul.kr   #
+#    Updated: 2022/08/20 19:45:53 by sielee           ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,6 +77,7 @@ ENVP_SRCS		=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/envp/,\
 TERMINAL_SRCS	=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/terminal/,\
 					default_sgh\
 					heredoc_sgh\
+					child_sgh\
 					init_term))
 BUILTIN_SRCS	=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/builtin/,\
 					ft_bi_cd\

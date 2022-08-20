@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 22:29:57 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/19 18:44:41 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/20 18:54:31 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ pid_t	ft_fork_getting_last_pid(t_pipe_node *pipe_line, t_executor *exec)
 {
 	int	ret;
 
+	ft_sgh_ign();
 	ret = ft_fork();
 	if (!pipe_line->next)
 		exec->last_pid = ret;

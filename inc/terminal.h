@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 15:47:24 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/19 22:20:29 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/20 19:46:13 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,12 @@
 
 void	ft_newline_handler(int sig);
 void	ft_default_signal(void);
+void	ft_sgh_ign(void);
 
 void	ft_init_terminal(void);
-void	ft_heredoc_sgh_ign(void);
+
 void	ft_heredoc_sgh(void);
+
+void	ft_child_sgh(void);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: sielee <sielee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 21:52:37 by sielee            #+#    #+#             */
-/*   Updated: 2022/08/19 17:56:09 by sielee           ###   ########seoul.kr  */
+/*   Updated: 2022/08/20 20:03:37 by sielee           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	ft_exe_in_parent_process(t_pipe_node *cmd, t_executor *exec)
 void	ft_exe_in_child_process(t_pipe_node *cmd, t_executor *exec, \
 int cnt_pipe)
 {
+	ft_child_sgh();
 	if (exec->is_heredoc)
 		ft_close(exec->heredoc_fd[WRITE]);
 	ft_dup2(exec->fd_read, STDIN_FILENO);
@@ -54,7 +55,7 @@ int	ft_get_child_exit_status(int status)
 	if (w_status == 0)
 		return ((status >> 8) & 0x000000ff);
 	if (w_status != 0177 && w_status != 0)
-		return (w_status);
+		return (128 + w_status);
 	return (0);
 }
 
@@ -73,5 +74,7 @@ int	ft_wait_all_child(int last_pid)
 		if (wait_ret == last_pid)
 			ret = stat;
 	}
-	return (ft_get_child_exit_status(ret));
+	ret = ft_get_child_exit_status(stat);
+	ft_default_signal();
+	return (ret);
 }
