@@ -69,18 +69,8 @@ int	ft_ex_norm_to_dollar(t_buffer *buffer)
 {
 	if (check_meta((buffer->content)[buffer->index + 1]) == EX_DOLLAR)
 		buffer->index += 2;
-	else if (check_expand_type((buffer->content)[buffer->index + 1]) == EX_DO_QUO || \
-			check_expand_type((buffer->content)[buffer->index + 1]) == EX_SI_QUO)
-	{
-		new_save(&buffer);
-		buffer->content += 1;
-		buffer->index = 0;
-		if (check_expand_type((buffer->content)[buffer->index]) == EX_DO_QUO)
-			buffer->curr_state = EX_DO_QUO;
-		else if (check_expand_type((buffer->content)[buffer->index]) == EX_SI_QUO)
-			buffer->curr_state = EX_SI_QUO;
-		buffer->content += 1;
-	}
+	else if (ft_dollar_qoute_next_to_norm(buffer) == 1)
+		;
 	else if (check_meta((buffer->content)[buffer->index + 1]) == EX_META)
 		buffer->index++;
 	else if (check_meta((buffer->content)[buffer->index + 1]) == EX_NORMAL)
