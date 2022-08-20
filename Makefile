@@ -58,6 +58,8 @@ EXPANDER_SRCS	=	$(addsuffix .c,$(addprefix $(SRCS_DIR)/expander/,\
 					ft_expander_redir\
 					ft_expander_lim\
 					ft_expander_heredoc\
+					ft_back_slash\
+					ft_dollar_to_qoute\
 					ft_expander_heredoc_function\
 					ft_dollar\
 					expander))

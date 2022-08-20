@@ -14,6 +14,13 @@
 
 int	ft_ex_next_char(t_buffer *buffer)
 {
+	if (buffer->curr_state == EX_NORMAL \
+		&& (buffer->content)[buffer->index] == '\\')
+	{
+		new_save(&buffer);
+		ft_back_slash(buffer);
+		return (0);
+	}
 	buffer->index++;
 	return (0);
 }

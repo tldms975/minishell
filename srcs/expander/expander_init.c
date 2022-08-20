@@ -29,6 +29,7 @@ int	buffer_init(char *str, t_buffer **buffer, t_envp_list *list)
 	(*buffer)->save_content = NULL;
 	(*buffer)->index = 1;
 	(*buffer)->env_list = list;
+	ft_back_slash(*buffer);
 	if ((*buffer)->curr_state == EX_DOLLAR
 		&& (check_expand_type(((*buffer)->content)[(*buffer)->index])
 		== EX_NULL))

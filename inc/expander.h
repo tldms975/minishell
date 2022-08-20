@@ -79,5 +79,7 @@ int				ft_ex_norm_to_dollar_heredoc(t_buffer *buffer);
 int				ft_ex_dollar_to_heredoc(t_buffer *buffer);
 void			ft_expander_heredoc_table(t_fuc *funct);
 void			ft_back_slash(t_buffer *buffer);
+int				ft_dollar_qoute_next_to_norm(t_buffer *buffer);
+int				ft_dollar_to_qoute_first(t_buffer *buffer);
 
 #endif
