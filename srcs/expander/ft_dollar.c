@@ -60,7 +60,7 @@ void	ft_dollar_non_qu(t_buffer **buffer)
 
 void	ft_dollar(t_buffer **buffer)
 {
-	if (((*buffer)->content)[(*buffer)->index] == '?')
+	if (*((*buffer)->content) == '?')
 	{
 		ft_question_mark(*buffer);
 		(*buffer)->content++;

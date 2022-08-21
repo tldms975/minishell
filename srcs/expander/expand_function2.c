@@ -90,7 +90,8 @@ void	ft_ex_dollar_to_sub(t_buffer *buffer)
 		buffer->curr_state = EX_NORMAL;
 		ft_back_slash(buffer);
 	}
-	else if (buffer->curr_state != EX_NULL)
+	else if (check_meta_qu(*(buffer->content)) == EX_DOLLAR \
+		&& check_expand_type((buffer->content)[buffer->index]) == EX_NULL)
 		buffer->index = 0;
 }
 

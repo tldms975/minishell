@@ -52,6 +52,9 @@ void	ft_ex_dollar_to_heredoc_sub(t_buffer *buffer)
 	ft_dollar(&buffer);
 	if (check_meta_qu(*(buffer->content)) == EX_META)
 		buffer->curr_state = EX_NORMAL;
+	else if (check_meta_qu(*(buffer->content)) == EX_DOLLAR \
+		&& check_expand_type((buffer->content)[buffer->index]) == EX_NULL)
+		buffer->index = 0;
 }
 
 int	ft_ex_dollar_to_heredoc(t_buffer *buffer)
